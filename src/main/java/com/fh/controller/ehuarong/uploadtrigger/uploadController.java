@@ -41,17 +41,17 @@ public class uploadController extends BaseController {
      */
     @RequestMapping(value="/goupload")
     public ModelAndView goUpload() throws Exception{
-        logBefore(logger, Jurisdiction.getUsername()+"新增Upload");
+        logBefore(logger, Jurisdiction.getUsername()+"go to Upload excel page");
         if(!Jurisdiction.buttonJurisdiction(menuUrl, "goupload")){return null;} //校验权限
         ModelAndView mv = this.getModelAndView();
-//        PageData pd = new PageData();
+        PageData pd = new PageData();
 //        pd = this.getPageData();
 //        pd.put("ATTACHED_ID", this.get32UUID());	//主键
 //        pd.put("CTIME", Tools.date2Str(new Date()));	//创建时间
 //        attachedService.save(pd);
         mv.addObject("msg","success");
-//        mv.setViewName("ehuarong/uploadtrigger/uploadtrigger");
-        mv.setViewName("uploadtrigger");
+        mv.setViewName("ehuarong/uploadtrigger/uploadtrigger");
+//        mv.setViewName("uploadtrigger");
         return mv;
     }
 }
