@@ -39,20 +39,40 @@
           <div class="col-xs-12">
 
             <div class="well well-sm">
-              <h4 class="lighter no-margin-bottom">
-                <i class="ace-icon fa fa-hand-o-right icon-animated-hand-pointer blue"></i>
-										<span class="input-icon">
-											<input type="text" id="serverUrl" title="文件路径"  placeholder="请选择需要上传的文件" style="width:540px;">
-											<i class="ace-icon fa fa-globe"></i>
-										</span>
-                <a class="btn btn-xs btn-info" title='上传订单' onclick="getUrl('');">
-                  <i class="ace-icon fa fa-cloud-download bigger-120" title="上传订单"></i>
-                </a>
-                &nbsp;
-                <a class="btn btn-xs btn-info" title='请求' onclick="getUrl('postfile');" id="savebut">
-                  保存至服务器
-                </a>
-              </h4>
+              <table id="table_report" class="table table-striped table-bordered table-hover">
+                <tr>
+                  <td style="width:75px;text-align: right;padding-top: 13px;">文件名:</td>
+                  <td><input type="text" name="NAME" id="NAME" value="" maxlength="30" placeholder="这里输入文件名" title="文件名" style="width:98%;"/></td>
+                </tr>
+                <tr>
+                  <td style="width:75px;text-align: right;padding-top: 13px;" id="FILEPATHn">文件:</td>
+                  <td>
+                    <input type="file" name="File_name" id="uploadify1" keepDefaultStyle = "true"/>
+                    <input type="hidden" name="FILEPATH" id="FILEPATH" value=""/>
+                  </td>
+                </tr>
+                <tr>
+                  <td style="width:75px;text-align: right;padding-top: 13px;">数据来源:</td>
+                  <td>
+                    <select name="pltsource"  style="width:98%;">
+                      <option value="pinzhi365" selected>品质365平台</option>
+                      <option value="yuehua">悦花平台</option>
+                      <option value="jd">京东</option>
+                      <option value="taobao">淘宝</option>
+                    </select>
+                  </td>
+                </tr>
+                <tr>
+                  <td style="width:75px;text-align: right;padding-top: 13px;">备注:</td>
+                  <td><input type="text" name="BZ" id="BZ" value="" maxlength="100" placeholder="这里输入备注" title="备注" style="width:98%;"/></td>
+                </tr>
+                <tr>
+                  <td style="text-align: center;" colspan="10">
+                    <a class="btn btn-mini btn-primary" onclick="save();">保存</a>
+                    <a class="btn btn-mini btn-danger" onclick="top.Dialog.close();">取消</a>
+                  </td>
+                </tr>
+              </table>
             </div>
 
             <div class="hr hr-16 hr-dotted"></div>
