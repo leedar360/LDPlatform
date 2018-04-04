@@ -84,6 +84,7 @@
 									<th class="center">供应商email</th>
 									<th class="center">创建时间</th>
 									<th class="center">备注</th>
+									<th class="center">商品编号</th>
 									<th class="center">操作</th>
 								</tr>
 							</thead>
@@ -117,6 +118,7 @@
 											<td class='center'>${var.SUPPLIER_EMAIL}</td>
 											<td class='center'>${var.CREATETIME}</td>
 											<td class='center'>${var.REMARK}</td>
+											<td class='center'>${var.EXTGOOD_ID}</td>
 											<td class="center">
 												<c:if test="${QX.edit != 1 && QX.del != 1 }">
 												<span class="label label-large label-grey arrowed-in-right arrowed-in"><i class="ace-icon fa fa-lock" title="无权限"></i></span>
