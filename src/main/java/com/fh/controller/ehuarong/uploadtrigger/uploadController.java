@@ -33,5 +33,25 @@ import com.fh.service.ehuarong.orderinfo.OrderinfoManager;
 @Controller
 @RequestMapping(value="/uploadtrigger")
 public class uploadController extends BaseController {
+    String menuUrl = "uploadtrigger/gopload.do"; //菜单地址(权限用)
 
+    /**保存
+     * @param
+     * @throws Exception
+     */
+    @RequestMapping(value="/goupload")
+    public ModelAndView goUpload() throws Exception{
+        logBefore(logger, Jurisdiction.getUsername()+"新增Upload");
+        if(!Jurisdiction.buttonJurisdiction(menuUrl, "goupload")){return null;} //校验权限
+        ModelAndView mv = this.getModelAndView();
+//        PageData pd = new PageData();
+//        pd = this.getPageData();
+//        pd.put("ATTACHED_ID", this.get32UUID());	//主键
+//        pd.put("CTIME", Tools.date2Str(new Date()));	//创建时间
+//        attachedService.save(pd);
+        mv.addObject("msg","success");
+//        mv.setViewName("ehuarong/uploadtrigger/uploadtrigger");
+        mv.setViewName("uploadtrigger");
+        return mv;
+    }
 }
