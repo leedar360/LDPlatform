@@ -215,10 +215,10 @@ public class OrderinfoController extends BaseController {
 			vpd.put("var7", varOList.get(i).getString("RECADDRESS"));	    //7
 			vpd.put("var8", varOList.get(i).getString("EXPRESS"));	    //8
 			vpd.put("var9", varOList.get(i).getString("EXPRESSNO"));	    //9
-			vpd.put("var10", varOList.get(i).get("SELLPRICE").toString());	//10
-			vpd.put("var11", varOList.get(i).get("SELLTOTALPRICE").toString());	//11
-			vpd.put("var12", varOList.get(i).get("PURCHASEPRICE").toString());	//12
-			vpd.put("var13", varOList.get(i).get("PURCHASETOTALPRICE").toString());	//13
+			vpd.put("var10", String.valueOf(varOList.get(i).get("SELLPRICE")));    //10
+			vpd.put("var11", String.valueOf(varOList.get(i).get("SELLTOTALPRICE")));    //11
+			vpd.put("var12", String.valueOf(varOList.get(i).get("PURCHASEPRICE")));    //12
+			vpd.put("var13", String.valueOf(varOList.get(i).get("PURCHASETOTALPRICE")));    //13
 			vpd.put("var14", varOList.get(i).getString("PLATFORMID"));	    //14
 			vpd.put("var15", varOList.get(i).getString("SUPPLIER_ID"));	    //15
 			vpd.put("var16", varOList.get(i).getString("SUPPLIER_EMAIL"));	    //16
