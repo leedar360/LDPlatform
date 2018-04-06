@@ -48,8 +48,8 @@ import java.util.List;
 			pd.put("GOODNUM", goods.getOrderCount()); //商品数量
 			//pd.put("GOODSNAME", goods.getShopGoodsName()) ;//商品名称
 
-			pd.put("SELLNAME", ""); // 发件人
-			pd.put("SELLPHONE", ""); //发件电话
+			pd.put("SELLNAME", "华榕在线"); // 发件人
+			pd.put("SELLPHONE", "13911881373"); //发件电话
 
 			pd.put("RECNAME", goods.getCustomerName()); //收件人姓名
 			pd.put("RECPHONE", goods.getCustomerPhone()); // 收件人电话

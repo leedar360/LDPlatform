@@ -37,7 +37,7 @@
           <div class="col-xs-12">
             <form action="uploadtrigger/${msg }.do" name="Form" id="Form" method="post" enctype="multipart/form-data">
               <div class="well well-sm">
-                <table id="table_report" class="table table-striped table-bordered table-hover">
+                <table style="width:50%" id="table_report" class="table table-striped table-bordered table-hover">
                   <tr>
                     <td style="width:75px;text-align: right;padding-top: 13px;" id="FILEPATHn">文件:</td>
                     <td style="padding-top: 20px;"><input type="file" id="excel" name="excel"
