@@ -45,7 +45,7 @@ public class ExcelReader {
      * @param
      * @return String 表头内容的数组
      */
-    public String[] readExcelTitle(InputStream is) {
+    private String[] readExcelTitle(InputStream is) {
         try {
             fs = new POIFSFileSystem(is);
             wb = new HSSFWorkbook(fs);
@@ -60,7 +60,7 @@ public class ExcelReader {
         String[] title = new String[colNum];
         for (int i = 0; i < colNum; i++) {
             //title[i] = getStringCellValue(row.getCell((short) i));
-            title[i] = getCellFormatValue(row.getCell((short) i));
+            title[i] = getCellFormatValue(row.getCell(i));
         }
         return title;
     }
@@ -70,9 +70,8 @@ public class ExcelReader {
      * @param
      * @return Map 包含单元格数据内容的Map对象
      */
-    public Map<Integer, Goods> readGoodsExcelContent(InputStream is) {
-        Map<Integer, Goods> content = new HashMap<Integer, Goods>();
-        String str = "";
+    private Map<Integer, Goods> readGoodsExcelContent(InputStream is) {
+        Map<Integer, Goods> content = new HashMap<>();
         try {
             fs = new POIFSFileSystem(is);
             wb = new HSSFWorkbook(fs);
@@ -83,39 +82,35 @@ public class ExcelReader {
         // 得到总行数
         int rowNum = sheet.getLastRowNum();
         row = sheet.getRow(0);
-        int colNum = row.getPhysicalNumberOfCells();
         // 正文内容应该从第二行开始,第一行为表头的标题
         for (int i = 1; i <= rowNum; i++) {
             row = sheet.getRow(i);
-            int j = 0;
-            List<Object> cellData= new ArrayList<Object>();
             Goods goods = new Goods();
-            goods.setOwnNumber(getCellFormatValue(row.getCell((short) 0)).trim());
-            goods.setOrderDate(getCellFormatValue(row.getCell((short) 1)).trim());
-            goods.setOrderNumber(getCellFormatValue(row.getCell((short) 2)).trim());
-            goods.setGoodsNumber(getCellFormatValue(row.getCell((short) 3)).trim());
-            goods.setShopGoodsName(getCellFormatValue(row.getCell((short) 4)).trim());
+            goods.setOwnNumber(getCellFormatValue(row.getCell( 0)).trim());
+            goods.setOrderDate(getCellFormatValue(row.getCell(1)).trim());
+            goods.setOrderNumber(getCellFormatValue(row.getCell(2)).trim());
+            goods.setGoodsNumber(getCellFormatValue(row.getCell(3)).trim());
+            goods.setShopGoodsName(getCellFormatValue(row.getCell(4)).trim());
             //goods.setShopName(shopNameProperties.getProperty(goods.getGoodsNumber()));
-            goods.setOrderCount(getCellFormatValue(row.getCell((short) 5)).trim());
-            goods.setGoodsPrice(getCellFormatValue(row.getCell((short) 6)).trim());
-            goods.setGoodsCostPrice(getCellFormatValue(row.getCell((short) 7)).trim());
-            goods.setVendor(getCellFormatValue(row.getCell((short) 8)).trim());
-            goods.setPayDate(getCellFormatValue(row.getCell((short) 9)).trim());
-            goods.setOrderMaoney(getCellFormatValue(row.getCell((short) 10)).trim());
-            goods.setCustomerName(getCellFormatValue(row.getCell((short) 11)).trim());
-            goods.setCustomerNo(getCellFormatValue(row.getCell((short) 12)).trim());
-            goods.setCustomerPhone(getCellFormatValue(row.getCell((short) 13)).trim());
-            goods.setCustomerAddress(getCellFormatValue(row.getCell((short) 14)).trim());
-            goods.setDeliverDate(getCellFormatValue(row.getCell((short) 15)).trim());
-            goods.setDeliverCompany(getCellFormatValue(row.getCell((short) 16)).trim());
-            goods.setDeliverNumber(getCellFormatValue(row.getCell((short) 17)).trim());
-            goods.setRemark(getCellFormatValue(row.getCell((short) 18)).trim());
+            goods.setOrderCount(getCellFormatValue(row.getCell(5)).trim());
+            goods.setGoodsPrice(getCellFormatValue(row.getCell(6)).trim());
+            goods.setGoodsCostPrice(getCellFormatValue(row.getCell(7)).trim());
+            goods.setVendor(getCellFormatValue(row.getCell(8)).trim());
+            goods.setPayDate(getCellFormatValue(row.getCell(9)).trim());
+            goods.setOrderMaoney(getCellFormatValue(row.getCell(10)).trim());
+            goods.setCustomerName(getCellFormatValue(row.getCell(11)).trim());
+            goods.setCustomerNo(getCellFormatValue(row.getCell(12)).trim());
+            goods.setCustomerPhone(getCellFormatValue(row.getCell(13)).trim());
+            goods.setCustomerAddress(getCellFormatValue(row.getCell(14)).trim());
+            goods.setDeliverDate(getCellFormatValue(row.getCell(15)).trim());
+            goods.setDeliverCompany(getCellFormatValue(row.getCell(16)).trim());
+            goods.setDeliverNumber(getCellFormatValue(row.getCell(17)).trim());
+            goods.setRemark(getCellFormatValue(row.getCell(18)).trim());
 
             if(goods.getOwnNumber().equals("")){
                 getHasRowValue(goods, sheet, i);
             }
             content.put(i, goods);
-            str = "";
         }
         return content;
     }
@@ -125,21 +120,25 @@ public class ExcelReader {
         if(StringUtils.isEmpty(pltSource)){
             return content;
         }
-        if (pltSource.equals(Goods.PLATFORM_PINGZHI)){
+        switch (pltSource) {
+        case Goods.PLATFORM_PINGZHI:
             content = readPingZhi(is);
-        } else if(pltSource.equals(Goods.PLATFORM_YUEHUA)){
+            break;
+        case Goods.PLATFORM_YUEHUA:
             content = readYueHua(is);
-        } else if(pltSource.equals(Goods.PLATFORM_JD)){
+            break;
+        case Goods.PLATFORM_JD:
 
-        } else if(pltSource.equals(Goods.PLATFORM_TAOBAO)){
+            break;
+        case Goods.PLATFORM_TAOBAO:
 
+            break;
         }
         return content;
     }
 
     private List<Goods> readYueHua(InputStream is) {
         List<Goods> content = new ArrayList<>();
-        String str = "";
         try {
             fs = new POIFSFileSystem(is);
             wb = new HSSFWorkbook(fs);
@@ -150,26 +149,23 @@ public class ExcelReader {
         // 得到总行数
         int rowNum = sheet.getLastRowNum();
         row = sheet.getRow(0);
-        int colNum = row.getPhysicalNumberOfCells();
         // 正文内容应该从第二行开始,第一行为表头的标题
         for (int i = 1; i <= rowNum; i++) {
             row = sheet.getRow(i);
-            int j = 0;
-            List<Object> cellData= new ArrayList<Object>();
             Goods goods = new Goods();
-            goods.setOrderNumber(getCellFormatValue(row.getCell((short) 0)).trim());
-            goods.setShopGoodsName(getCellFormatValue(row.getCell((short) 1)).trim());
-            goods.setGoodsNumber(getCellFormatValue(row.getCell((short) 2)).trim());
-            goods.setGoodsPrice(getCellFormatValue(row.getCell((short) 6)).trim());
-            goods.setOrderCount(getCellFormatValue(row.getCell((short) 7)).trim());
-            goods.setOrderMaoney(getCellFormatValue(row.getCell((short) 8)).trim());
+            goods.setOrderNumber(getCellFormatValue(row.getCell(0)).trim());
+            goods.setShopGoodsName(getCellFormatValue(row.getCell(1)).trim());
+            goods.setGoodsNumber(getCellFormatValue(row.getCell(2)).trim());
+            goods.setGoodsPrice(getCellFormatValue(row.getCell(6)).trim());
+            goods.setOrderCount(getCellFormatValue(row.getCell(7)).trim());
+            goods.setOrderMaoney(getCellFormatValue(row.getCell(8)).trim());
 
-            goods.setOrderDate(getCellFormatValue(row.getCell((short) 13)).trim());
+            goods.setOrderDate(getCellFormatValue(row.getCell(13)).trim());
 
-            goods.setCustomerName(getCellFormatValue(row.getCell((short) 19)).trim());
-            //goods.setCustomerNo(getCellFormatValue(row.getCell((short) 12)).trim());
-            goods.setCustomerPhone(getCellFormatValue(row.getCell((short) 20)).trim());
-            goods.setCustomerAddress(getCellFormatValue(row.getCell((short) 21)).trim());
+            goods.setCustomerName(getCellFormatValue(row.getCell(19)).trim());
+            //goods.setCustomerNo(getCellFormatValue(row.getCell(12)).trim());
+            goods.setCustomerPhone(getCellFormatValue(row.getCell(20)).trim());
+            goods.setCustomerAddress(getCellFormatValue(row.getCell(21)).trim());
 
             goods.setPltSource(Goods.PLATFORM_YUEHUA);
 
@@ -183,9 +179,8 @@ public class ExcelReader {
      * @param
      * @return Map 包含单元格数据内容的Map对象
      */
-    public List<Goods> readPingZhi(InputStream is) {
+    private List<Goods> readPingZhi(InputStream is) {
         List<Goods> content = new ArrayList<>();
-        String str = "";
         try {
             fs = new POIFSFileSystem(is);
             wb = new HSSFWorkbook(fs);
@@ -196,33 +191,30 @@ public class ExcelReader {
         // 得到总行数
         int rowNum = sheet.getLastRowNum();
         row = sheet.getRow(0);
-        int colNum = row.getPhysicalNumberOfCells();
         // 正文内容应该从第二行开始,第一行为表头的标题
         for (int i = 1; i <= rowNum; i++) {
             row = sheet.getRow(i);
-            int j = 0;
-            List<Object> cellData= new ArrayList<Object>();
             Goods goods = new Goods();
-            goods.setOwnNumber(getCellFormatValue(row.getCell((short) 0)).trim());
-            goods.setOrderDate(getCellFormatValue(row.getCell((short) 1)).trim());
-            goods.setOrderNumber(getCellFormatValue(row.getCell((short) 2)).trim());
-            goods.setGoodsNumber(getCellFormatValue(row.getCell((short) 3)).trim());
-            goods.setShopGoodsName(getCellFormatValue(row.getCell((short) 4)).trim());
+            goods.setOwnNumber(getCellFormatValue(row.getCell(0)).trim());
+            goods.setOrderDate(getCellFormatValue(row.getCell(1)).trim());
+            goods.setOrderNumber(getCellFormatValue(row.getCell(2)).trim());
+            goods.setGoodsNumber(getCellFormatValue(row.getCell(3)).trim());
+            goods.setShopGoodsName(getCellFormatValue(row.getCell(4)).trim());
             //goods.setShopName(shopNameProperties.getProperty(goods.getGoodsNumber()));
-            goods.setOrderCount(getCellFormatValue(row.getCell((short) 5)).trim());
-            goods.setGoodsPrice(getCellFormatValue(row.getCell((short) 6)).trim());
-            goods.setGoodsCostPrice(getCellFormatValue(row.getCell((short) 7)).trim());
-            goods.setVendor(getCellFormatValue(row.getCell((short) 8)).trim());
-            goods.setPayDate(getCellFormatValue(row.getCell((short) 9)).trim());
-            goods.setOrderMaoney(getCellFormatValue(row.getCell((short) 10)).trim());
-            goods.setCustomerName(getCellFormatValue(row.getCell((short) 11)).trim());
-            goods.setCustomerNo(getCellFormatValue(row.getCell((short) 12)).trim());
-            goods.setCustomerPhone(getCellFormatValue(row.getCell((short) 13)).trim());
-            goods.setCustomerAddress(getCellFormatValue(row.getCell((short) 14)).trim());
-            goods.setDeliverDate(getCellFormatValue(row.getCell((short) 15)).trim());
-            goods.setDeliverCompany(getCellFormatValue(row.getCell((short) 16)).trim());
-            goods.setDeliverNumber(getCellFormatValue(row.getCell((short) 17)).trim());
-            goods.setRemark(getCellFormatValue(row.getCell((short) 18)).trim());
+            goods.setOrderCount(getCellFormatValue(row.getCell(5)).trim());
+            goods.setGoodsPrice(getCellFormatValue(row.getCell(6)).trim());
+            goods.setGoodsCostPrice(getCellFormatValue(row.getCell(7)).trim());
+            goods.setVendor(getCellFormatValue(row.getCell(8)).trim());
+            goods.setPayDate(getCellFormatValue(row.getCell(9)).trim());
+            goods.setOrderMaoney(getCellFormatValue(row.getCell(10)).trim());
+            goods.setCustomerName(getCellFormatValue(row.getCell(11)).trim());
+            goods.setCustomerNo(getCellFormatValue(row.getCell(12)).trim());
+            goods.setCustomerPhone(getCellFormatValue(row.getCell(13)).trim());
+            goods.setCustomerAddress(getCellFormatValue(row.getCell(14)).trim());
+            goods.setDeliverDate(getCellFormatValue(row.getCell(15)).trim());
+            goods.setDeliverCompany(getCellFormatValue(row.getCell(16)).trim());
+            goods.setDeliverNumber(getCellFormatValue(row.getCell(17)).trim());
+            goods.setRemark(getCellFormatValue(row.getCell(18)).trim());
             goods.setPltSource(Goods.PLATFORM_PINGZHI);
             if(goods.getOwnNumber().equals("")){
                 getHasRowValue(goods, sheet, i);
@@ -235,20 +227,20 @@ public class ExcelReader {
     private void getHasRowValue(Goods goods, HSSFSheet sheet, int i){
         if(goods.getOwnNumber().equals("")){
             HSSFRow row = sheet.getRow(i-1);
-            goods.setOwnNumber(getCellFormatValue(row.getCell((short) 0)).trim());
-            goods.setOrderDate(getCellFormatValue(row.getCell((short) 1)).trim());
-            goods.setOrderNumber(getCellFormatValue(row.getCell((short) 2)).trim());
+            goods.setOwnNumber(getCellFormatValue(row.getCell(0)).trim());
+            goods.setOrderDate(getCellFormatValue(row.getCell(1)).trim());
+            goods.setOrderNumber(getCellFormatValue(row.getCell(2)).trim());
 
-            goods.setPayDate(getCellFormatValue(row.getCell((short) 9)).trim());
-            goods.setOrderMaoney(getCellFormatValue(row.getCell((short) 10)).trim());
-            goods.setCustomerName(getCellFormatValue(row.getCell((short) 11)).trim());
-            goods.setCustomerNo(getCellFormatValue(row.getCell((short) 12)).trim());
-            goods.setCustomerPhone(getCellFormatValue(row.getCell((short) 13)).trim());
-            goods.setCustomerAddress(getCellFormatValue(row.getCell((short) 14)).trim());
-            goods.setDeliverDate(getCellFormatValue(row.getCell((short) 15)).trim());
-            goods.setDeliverCompany(getCellFormatValue(row.getCell((short) 16)).trim());
-            goods.setDeliverNumber(getCellFormatValue(row.getCell((short) 17)).trim());
-            goods.setRemark(getCellFormatValue(row.getCell((short) 18)).trim());
+            goods.setPayDate(getCellFormatValue(row.getCell(9)).trim());
+            goods.setOrderMaoney(getCellFormatValue(row.getCell(10)).trim());
+            goods.setCustomerName(getCellFormatValue(row.getCell(11)).trim());
+            goods.setCustomerNo(getCellFormatValue(row.getCell(12)).trim());
+            goods.setCustomerPhone(getCellFormatValue(row.getCell(13)).trim());
+            goods.setCustomerAddress(getCellFormatValue(row.getCell(14)).trim());
+            goods.setDeliverDate(getCellFormatValue(row.getCell(15)).trim());
+            goods.setDeliverCompany(getCellFormatValue(row.getCell(16)).trim());
+            goods.setDeliverNumber(getCellFormatValue(row.getCell(17)).trim());
+            goods.setRemark(getCellFormatValue(row.getCell(18)).trim());
             getHasRowValue(goods, sheet, i-1);
         }
     }
@@ -258,8 +250,7 @@ public class ExcelReader {
      * @return Map 包含单元格数据内容的Map对象
      */
     public Map<Integer, List<Object>> readExcelContent(InputStream is) {
-        Map<Integer, List<Object>> content = new HashMap<Integer, List<Object>>();
-        String str = "";
+        Map<Integer, List<Object>> content = new HashMap<>();
         try {
             fs = new POIFSFileSystem(is);
             wb = new HSSFWorkbook(fs);
@@ -275,18 +266,17 @@ public class ExcelReader {
         for (int i = 1; i <= rowNum; i++) {
             row = sheet.getRow(i);
             int j = 0;
-            List<Object> cellData= new ArrayList<Object>();
+            List<Object> cellData= new ArrayList<>();
             while (j < colNum) {
                 // 每个单元格的数据内容用"-"分割开，以后需要时用String类的replace()方法还原数据
                 // 也可以将每个单元格的数据设置到一个javabean的属性中，此时需要新建一个javabean
-                // str += getStringCellValue(row.getCell((short) j)).trim() +
+                // str += getStringCellValue(row.getCell(j)).trim() +
                 // "-";
-                String cellContent= getCellFormatValue(row.getCell((short) j)).trim();
+                String cellContent= getCellFormatValue(row.getCell(j)).trim();
                 j++;
                 cellData.add(cellContent);
             }
             content.put(i, cellData);
-            str = "";
         }
         return content;
     }
@@ -318,7 +308,7 @@ public class ExcelReader {
                 strCell = "";
                 break;
         }*/
-        if (strCell.equals("") || strCell == null) {
+        if (StringUtils.isEmpty(strCell)) {
             return "";
         }
         if (cell == null) {
@@ -361,7 +351,7 @@ public class ExcelReader {
      * @return
      */
     private String getCellFormatValue(HSSFCell cell) {
-        String cellvalue = "";
+        String cellvalue;
         if (cell != null) {
             // 判断当前Cell的Type
             switch (cell.getCellType()) {
