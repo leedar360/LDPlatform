@@ -37,7 +37,7 @@ import java.util.List;
         logBefore(logger, Jurisdiction.getUsername() + "go to Upload excel page");
         if (!Jurisdiction.buttonJurisdiction(menuUrl, "goupload")) {
             return null;
-        } //У��Ȩ��
+        } //校验权限
         ModelAndView mv = this.getModelAndView();
         PageData pd = new PageData();
         mv.addObject("msg", "upload");

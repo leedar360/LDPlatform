@@ -40,10 +40,8 @@
                 <table id="table_report" class="table table-striped table-bordered table-hover">
                   <tr>
                     <td style="width:75px;text-align: right;padding-top: 13px;" id="FILEPATHn">文件:</td>
-                    <td>
                     <td style="padding-top: 20px;"><input type="file" id="excel" name="excel"
                                                           style="" onchange="fileType(this)"/></td>
-                    </td>
                   </tr>
                   <tr>
                     <td style="width:75px;text-align: right;padding-top: 13px;">数据来源:</td>
