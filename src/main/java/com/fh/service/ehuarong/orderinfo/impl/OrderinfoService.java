@@ -7,12 +7,9 @@ import com.fh.service.ehuarong.orderinfo.OrderinfoManager;
 import com.fh.util.PageData;
 import com.fh.util.UuidUtil;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Isolation;
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
+
 
 import javax.annotation.Resource;
-import java.beans.Transient;
 import java.util.List;
 
 /**
@@ -72,6 +69,12 @@ import java.util.List;
 			pd.put("ORDERINFO_ID", UuidUtil.get32UUID());
 
 			PageData searchPd = new PageData();
+			searchPd.put("ODER_ID", pd.get("ODER_ID"));
+			searchPd.put("EXTGOOD_ID", pd.get("EXTGOOD_ID"));
+			List<PageData> list = this.findByOrderIdAndGoodId(searchPd);
+			if(!list.isEmpty()){
+				continue;
+			}
 			this.save(pd);
 
 		}
@@ -105,6 +108,16 @@ import java.util.List;
 	 */
 	@SuppressWarnings("unchecked") public List<PageData> list(Page page) throws Exception {
 		return (List<PageData>) dao.findForList("OrderinfoMapper.datalistPage", page);
+	}
+
+	/**
+	 * 列表
+	 *
+	 * @param pd
+	 * @throws Exception
+	 */
+	@SuppressWarnings("unchecked") public List<PageData> findByOrderIdAndGoodId(PageData pd) throws Exception {
+		return (List<PageData>) dao.findForList("OrderinfoMapper.findByOrderIdAndGoodId", pd);
 	}
 
 	/**

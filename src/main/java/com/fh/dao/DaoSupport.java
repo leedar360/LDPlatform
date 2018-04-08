@@ -33,7 +33,7 @@ public class DaoSupport implements DAO {
 	/**
 	 * 批量更新
 	 * @param str
-	 * @param obj
+	 * @param objs
 	 * @return
 	 * @throws Exception
 	 */
@@ -80,7 +80,7 @@ public class DaoSupport implements DAO {
 	/**
 	 * 批量更新
 	 * @param str
-	 * @param obj
+	 * @param objs
 	 * @return
 	 * @throws Exception
 	 */
