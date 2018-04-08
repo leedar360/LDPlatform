@@ -74,7 +74,7 @@ import java.util.Map;
 			pd.put("CREATETIME", goods.getOrderDate());
 
 			//pd.put("ORDERINFO_ID", goods.getOrderNumber());
-			pd.put("EXTGOOD_ID", goods.getGoodsNumber().indexOf(".") > 0?goods.getGoodsNumber().substring(0, goods.getGoodsNumber().indexOf(".")):goods.getGoodsNumber()); //第三方的 商品id
+			pd.put("EXTGOOD_ID", goods.getGoodsNumber()); //第三方的 商品id
 			pd.put("REMARK", goods.getRemark());
 			pd.put("ORDERINFO_ID", UuidUtil.get32UUID());
 

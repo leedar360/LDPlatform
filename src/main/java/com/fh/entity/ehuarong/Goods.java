@@ -75,6 +75,9 @@ public class Goods implements Comparable<Goods>{
     }
 
     public void setGoodsNumber(String goodsNumber) {
+        if(goodsNumber.indexOf(".") > 0){
+            goodsNumber = goodsNumber.substring(0, goodsNumber.indexOf("."));
+        }
         this.goodsNumber = goodsNumber;
     }
 
