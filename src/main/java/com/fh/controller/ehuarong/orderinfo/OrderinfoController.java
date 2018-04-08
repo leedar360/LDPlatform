@@ -11,6 +11,7 @@ import java.util.Map;
 import javax.annotation.Resource;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -103,6 +104,10 @@ public class OrderinfoController extends BaseController {
 		String keywords = pd.getString("keywords");				//关键词检索条件
 		if(null != keywords && !"".equals(keywords)){
 			pd.put("keywords", keywords.trim());
+		}
+		String EXTGOOD_ID = pd.getString("EXTGOOD_ID");
+		if(!StringUtils.isEmpty(EXTGOOD_ID)){
+			pd.put("EXTGOOD_ID", EXTGOOD_ID.trim());
 		}
 		page.setPd(pd);
 		List<PageData>	varList = orderinfoService.list(page);	//列出Orderinfo列表

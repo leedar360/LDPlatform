@@ -59,6 +59,18 @@
 											<option value="">2</option>
 										</select>
 									</td>
+									<!-- 商品编码 -->
+									<td>
+										<div class="nav-search">
+										<span class="input-icon">
+											<input type="text" placeholder="这里输入商品编码" class="nav-search-input"
+												   id="nav-EXTGOOD_ID-input" autocomplete="off" name="EXTGOOD_ID"
+												   value="${pd.EXTGOOD_ID }" placeholder="这里输入商品编码"/>
+											<i class="ace-icon fa fa-search nav-search-icon"></i>
+										</span>
+										</div>
+									</td>
+									<!-- 商品编码 -->
 									<c:if test="${QX.cha == 1 }">
 										<td style="vertical-align:top;padding-left:2px"><a class="btn btn-light btn-xs"
 																						   onclick="tosearch();" title="检索"><i
@@ -86,6 +98,7 @@
 									<th class="center" style="width:50px;">序号</th>
 									<th class="center">订单编号</th>
 									<th class="center">订单数量</th>
+									<th class="center">商品编码</th>
 									<th class="center">发件人</th>
 									<th class="center">发件电话</th>
 									<th class="center">收件人</th>
@@ -123,6 +136,7 @@
 													<td class='center' style="width: 30px;">${vs.index+1}</td>
 													<td class='center'>${var.ODER_ID}</td>
 													<td class='center'>${var.GOODNUM}</td>
+													<td class='center'>${var.EXTGOOD_ID}</td>
 													<td class='center'>${var.SELLNAME}</td>
 													<td class='center'>${var.SELLPHONE}</td>
 													<td class='center'>${var.RECNAME}</td>
