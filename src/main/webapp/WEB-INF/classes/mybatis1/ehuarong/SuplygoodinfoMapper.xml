@@ -1,44 +1,46 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="SupplierinfoMapper">
+<mapper namespace="SuplygoodinfoMapper">
 	
 	<!--表名 -->
 	<sql id="tableName">
-		HR_SUPPLIERINFO
+		HR_SUPLYGOODINFO
 	</sql>
 	
 	<!-- 字段 -->
 	<sql id="Field">
 		SUPPLIER_ID,	
 		SUPPLIERNAME,	
-		CONTACT,	
-		PHONE,	
-		EMAIL,	
-		ADDRESS,	
-		BANK,	
-		BANKNO,	
-		WEIXIN,	
-		ZHIFUBAO,	
+		GOOD_ID,	
+		GOODNAME,	
+		UNIT,	
+		SPEC,	
+		MEMO,	
+		CATEGORYID,	
 		REMARK,	
 		CREATETIME,	
-		SUPPLIERINFO_ID
+		SUPLYPRICE,	
+		STARTTIME,	
+		ENDTIME,	
+		SUPLYGOODINFO_ID
 	</sql>
 	
 	<!-- 字段值 -->
 	<sql id="FieldValue">
 		#{SUPPLIER_ID},	
 		#{SUPPLIERNAME},	
-		#{CONTACT},	
-		#{PHONE},	
-		#{EMAIL},	
-		#{ADDRESS},	
-		#{BANK},	
-		#{BANKNO},	
-		#{WEIXIN},	
-		#{ZHIFUBAO},	
+		#{GOOD_ID},	
+		#{GOODNAME},	
+		#{UNIT},	
+		#{SPEC},	
+		#{MEMO},	
+		#{CATEGORYID},	
 		#{REMARK},	
 		#{CREATETIME},	
-		#{SUPPLIERINFO_ID}
+		#{SUPLYPRICE},	
+		#{STARTTIME},	
+		#{ENDTIME},	
+		#{SUPLYGOODINFO_ID}
 	</sql>
 	
 	<!-- 新增-->
@@ -57,7 +59,7 @@
 		delete from
 		<include refid="tableName"></include>
 		where 
-			SUPPLIERINFO_ID = #{SUPPLIERINFO_ID}
+			SUPLYGOODINFO_ID = #{SUPLYGOODINFO_ID}
 	</delete>
 	
 	<!-- 修改 -->
@@ -67,18 +69,19 @@
 		set 
 			SUPPLIER_ID = #{SUPPLIER_ID},
 			SUPPLIERNAME = #{SUPPLIERNAME},
-			CONTACT = #{CONTACT},
-			PHONE = #{PHONE},
-			EMAIL = #{EMAIL},
-			ADDRESS = #{ADDRESS},
-			BANK = #{BANK},
-			BANKNO = #{BANKNO},
-			WEIXIN = #{WEIXIN},
-			ZHIFUBAO = #{ZHIFUBAO},
+			GOOD_ID = #{GOOD_ID},
+			GOODNAME = #{GOODNAME},
+			UNIT = #{UNIT},
+			SPEC = #{SPEC},
+			MEMO = #{MEMO},
+			CATEGORYID = #{CATEGORYID},
 			REMARK = #{REMARK},
-		SUPPLIERINFO_ID = SUPPLIERINFO_ID
+			SUPLYPRICE = #{SUPLYPRICE},
+			STARTTIME = #{STARTTIME},
+			ENDTIME = #{ENDTIME},
+		SUPLYGOODINFO_ID = SUPLYGOODINFO_ID
 		where 
-		SUPPLIERINFO_ID = #{SUPPLIERINFO_ID}
+		SUPLYGOODINFO_ID = #{SUPLYGOODINFO_ID}
 	</update>
 	
 	<!-- 通过ID获取数据 -->
@@ -88,7 +91,7 @@
 		from 
 		<include refid="tableName"></include>
 		where 
-			SUPPLIERINFO_ID = #{SUPPLIERINFO_ID}
+			SUPLYGOODINFO_ID = #{SUPLYGOODINFO_ID}
 	</select>
 	
 	<!-- 列表 -->
@@ -102,9 +105,9 @@
 			and
 				(
 				<!--	根据需求自己加检索条件
-					字段1 LIKE '%'+ #{pd.keywords}+'%'
+					字段1 LIKE CONCAT(CONCAT('%', #{pd.keywords}),'%')
 					 or 
-					字段2 LIKE '%'+ #{pd.keywords}+'%' 
+					字段2 LIKE CONCAT(CONCAT('%', #{pd.keywords}),'%') 
 				-->
 				)
 		</if>
@@ -123,7 +126,7 @@
 		delete from
 		<include refid="tableName"></include>
 		where 
-			SUPPLIERINFO_ID in
+			SUPLYGOODINFO_ID in
 		<foreach item="item" index="index" collection="array" open="(" separator="," close=")">
                  #{item}
 		</foreach>
