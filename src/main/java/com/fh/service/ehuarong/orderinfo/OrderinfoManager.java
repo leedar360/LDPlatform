@@ -5,6 +5,7 @@ import com.fh.entity.ehuarong.Goods;
 import com.fh.util.PageData;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * 说明： 订单信息表接口
@@ -27,7 +28,7 @@ public interface OrderinfoManager {
 	 * @param goodList
 	 * @throws Exception
 	 */
-	public void save(List<Goods> goodList) throws Exception;
+	public Map<String, List<Goods>> save(List<Goods> goodList) throws Exception;
 
 	/**
 	 * 删除

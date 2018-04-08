@@ -13,6 +13,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Resource;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 说明：上传excel工具
@@ -57,6 +58,7 @@ import java.util.List;
         FHLOG.save(Jurisdiction.getUsername(), "导入订单");
         ModelAndView mv = this.getModelAndView();
         PageData pd = new PageData();
+        Map<String,List<Goods>> result = null;
         if (!Jurisdiction.buttonJurisdiction(menuUrl, "add")) {
             return null;
         }
@@ -64,11 +66,14 @@ import java.util.List;
 
             ExcelReader reader = new ExcelReader();
             List<Goods> content = reader.readGoodsWithPltSource(pltSource, file.getInputStream());
-            orderinfoManager.save(content);
+            result = orderinfoManager.save(content);
 
         }
-        mv.setViewName("save_result");
-//        System.out.println("ok !!!!!!!!!");
+        mv.addObject("successCount", result.get("success").size());
+        mv.addObject("falilureList", result.get("failue"));
+        mv.addObject("existList", result.get("exist"));
+        mv.addObject("QX",Jurisdiction.getHC());	//按钮权限
+        mv.setViewName("ehuarong/uploadtrigger/save_result");
         return mv;
     }
 }

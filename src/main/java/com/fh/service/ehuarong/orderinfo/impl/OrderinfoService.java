@@ -10,7 +10,10 @@ import org.springframework.stereotype.Service;
 
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 说明： 订单信息表
@@ -21,6 +24,9 @@ import java.util.List;
 
 	@Resource(name = "daoSupport") private DaoSupport dao;
 
+	public final static String SUCCESS= "success";
+	public final static String FAILURE= "failue";
+	public final static String EXIST= "exist";
 	/**
 	 * 新增
 	 *
@@ -38,7 +44,11 @@ import java.util.List;
 	 * @throws Exception
 	 */
 	//@Transactional(propagation= Propagation.REQUIRED,rollbackFor=Exception.class,timeout=1,isolation= Isolation.DEFAULT)
-	public void save(List<Goods> goodList) throws Exception{
+	public Map<String, List<Goods>> save(List<Goods> goodList) throws Exception{
+		Map<String, List<Goods>> result = new HashMap<>();
+		List<Goods> existList = new ArrayList<>();
+		List<Goods> successList = new ArrayList<>();
+		List<Goods> failureList = new ArrayList<>();
 		for(Goods goods : goodList){
 			PageData pd = new PageData();
 			pd.put("ODER_ID", goods.getOrderNumber()); //订单编号
@@ -73,11 +83,20 @@ import java.util.List;
 			searchPd.put("EXTGOOD_ID", pd.get("EXTGOOD_ID"));
 			List<PageData> list = this.findByOrderIdAndGoodId(searchPd);
 			if(!list.isEmpty()){
+				existList.add(goods);
 				continue;
 			}
-			this.save(pd);
-
+			try{
+				this.save(pd);
+				successList.add(goods);
+			}catch(Exception e){
+				failureList.add(goods);
+			}
 		}
+		result.put(SUCCESS, successList);
+		result.put(EXIST, existList);
+		result.put(FAILURE, failureList);
+		return result;
 	}
 
 	/**
