@@ -63,7 +63,7 @@
                                                             <c:forEach items="${falilureList}" var="var" varStatus="vs">
                                                                 <tr>
                                                                     <td class='center' style="width: 30px;">${vs.index+1}</td>
-                                                                    <td class='center'>${var.ownNumber}</td>
+                                                                    <td class='center'>${var.orderNumber}</td>
                                                                     <td class='center'>${var.goodsNumber}</td>
                                                                     <td class='center'>${var.shopGoodsName}</td>、
                                                                 </tr>
@@ -108,7 +108,7 @@
                                                             <c:forEach items="${existList}" var="var" varStatus="vs">
                                                                 <tr>
                                                                     <td class='center' style="width: 30px;">${vs.index+1}</td>
-                                                                    <td class='center'>${var.ownNumber}</td>
+                                                                    <td class='center'>${var.orderNumber}</td>
                                                                     <td class='center'>${var.goodsNumber}</td>
                                                                     <td class='center'>${var.shopGoodsName}</td>
                                                                 </tr>
