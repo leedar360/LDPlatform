@@ -52,6 +52,15 @@ public class SuplygoodinfoService implements SuplygoodinfoManager{
 	public List<PageData> list(Page page)throws Exception{
 		return (List<PageData>)dao.findForList("SuplygoodinfoMapper.datalistPage", page);
 	}
+
+	/**列表   listByGoodName
+	 * @param page
+	 * @throws Exception
+	 */
+	@SuppressWarnings("unchecked")
+	public List<PageData> listByGoodName(Page page)throws Exception{
+		return (List<PageData>)dao.findForList("SuplygoodinfoMapper.datalistPageByGoodName", page);
+	}
 	
 	/**列表(全部)
 	 * @param pd

@@ -35,6 +35,12 @@ public interface SuplygoodinfoManager{
 	 * @throws Exception
 	 */
 	public List<PageData> list(Page page)throws Exception;
+
+	/**列表
+	 * @param page
+	 * @throws Exception
+	 */
+	public List<PageData> listByGoodName(Page page)throws Exception;
 	
 	/**列表(全部)
 	 * @param pd
