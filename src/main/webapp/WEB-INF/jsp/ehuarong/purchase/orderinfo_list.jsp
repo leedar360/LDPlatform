@@ -354,7 +354,7 @@
         } else {
             top.jzts();
             $('#selectIds').val(str);
-            $("#Form").action="purchase/toPurchase.do";
+            $("#Form").attr('action',"purchase/toPurchase.do");
             $("#Form").submit();
         }
 	}
