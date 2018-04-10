@@ -51,7 +51,7 @@ public class PurchaseController  extends BaseController {
         }
         page.setPd(pd);
         List<PageData> varList = orderinfoService.purchaseList(page);	//列出Orderinfo列表
-        mv.setViewName("ehuarong/purchase/orderinfo_list");
+        mv.setViewName("ehuarong/purchase/purchase_list");
         mv.addObject("varList", varList);
         mv.addObject("pd", pd);
         mv.addObject("QX",Jurisdiction.getHC());	//按钮权限
