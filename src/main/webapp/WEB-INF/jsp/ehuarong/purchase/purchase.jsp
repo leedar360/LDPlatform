@@ -258,7 +258,7 @@
 						}
 
 						if(msg == '确定对选中的商品供应商采购吗?'){
-							top.jzts();
+							//top.jzts();
 							$.ajax({
 								type: "POST",
 								url: '<%=basePath%>purchase/purchase.do',
@@ -267,8 +267,14 @@
 								//beforeSend: validateData,
 								cache: false,
 								success: function(data){
+								    //alert(data['msg']);
 									 $.each(data.list, function(i, list){
-                                         window.location.href='<%=basePath%>purchase/liar.do';
+									     //alert(list);
+                                         //alert(list[msg]);
+                                         bootbox.alert("采购成功", function(){
+                                             window.parent.frames.mainFrame.location.href='<%=basePath%>purchase/list.do';
+										 });
+
 									 });
 								}
 							});
