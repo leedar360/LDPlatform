@@ -272,7 +272,9 @@
 									     //alert(list);
                                          //alert(list[msg]);
                                          bootbox.alert("采购成功", function(){
-                                             window.parent.frames.mainFrame.location.href='<%=basePath%>purchase/list.do';
+                                             window
+                                             window.parent.frames.mainFrame.location.reload();
+                                             //window.parent.frames.mainFrame.location.href='<%=basePath%>purchase/list.do';
 										 });
 
 									 });
