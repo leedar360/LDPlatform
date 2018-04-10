@@ -14,6 +14,12 @@ import java.util.Map;
  */
 public interface OrderinfoManager {
 
+	String SUCCESS= "success";
+	String FAILURE= "failue";
+	String EXIST= "exist";
+	int TO_PURCHASE = 1;
+	int TO_DELIVERY = 2;
+
 	/**
 	 * 新增
 	 *
@@ -55,6 +61,14 @@ public interface OrderinfoManager {
 	public List<PageData> list(Page page) throws Exception;
 
 	/**
+	 * 列表
+	 *
+	 * @param page
+	 * @throws Exception
+	 */
+	public List<PageData> purchaseList(Page page) throws Exception;
+
+	/**
 	 * 列表(全部)
 	 *
 	 * @param pd
@@ -78,5 +92,12 @@ public interface OrderinfoManager {
 	 */
 	public void deleteAll(String[] ArrayDATA_IDS) throws Exception;
 
+	/**
+	 * caigou
+	 * @param selectOrderIds
+	 * @param selectSupplyProductIds
+	 * @return
+	 */
+	public boolean purchase(String selectOrderIds, String selectSupplyProductIds) throws Exception;
 }
 
