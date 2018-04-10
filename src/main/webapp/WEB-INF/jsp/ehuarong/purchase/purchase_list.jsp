@@ -88,8 +88,8 @@
 									<c:if test="${QX.toExcel == 1 }">
 										<td style="vertical-align:top;padding-left:2px;">
 											<input type="hidden" name="selectIds">
-											<a class="btn btn-light btn-xs" onclick="toPurchase();" title="采购">
-												<i id="nav-search-icon" class="ace-icon fa fa-download bigger-110 nav-search-icon blue"></i>
+											<a class="btn btn-light btn-xs" onclick="edit(toPurchase())" title="采购">
+												去采购<i id="nav-search-icon" class="ace-icon fa fa-download bigger-110 nav-search-icon blue"></i>
 											</a>
 										</td>
 									</c:if>
