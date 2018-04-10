@@ -153,7 +153,7 @@
 		<include refid="tableName"></include>,
 		<include refid="referenceTableName"></include>
 		where
-		 	SUPPLIER_ID = re.SUPPLIER_ID
+		  HR_SUPLYGOODINFO.SUPPLIER_ID = HR_SUPPLIERINFO.SUPPLIER_ID
 			and SUPLYGOODINFO_ID = #{SUPLYGOODINFO_ID}
 	</select>
 	
@@ -164,7 +164,7 @@
 		from 
 		<include refid="tableName"></include>,
 		<include refid="referenceTableName"></include>
-		where 1=1 and SUPPLIER_ID = re.SUPPLIER_ID
+		where 1=1  and HR_SUPLYGOODINFO.SUPPLIER_ID = HR_SUPPLIERINFO.SUPPLIER_ID
 		<if test="pd.keywords!= null and pd.keywords != ''"><!-- 关键词检索 -->
 			and
 				(
@@ -197,7 +197,7 @@
 		from 
 		<include refid="tableName"></include>,
 		<include refid="referenceTableName"></include>
-		where SUPPLIER_ID = re.SUPPLIER_ID
+		where  HR_SUPLYGOODINFO.SUPPLIER_ID = HR_SUPPLIERINFO.SUPPLIER_ID
 	</select>
 	
 	<!-- 批量删除 -->
