@@ -72,7 +72,7 @@ public class PurchaseController  extends BaseController {
         String selectIds = pd.getString("selectIds");				//关键词检索条件
 
         String goodName = pd.getString("goodName");				//关键词检索条件
-        if(StringUtils.isEmpty("goodName")){
+        if(!StringUtils.isEmpty(goodName)){
             pd.put("GOODNAME", goodName.trim());
             pd.put("goodName", goodName.trim());
         }
@@ -93,7 +93,7 @@ public class PurchaseController  extends BaseController {
      */
     @RequestMapping(value="/purchase")
     @ResponseBody
-    public Object purchase(Page page) throws Exception{
+    public Object purchase() throws Exception{
         logBefore(logger, Jurisdiction.getUsername()+"列表Orderinfo");
         //if(!Jurisdiction.buttonJurisdiction(menuUrl, "cha")){return null;} //校验权限(无权查看时页面会有提示,如果不注释掉这句代码就无法进入列表页面,所以根据情况是否加入本句代码)
         ModelAndView mv = this.getModelAndView();
@@ -125,6 +125,6 @@ public class PurchaseController  extends BaseController {
             map.put("list", pdList);
             return AppUtil.returnObject(pd, map);
         }
-        return mv;
+        return  AppUtil.returnObject(pd, map);
     }
 }

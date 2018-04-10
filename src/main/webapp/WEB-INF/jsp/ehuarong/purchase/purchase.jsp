@@ -19,7 +19,7 @@
 <link rel="stylesheet" href="static/ace/css/datepicker.css" />
 </head>
 <body class="no-skin">
-
+	<div id="zhongxin" style="padding-top: 13px;">
 	<!-- /section:basics/navbar.layout -->
 	<div class="main-container" id="main-container">
 		<!-- /section:basics/sidebar -->
@@ -28,7 +28,7 @@
 				<div class="page-content">
 					<div class="row">
 						<div class="col-xs-12">
-							
+
 						<!-- 检索  -->
 						<form action="purchase/toPurchase.do" method="post" name="Form" id="Form">
 							<input type="hidden" name="selectIds" value="${selectIds}">
@@ -153,7 +153,7 @@
 
 	</div>
 	<!-- /.main-container -->
-
+	</div>
 	<!-- basic scripts -->
 	<!-- 页面底部js¨ -->
 	<%@ include file="../../system/index/foot.jsp"%>
