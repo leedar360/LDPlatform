@@ -14,7 +14,6 @@
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/classes/dbconfig.properties" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/classes/dbconfig.properties" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/classes/log4j.properties" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/classes/log4j.properties" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/classes/log4j.xml" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/classes/log4j.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/classes/mybatis1/ehuarong/SuplygoodinfoMapper.xml" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/classes/mybatis1/ehuarong/SuplygoodinfoMapper.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/ehuarong/purchase/purchase_list.jsp" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/ehuarong/purchase/purchase_list.jsp" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
@@ -47,22 +46,32 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="orderinfo_list.jsp" pinned="false" current-in-tab="false">
+      <file leaf-file-name="orderinfo_list.jsp" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/ehuarong/orderinfo/orderinfo_list.jsp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="357" column="25" lean-forward="true" selection-start-line="357" selection-start-column="25" selection-end-line="357" selection-end-column="25" />
+            <state relative-caret-position="186">
+              <caret line="387" column="44" lean-forward="true" selection-start-line="387" selection-start-column="44" selection-end-line="387" selection-end-column="44" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="purchase_list.jsp" pinned="false" current-in-tab="true">
+      <file leaf-file-name="purchase_list.jsp" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/ehuarong/purchase/purchase_list.jsp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="310">
-              <caret line="325" column="45" lean-forward="false" selection-start-line="325" selection-start-column="32" selection-end-line="325" selection-end-column="45" />
-              <folding />
+            <state relative-caret-position="26">
+              <caret line="318" column="71" lean-forward="true" selection-start-line="318" selection-start-column="71" selection-end-line="318" selection-end-column="71" />
+              <folding>
+                <marker date="1523376888000" expanded="false" signature="4202:4217" ph="..." />
+                <marker date="1523376888000" expanded="false" signature="4284:4295" ph="..." />
+                <marker date="1523376888000" expanded="false" signature="4478:4489" ph="..." />
+                <marker date="1523376888000" expanded="false" signature="4798:4869" ph="..." />
+                <marker date="1523376888000" expanded="false" signature="5944:5956" ph="..." />
+                <marker date="1523376888000" expanded="false" signature="8241:8256" ph="..." />
+                <marker date="1523376888000" expanded="false" signature="9168:9179" ph="..." />
+                <marker date="1523376888000" expanded="false" signature="9217:9236" ph="..." />
+                <marker date="1523376888000" expanded="false" signature="9294:9340" ph="..." />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -158,14 +167,14 @@
       <file leaf-file-name="SuplygoodinfoMapper.xml" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/classes/mybatis1/ehuarong/SuplygoodinfoMapper.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="118">
-              <caret line="141" column="25" lean-forward="true" selection-start-line="141" selection-start-column="25" selection-end-line="141" selection-end-column="25" />
+            <state relative-caret-position="-1300">
+              <caret line="142" column="43" lean-forward="true" selection-start-line="142" selection-start-column="43" selection-end-line="142" selection-end-column="43" />
               <folding>
-                <marker date="1523375806000" expanded="true" signature="1684:1831" ph="insert into " />
-                <marker date="1523375806000" expanded="true" signature="1900:2002" ph="delete from " />
-                <marker date="1523375806000" expanded="true" signature="2070:2527" ph="update set S... " />
-                <marker date="1523375806000" expanded="true" signature="2621:2886" ph="select from " />
-                <marker date="1523375806000" expanded="true" signature="3972:4187" ph="select from " />
+                <marker date="1523376228000" expanded="true" signature="1684:1831" ph="insert into " />
+                <marker date="1523376228000" expanded="true" signature="1900:2002" ph="delete from " />
+                <marker date="1523376228000" expanded="true" signature="2070:2527" ph="update set S... " />
+                <marker date="1523376228000" expanded="true" signature="2621:2886" ph="select from " />
+                <marker date="1523376228000" expanded="true" signature="3972:4187" ph="select from " />
               </folding>
             </state>
           </provider>
@@ -174,7 +183,7 @@
       <file leaf-file-name="OrderinfoManager.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/fh/service/ehuarong/orderinfo/OrderinfoManager.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="360">
+            <state relative-caret-position="20">
               <caret line="23" column="9" lean-forward="false" selection-start-line="23" selection-start-column="9" selection-end-line="23" selection-end-column="9" />
               <folding />
             </state>
@@ -205,6 +214,7 @@
       <find>DATA_IDS</find>
       <find>update</find>
       <find>datalistPageByGoodName</find>
+      <find>zhongxin</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -593,7 +603,7 @@
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="settings.editor.selected.configurable" value="fileTemplates" />
-    <property name="SearchEverywhereHistoryKey" value="purchase&#9;FILE&#9;file://D:/ken/workspace/LDPlatform/src/main/java/com/fh/controller/ehuarong/purchase/PurchaseController.java&#10;purch&#9;FILE&#9;file://D:/ken/workspace/LDPlatform/src/main/java/com/fh/controller/ehuarong/purchase/PurchaseController.java&#10;purc&#9;FILE&#9;file://D:/ken/workspace/LDPlatform/src/main/webapp/WEB-INF/jsp/ehuarong/purchase/purchase.jsp&#10;pur&#9;FILE&#9;file://D:/ken/workspace/LDPlatform/src/main/java/com/fh/controller/ehuarong/purchase/PurchaseController.java&#10;orderinfocon&#9;FILE&#9;file://D:/ken/workspace/LDPlatform/src/main/java/com/fh/controller/ehuarong/orderinfo/OrderinfoController.java&#10;orderinfoser&#9;FILE&#9;file://D:/ken/workspace/LDPlatform/src/main/java/com/fh/service/ehuarong/orderinfo/impl/OrderinfoService.java&#10;goods&#9;FILE&#9;file://D:/ken/workspace/LDPlatform/src/main/java/com/fh/entity/ehuarong/Goods.java&#10;upload&#9;FILE&#9;file://D:/ken/workspace/LDPlatform/src/main/java/com/fh/controller/ehuarong/uploadtrigger/uploadController.java&#10;up&#9;FILE&#9;file://D:/ken/workspace/LDPlatform/src/main/webapp/WEB-INF/jsp/ehuarong/uploadtrigger/uploadtrigger.jsp&#10;excelread&#9;FILE&#9;file://D:/ken/workspace/LDPlatform/src/main/java/com/fh/util/ExcelReader.java&#10;UP&#9;FILE&#9;file://D:/ken/workspace/LDPlatform/src/main/webapp/WEB-INF/jsp/ehuarong/uploadtrigger/uploadtrigger.jsp&#10;excelr&#9;FILE&#9;file://D:/ken/workspace/LDPlatform/src/main/java/com/fh/util/ExcelReader.java&#10;order&#9;FILE&#9;file://D:/ken/workspace/LDPlatform/src/main/java/com/fh/service/ehuarong/orderinfo/impl/OrderinfoService.java&#10;userService&#9;PSI&#9;JAVA://com.fh.service.system.user.impl.UserService&#10;uploadtrigger&#9;FILE&#9;file://D:/ken/workspace/LDPlatform/src/main/webapp/WEB-INF/jsp/ehuarong/uploadtrigger/uploadtrigger.jsp" />
+    <property name="SearchEverywhereHistoryKey" value="order&#9;FILE&#9;file://D:/ken/workspace/LDPlatform/src/main/webapp/WEB-INF/jsp/ehuarong/orderinfo/orderinfo_list.jsp&#10;purchase&#9;FILE&#9;file://D:/ken/workspace/LDPlatform/src/main/java/com/fh/controller/ehuarong/purchase/PurchaseController.java&#10;purch&#9;FILE&#9;file://D:/ken/workspace/LDPlatform/src/main/java/com/fh/controller/ehuarong/purchase/PurchaseController.java&#10;purc&#9;FILE&#9;file://D:/ken/workspace/LDPlatform/src/main/webapp/WEB-INF/jsp/ehuarong/purchase/purchase.jsp&#10;pur&#9;FILE&#9;file://D:/ken/workspace/LDPlatform/src/main/java/com/fh/controller/ehuarong/purchase/PurchaseController.java&#10;orderinfocon&#9;FILE&#9;file://D:/ken/workspace/LDPlatform/src/main/java/com/fh/controller/ehuarong/orderinfo/OrderinfoController.java&#10;orderinfoser&#9;FILE&#9;file://D:/ken/workspace/LDPlatform/src/main/java/com/fh/service/ehuarong/orderinfo/impl/OrderinfoService.java&#10;goods&#9;FILE&#9;file://D:/ken/workspace/LDPlatform/src/main/java/com/fh/entity/ehuarong/Goods.java&#10;upload&#9;FILE&#9;file://D:/ken/workspace/LDPlatform/src/main/java/com/fh/controller/ehuarong/uploadtrigger/uploadController.java&#10;up&#9;FILE&#9;file://D:/ken/workspace/LDPlatform/src/main/webapp/WEB-INF/jsp/ehuarong/uploadtrigger/uploadtrigger.jsp&#10;excelread&#9;FILE&#9;file://D:/ken/workspace/LDPlatform/src/main/java/com/fh/util/ExcelReader.java&#10;UP&#9;FILE&#9;file://D:/ken/workspace/LDPlatform/src/main/webapp/WEB-INF/jsp/ehuarong/uploadtrigger/uploadtrigger.jsp&#10;excelr&#9;FILE&#9;file://D:/ken/workspace/LDPlatform/src/main/java/com/fh/util/ExcelReader.java&#10;userService&#9;PSI&#9;JAVA://com.fh.service.system.user.impl.UserService&#10;uploadtrigger&#9;FILE&#9;file://D:/ken/workspace/LDPlatform/src/main/webapp/WEB-INF/jsp/ehuarong/uploadtrigger/uploadtrigger.jsp" />
     <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
   </component>
   <component name="RecentsManager">
@@ -618,7 +628,6 @@
   </component>
   <component name="RunManager" selected="Tomcat Server.Unnamed">
     <configuration name="Unnamed" type="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory" factoryName="Local" APPLICATION_SERVER_NAME="Tomcat 8.5.29" ALTERNATIVE_JRE_ENABLED="false">
-      <option name="UPDATING_POLICY" value="redeploy-artifacts" />
       <deployment>
         <artifact name="main:war exploded">
           <settings>
@@ -791,7 +800,7 @@
       <workItem from="1523200209757" duration="4302000" />
       <workItem from="1523287246580" duration="6000" />
       <workItem from="1523287519932" duration="7104000" />
-      <workItem from="1523373472329" duration="2590000" />
+      <workItem from="1523373472329" duration="3368000" />
     </task>
     <task id="LOCAL-00001" summary="continue to finished the upload function">
       <created>1522953890315</created>
@@ -828,11 +837,18 @@
       <option name="project" value="LOCAL" />
       <updated>1523374958246</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="finished the purchase function">
+      <created>1523376136769</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1523376136769</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="64673000" />
+    <option name="totallyTimeSpent" value="65451000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
@@ -848,7 +864,7 @@
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.50328946" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.50328946" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3280507" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
@@ -1084,11 +1100,11 @@
         <state relative-caret-position="1860">
           <caret line="93" column="28" lean-forward="false" selection-start-line="93" selection-start-column="12" selection-end-line="93" selection-end-column="28" />
           <folding>
-            <marker date="1523375806000" expanded="true" signature="1684:1831" ph="insert into " />
-            <marker date="1523375806000" expanded="true" signature="1900:2002" ph="delete from " />
-            <marker date="1523375806000" expanded="true" signature="2070:2527" ph="update set S... " />
-            <marker date="1523375806000" expanded="true" signature="2621:2886" ph="select from " />
-            <marker date="1523375806000" expanded="true" signature="3972:4187" ph="select from " />
+            <marker date="1523376228000" expanded="true" signature="1684:1831" ph="insert into " />
+            <marker date="1523376228000" expanded="true" signature="1900:2002" ph="delete from " />
+            <marker date="1523376228000" expanded="true" signature="2070:2527" ph="update set S... " />
+            <marker date="1523376228000" expanded="true" signature="2621:2886" ph="select from " />
+            <marker date="1523376228000" expanded="true" signature="3972:4187" ph="select from " />
           </folding>
         </state>
       </provider>
@@ -1129,14 +1145,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="920">
           <caret line="48" column="62" lean-forward="false" selection-start-line="48" selection-start-column="62" selection-end-line="48" selection-end-column="62" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/fh/service/ehuarong/orderinfo/OrderinfoManager.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="360">
-          <caret line="23" column="9" lean-forward="false" selection-start-line="23" selection-start-column="9" selection-end-line="23" selection-end-column="9" />
           <folding />
         </state>
       </provider>
@@ -1237,14 +1245,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/ehuarong/orderinfo/orderinfo_list.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="357" column="25" lean-forward="true" selection-start-line="357" selection-start-column="25" selection-end-line="357" selection-end-column="25" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/fh/controller/ehuarong/purchase/PurchaseController.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="200">
@@ -1255,22 +1255,48 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/classes/mybatis1/ehuarong/SuplygoodinfoMapper.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="118">
-          <caret line="141" column="25" lean-forward="true" selection-start-line="141" selection-start-column="25" selection-end-line="141" selection-end-column="25" />
+        <state relative-caret-position="-1300">
+          <caret line="142" column="43" lean-forward="true" selection-start-line="142" selection-start-column="43" selection-end-line="142" selection-end-column="43" />
           <folding>
-            <marker date="1523375806000" expanded="true" signature="1684:1831" ph="insert into " />
-            <marker date="1523375806000" expanded="true" signature="1900:2002" ph="delete from " />
-            <marker date="1523375806000" expanded="true" signature="2070:2527" ph="update set S... " />
-            <marker date="1523375806000" expanded="true" signature="2621:2886" ph="select from " />
-            <marker date="1523375806000" expanded="true" signature="3972:4187" ph="select from " />
+            <marker date="1523376228000" expanded="true" signature="1684:1831" ph="insert into " />
+            <marker date="1523376228000" expanded="true" signature="1900:2002" ph="delete from " />
+            <marker date="1523376228000" expanded="true" signature="2070:2527" ph="update set S... " />
+            <marker date="1523376228000" expanded="true" signature="2621:2886" ph="select from " />
+            <marker date="1523376228000" expanded="true" signature="3972:4187" ph="select from " />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/fh/service/ehuarong/orderinfo/OrderinfoManager.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="20">
+          <caret line="23" column="9" lean-forward="false" selection-start-line="23" selection-start-column="9" selection-end-line="23" selection-end-column="9" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/ehuarong/purchase/purchase_list.jsp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="310">
-          <caret line="325" column="45" lean-forward="false" selection-start-line="325" selection-start-column="32" selection-end-line="325" selection-end-column="45" />
+        <state relative-caret-position="26">
+          <caret line="318" column="71" lean-forward="true" selection-start-line="318" selection-start-column="71" selection-end-line="318" selection-end-column="71" />
+          <folding>
+            <marker date="1523376888000" expanded="false" signature="4202:4217" ph="..." />
+            <marker date="1523376888000" expanded="false" signature="4284:4295" ph="..." />
+            <marker date="1523376888000" expanded="false" signature="4478:4489" ph="..." />
+            <marker date="1523376888000" expanded="false" signature="4798:4869" ph="..." />
+            <marker date="1523376888000" expanded="false" signature="5944:5956" ph="..." />
+            <marker date="1523376888000" expanded="false" signature="8241:8256" ph="..." />
+            <marker date="1523376888000" expanded="false" signature="9168:9179" ph="..." />
+            <marker date="1523376888000" expanded="false" signature="9217:9236" ph="..." />
+            <marker date="1523376888000" expanded="false" signature="9294:9340" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/ehuarong/orderinfo/orderinfo_list.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="186">
+          <caret line="387" column="44" lean-forward="true" selection-start-line="387" selection-start-column="44" selection-end-line="387" selection-end-column="44" />
           <folding />
         </state>
       </provider>

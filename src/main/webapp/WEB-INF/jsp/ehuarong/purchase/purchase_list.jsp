@@ -88,7 +88,7 @@
 									<c:if test="${QX.toExcel == 1 }">
 										<td style="vertical-align:top;padding-left:2px;">
 											<input type="hidden" name="selectIds">
-											<a class="btn btn-light btn-xs" onclick="edit(toPurchase())" title="采购">
+											<a class="btn btn-light btn-xs" onclick="toPurchase()" title="采购">
 												去采购<i id="nav-search-icon" class="ace-icon fa fa-download bigger-110 nav-search-icon blue"></i>
 											</a>
 										</td>
@@ -170,13 +170,8 @@
 														</c:if>
 														<div class="hidden-sm hidden-xs btn-group">
 															<c:if test="${QX.edit == 1 }">
-																<a class="btn btn-xs btn-success" title="编辑" onclick="edit('${var.ORDERINFO_ID}');">
-																	<i class="ace-icon fa fa-pencil-square-o bigger-120" title="编辑"></i>
-																</a>
-															</c:if>
-															<c:if test="${QX.del == 1 }">
-																<a class="btn btn-xs btn-danger" onclick="del('${var.ODER_ID}');">
-																	<i class="ace-icon fa fa-trash-o bigger-120" title="删除"></i>
+																<a class="btn btn-xs btn-success" title="采购" onclick="toOrderItemPurchase('${var.ORDERINFO_ID}');">
+																	<i class="ace-icon fa fa-pencil-square-o bigger-120" title="采购"></i>
 																</a>
 															</c:if>
 														</div>
@@ -189,18 +184,9 @@
 																<ul class="dropdown-menu dropdown-only-icon dropdown-yellow dropdown-menu-right dropdown-caret dropdown-close">
 																	<c:if test="${QX.edit == 1 }">
 																		<li>
-																			<a style="cursor:pointer;" onclick="edit('${var.ORDERINFO_ID}');" class="tooltip-success" data-rel="tooltip" title="修改">
+																			<a style="cursor:pointer;" onclick="toOrderItemPurchase('${var.ORDERINFO_ID}');" class="tooltip-success" data-rel="tooltip" title="采购">
 																	<span class="green">
 																		<i class="ace-icon fa fa-pencil-square-o bigger-120"></i>
-																	</span>
-																			</a>
-																		</li>
-																	</c:if>
-																	<c:if test="${QX.del == 1 }">
-																		<li>
-																			<a style="cursor:pointer;" onclick="del('${var.ORDERINFO_ID}');" class="tooltip-error" data-rel="tooltip" title="删除">
-																	<span class="red">
-																		<i class="ace-icon fa fa-trash-o bigger-120"></i>
 																	</span>
 																			</a>
 																		</li>
@@ -324,6 +310,31 @@
         });
     });
 
+    //单个订单采购
+    function toOrderItemPurchase(Id) {
+        top.jzts();
+        var diag = new top.Dialog();
+        diag.Drag = true;
+        diag.Title = "采购";
+        diag.URL = '<%=basePath%>purchase/toPurchase.do?selectIds='+Id;
+        diag.Width = 800;
+        diag.Height = 600;
+        diag.Modal = true;				//有无遮罩窗口
+        diag.ShowMaxButton = true;	//最大化按钮
+        diag.ShowMinButton = true;		//最小化按钮
+        diag.CancelEvent = function () { //关闭事件
+            if (diag.innerFrame.contentWindow.document.getElementById('zhongxin').style.display == 'none') {
+                if ('${page.currentPage}' == '0') {
+                    tosearch();
+                } else {
+                    tosearch();
+                }
+            }
+            diag.close();
+        };
+        diag.show();
+    }
+
     //批量操作
     function makeAll(msg) {
         bootbox.confirm(msg, function (result) {
@@ -398,10 +409,33 @@
             });
             return;
         } else {
+
             top.jzts();
-            $('#selectIds').val(str);
-            $("#Form").attr('action',"purchase/toPurchase.do");
-            $("#Form").submit();
+            var diag = new top.Dialog();
+            diag.Drag = true;
+            diag.Title = "采购";
+            diag.URL = '<%=basePath%>purchase/toPurchase.do?selectIds='+str;
+            diag.Width = 800;
+            diag.Height = 600;
+            diag.Modal = true;				//有无遮罩窗口
+            diag.ShowMaxButton = true;	//最大化按钮
+            diag.ShowMinButton = true;		//最小化按钮
+            diag.CancelEvent = function () { //关闭事件
+                if (diag.innerFrame.contentWindow.document.getElementById('zhongxin').style.display == 'none') {
+                    if ('${page.currentPage}' == '0') {
+                        tosearch();
+                    } else {
+                        tosearch();
+                    }
+                }
+                diag.close();
+            };
+            diag.show();
+
+            //top.jzts();
+            //$('#selectIds').val(str);
+            //$("#Form").attr('action',"purchase/toPurchase.do");
+            //$("#Form").submit();
         }
 	}
 </script>
