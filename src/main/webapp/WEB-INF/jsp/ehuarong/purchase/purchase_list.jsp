@@ -126,6 +126,7 @@
 									<th class="center">创建时间</th>
 									<th class="center">备注</th>
 									<th class="center">商品编号</th>
+									<th class="center">操作</th>
 								</tr>
 								</thead>
 
@@ -163,6 +164,51 @@
 													<td class='center'>${var.CREATETIME}</td>
 													<td class='center'>${var.REMARK}</td>
 													<td class='center'>${var.EXTGOOD_ID}</td>
+													<td class="center">
+														<c:if test="${QX.edit != 1 && QX.del != 1 }">
+															<span class="label label-large label-grey arrowed-in-right arrowed-in"><i class="ace-icon fa fa-lock" title="无权限"></i></span>
+														</c:if>
+														<div class="hidden-sm hidden-xs btn-group">
+															<c:if test="${QX.edit == 1 }">
+																<a class="btn btn-xs btn-success" title="编辑" onclick="edit('${var.ORDERINFO_ID}');">
+																	<i class="ace-icon fa fa-pencil-square-o bigger-120" title="编辑"></i>
+																</a>
+															</c:if>
+															<c:if test="${QX.del == 1 }">
+																<a class="btn btn-xs btn-danger" onclick="del('${var.ODER_ID}');">
+																	<i class="ace-icon fa fa-trash-o bigger-120" title="删除"></i>
+																</a>
+															</c:if>
+														</div>
+														<div class="hidden-md hidden-lg">
+															<div class="inline pos-rel">
+																<button class="btn btn-minier btn-primary dropdown-toggle" data-toggle="dropdown" data-position="auto">
+																	<i class="ace-icon fa fa-cog icon-only bigger-110"></i>
+																</button>
+
+																<ul class="dropdown-menu dropdown-only-icon dropdown-yellow dropdown-menu-right dropdown-caret dropdown-close">
+																	<c:if test="${QX.edit == 1 }">
+																		<li>
+																			<a style="cursor:pointer;" onclick="edit('${var.ORDERINFO_ID}');" class="tooltip-success" data-rel="tooltip" title="修改">
+																	<span class="green">
+																		<i class="ace-icon fa fa-pencil-square-o bigger-120"></i>
+																	</span>
+																			</a>
+																		</li>
+																	</c:if>
+																	<c:if test="${QX.del == 1 }">
+																		<li>
+																			<a style="cursor:pointer;" onclick="del('${var.ORDERINFO_ID}');" class="tooltip-error" data-rel="tooltip" title="删除">
+																	<span class="red">
+																		<i class="ace-icon fa fa-trash-o bigger-120"></i>
+																	</span>
+																			</a>
+																		</li>
+																	</c:if>
+																</ul>
+															</div>
+														</div>
+													</td>
 												</tr>
 
 											</c:forEach>
