@@ -1,46 +1,46 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="SuplygoodinfoMapper">
+<mapper namespace="PlatformgoodsMapper">
 	
 	<!--表名 -->
 	<sql id="tableName">
-		HR_SUPLYGOODINFO
+		HR_PLATFORMGOODS
 	</sql>
 	
 	<!-- 字段 -->
 	<sql id="Field">
-		SUPPLIER_ID,	
-		SUPPLIERNAME,	
-		GOOD_ID,	
-		GOODNAME,	
+		EXTGOOD_ID,	
+		EXTGOODNAME,	
 		UNIT,	
 		SPEC,	
 		MEMO,	
 		CATEGORYID,	
 		REMARK,	
 		CREATETIME,	
-		SUPLYPRICE,	
-		STARTTIME,	
-		ENDTIME,	
-		SUPLYGOODINFO_ID
+		PLATFORMNAME,	
+		PLATFORMID,	
+		STATUS,	
+		GOOD_ID,	
+		GOODNAME,	
+		PLATFORMGOODS_ID
 	</sql>
 	
 	<!-- 字段值 -->
 	<sql id="FieldValue">
-		#{SUPPLIER_ID},	
-		#{SUPPLIERNAME},	
-		#{GOOD_ID},	
-		#{GOODNAME},	
+		#{EXTGOOD_ID},	
+		#{EXTGOODNAME},	
 		#{UNIT},	
 		#{SPEC},	
 		#{MEMO},	
 		#{CATEGORYID},	
 		#{REMARK},	
 		#{CREATETIME},	
-		#{SUPLYPRICE},	
-		#{STARTTIME},	
-		#{ENDTIME},	
-		#{SUPLYGOODINFO_ID}
+		#{PLATFORMNAME},	
+		#{PLATFORMID},	
+		#{STATUS},	
+		#{GOOD_ID},	
+		#{GOODNAME},	
+		#{PLATFORMGOODS_ID}
 	</sql>
 	
 	<!-- 新增-->
@@ -59,7 +59,7 @@
 		delete from
 		<include refid="tableName"></include>
 		where 
-			SUPLYGOODINFO_ID = #{SUPLYGOODINFO_ID}
+			PLATFORMGOODS_ID = #{PLATFORMGOODS_ID}
 	</delete>
 	
 	<!-- 修改 -->
@@ -67,21 +67,21 @@
 		update
 		<include refid="tableName"></include>
 		set 
-			SUPPLIER_ID = #{SUPPLIER_ID},
-			SUPPLIERNAME = #{SUPPLIERNAME},
-			GOOD_ID = #{GOOD_ID},
-			GOODNAME = #{GOODNAME},
+			EXTGOOD_ID = #{EXTGOOD_ID},
+			EXTGOODNAME = #{EXTGOODNAME},
 			UNIT = #{UNIT},
 			SPEC = #{SPEC},
 			MEMO = #{MEMO},
 			CATEGORYID = #{CATEGORYID},
 			REMARK = #{REMARK},
-			SUPLYPRICE = #{SUPLYPRICE},
-			STARTTIME = #{STARTTIME},
-			ENDTIME = #{ENDTIME},
-		SUPLYGOODINFO_ID = SUPLYGOODINFO_ID
+			PLATFORMNAME = #{PLATFORMNAME},
+			PLATFORMID = #{PLATFORMID},
+			STATUS = #{STATUS},
+			GOOD_ID = #{GOOD_ID},
+			GOODNAME = #{GOODNAME},
+		PLATFORMGOODS_ID = PLATFORMGOODS_ID
 		where 
-		SUPLYGOODINFO_ID = #{SUPLYGOODINFO_ID}
+		PLATFORMGOODS_ID = #{PLATFORMGOODS_ID}
 	</update>
 	
 	<!-- 通过ID获取数据 -->
@@ -91,7 +91,7 @@
 		from 
 		<include refid="tableName"></include>
 		where 
-			SUPLYGOODINFO_ID = #{SUPLYGOODINFO_ID}
+			PLATFORMGOODS_ID = #{PLATFORMGOODS_ID}
 	</select>
 	
 	<!-- 列表 -->
@@ -112,18 +112,6 @@
 				)
 		</if>
 	</select>
-
-	<!-- 列表 -->
-	<select id="datalistPageByGoodName" parameterType="page" resultType="pd">
-		select
-		<include refid="Field"></include>
-		from
-		<include refid="tableName"></include>
-		where 1=1
-		<if test="pd.GOODNAME!= null and pd.GOODNAME != ''"><!-- 关键词检索 -->
-			and GOODNAME = #{pd.GOODNAME}
-		</if>
-	</select>
 	
 	<!-- 列表(全部) -->
 	<select id="listAll" parameterType="pd" resultType="pd">
@@ -138,7 +126,7 @@
 		delete from
 		<include refid="tableName"></include>
 		where 
-			SUPLYGOODINFO_ID in
+			PLATFORMGOODS_ID in
 		<foreach item="item" index="index" collection="array" open="(" separator="," close=")">
                  #{item}
 		</foreach>

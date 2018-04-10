@@ -28,7 +28,7 @@
 					<div class="col-xs-12">
 
 						<!-- 检索  -->
-						<form action="orderinfo/list.do" method="post" name="Form" id="Form">
+						<form action="purchase/list.do" method="post" name="Form" id="Form">
 							<table style="margin-top:5px;">
 								<tr>
 									<td>
@@ -70,18 +70,28 @@
 										</span>
 										</div>
 									</td>
-									<!-- 商品编码 -->
+									<!-- 商品编码  -->
 									<c:if test="${QX.cha == 1 }">
-										<td style="vertical-align:top;padding-left:2px"><a class="btn btn-light btn-xs"
-																						   onclick="tosearch();" title="检索"><i
-												id="nav-search-icon"
-												class="ace-icon fa fa-search bigger-110 nav-search-icon blue"></i></a></td>
+										<td style="vertical-align:top;padding-left:2px">
+											<a class="btn btn-light btn-xs" onclick="tosearch();" title="检索">
+												<i id="nav-search-icon" class="ace-icon fa fa-search bigger-110 nav-search-icon blue"></i>
+											</a>
+										</td>
 									</c:if>
 									<c:if test="${QX.toExcel == 1 }">
-										<td style="vertical-align:top;padding-left:2px;"><a class="btn btn-light btn-xs"
-																							onclick="toExcel();" title="导出到EXCEL"><i
-												id="nav-search-icon"
-												class="ace-icon fa fa-download bigger-110 nav-search-icon blue"></i></a></td>
+										<td style="vertical-align:top;padding-left:2px;">
+											<a class="btn btn-light btn-xs" onclick="toExcel();" title="导出到EXCEL">
+												<i id="nav-search-icon" class="ace-icon fa fa-download bigger-110 nav-search-icon blue"></i>
+											</a>
+										</td>
+									</c:if>
+									<c:if test="${QX.toExcel == 1 }">
+										<td style="vertical-align:top;padding-left:2px;">
+											<input type="hidden" name="selectIds">
+											<a class="btn btn-light btn-xs" onclick="toPurchase();" title="采购">
+												<i id="nav-search-icon" class="ace-icon fa fa-download bigger-110 nav-search-icon blue"></i>
+											</a>
+										</td>
 									</c:if>
 								</tr>
 							</table>
@@ -116,7 +126,6 @@
 									<th class="center">创建时间</th>
 									<th class="center">备注</th>
 									<th class="center">商品编号</th>
-									<th class="center">操作</th>
 								</tr>
 								</thead>
 
@@ -154,62 +163,6 @@
 													<td class='center'>${var.CREATETIME}</td>
 													<td class='center'>${var.REMARK}</td>
 													<td class='center'>${var.EXTGOOD_ID}</td>
-													<td class="center">
-														<c:if test="${QX.edit != 1 && QX.del != 1 }">
-                                                            <span class="label label-large label-grey arrowed-in-right arrowed-in"><i
-																	class="ace-icon fa fa-lock" title="无权限"></i></span>
-														</c:if>
-														<div class="hidden-sm hidden-xs btn-group">
-															<c:if test="${QX.edit == 1 }">
-																<a class="btn btn-xs btn-success" title="编辑"
-																   onclick="edit('${var.ORDERINFO_ID}');">
-																	<i class="ace-icon fa fa-pencil-square-o bigger-120"
-																	   title="编辑"></i>
-																</a>
-															</c:if>
-															<c:if test="${QX.del == 1 }">
-																<a class="btn btn-xs btn-danger"
-																   onclick="del('${var.ORDERINFO_ID}');">
-																	<i class="ace-icon fa fa-trash-o bigger-120" title="删除"></i>
-																</a>
-															</c:if>
-														</div>
-														<div class="hidden-md hidden-lg">
-															<div class="inline pos-rel">
-																<button class="btn btn-minier btn-primary dropdown-toggle"
-																		data-toggle="dropdown" data-position="auto">
-																	<i class="ace-icon fa fa-cog icon-only bigger-110"></i>
-																</button>
-
-																<ul class="dropdown-menu dropdown-only-icon dropdown-yellow dropdown-menu-right dropdown-caret dropdown-close">
-																	<c:if test="${QX.edit == 1 }">
-																		<li>
-																			<a style="cursor:pointer;"
-																			   onclick="edit('${var.ORDERINFO_ID}');"
-																			   class="tooltip-success" data-rel="tooltip"
-																			   title="修改">
-																	<span class="green">
-																		<i class="ace-icon fa fa-pencil-square-o bigger-120"></i>
-																	</span>
-																			</a>
-																		</li>
-																	</c:if>
-																	<c:if test="${QX.del == 1 }">
-																		<li>
-																			<a style="cursor:pointer;"
-																			   onclick="del('${var.ORDERINFO_ID}');"
-																			   class="tooltip-error" data-rel="tooltip"
-																			   title="删除">
-																	<span class="red">
-																		<i class="ace-icon fa fa-trash-o bigger-120"></i>
-																	</span>
-																			</a>
-																		</li>
-																	</c:if>
-																</ul>
-															</div>
-														</div>
-													</td>
 												</tr>
 
 											</c:forEach>
@@ -231,15 +184,6 @@
 							<div class="page-header position-relative">
 								<table style="width:100%;">
 									<tr>
-										<td style="vertical-align:top;">
-											<c:if test="${QX.add == 1 }">
-												<a class="btn btn-mini btn-success" onclick="add();">新增</a>
-											</c:if>
-											<c:if test="${QX.del == 1 }">
-												<a class="btn btn-mini btn-danger" onclick="makeAll('确定要删除选中的数据吗?');"
-												   title="批量删除"><i class='ace-icon fa fa-trash-o bigger-120'></i></a>
-											</c:if>
-										</td>
 										<td style="vertical-align:top;">
 											<div class="pagination"
 												 style="float: right;padding-top: 0px;margin-top: 0px;">${page.pageStr}</div>
@@ -263,7 +207,6 @@
 	<a href="#" id="btn-scroll-up" class="btn-scroll-up btn btn-sm btn-inverse">
 		<i class="ace-icon fa fa-angle-double-up icon-only bigger-110"></i>
 	</a>
-
 </div>
 <!-- /.main-container -->
 
@@ -335,65 +278,6 @@
         });
     });
 
-    //新增
-    function add() {
-        top.jzts();
-        var diag = new top.Dialog();
-        diag.Drag = true;
-        diag.Title = "新增";
-        diag.URL = '<%=basePath%>orderinfo/goAdd.do';
-        diag.Width = 450;
-        diag.Height = 355;
-        diag.Modal = true;				//有无遮罩窗口
-        diag.ShowMaxButton = true;	//最大化按钮
-        diag.ShowMinButton = true;		//最小化按钮
-        diag.CancelEvent = function () { //关闭事件
-            if (diag.innerFrame.contentWindow.document.getElementById('zhongxin').style.display == 'none') {
-                if ('${page.currentPage}' == '0') {
-                    tosearch();
-                } else {
-                    tosearch();
-                }
-            }
-            diag.close();
-        };
-        diag.show();
-    }
-
-    //删除
-    function del(Id) {
-        bootbox.confirm("确定要删除吗?", function (result) {
-            if (result) {
-                top.jzts();
-                var url = "<%=basePath%>orderinfo/delete.do?ORDERINFO_ID=" + Id + "&tm=" + new Date().getTime();
-                $.get(url, function (data) {
-                    tosearch();
-                });
-            }
-        });
-    }
-
-    //修改
-    function edit(Id) {
-        top.jzts();
-        var diag = new top.Dialog();
-        diag.Drag = true;
-        diag.Title = "编辑";
-        diag.URL = '<%=basePath%>orderinfo/goEdit.do?ORDERINFO_ID=' + Id;
-        diag.Width = 450;
-        diag.Height = 355;
-        diag.Modal = true;				//有无遮罩窗口
-        diag.ShowMaxButton = true;	//最大化按钮
-        diag.ShowMinButton = true;		//最小化按钮
-        diag.CancelEvent = function () { //关闭事件
-            if (diag.innerFrame.contentWindow.document.getElementById('zhongxin').style.display == 'none') {
-                tosearch();
-            }
-            diag.close();
-        };
-        diag.show();
-    }
-
     //批量操作
     function makeAll(msg) {
         bootbox.confirm(msg, function (result) {
@@ -444,6 +328,36 @@
     function toExcel() {
         window.location.href = '<%=basePath%>orderinfo/excel.do';
     }
+
+    //采购
+	function toPurchase() {
+        var str = '';
+        for (var i = 0; i < document.getElementsByName('ids').length; i++) {
+            if (document.getElementsByName('ids')[i].checked) {
+                if (str == '') str += document.getElementsByName('ids')[i].value;
+                else str += ',' + document.getElementsByName('ids')[i].value;
+            }
+        }
+        if (str == '') {
+            bootbox.dialog({
+                message: "<span class='bigger-110'>您没有选择任何内容!</span>",
+                buttons:
+                    {"button": {"label": "确定", "className": "btn-sm btn-success"}}
+            });
+            $("#zcheckbox").tips({
+                side: 1,
+                msg: '点这里全选',
+                bg: '#AE81FF',
+                time: 8
+            });
+            return;
+        } else {
+            top.jzts();
+            $('#selectIds').val(str);
+            $("#Form").action="purchase/toPurchase.do";
+            $("#Form").submit();
+        }
+	}
 </script>
 
 

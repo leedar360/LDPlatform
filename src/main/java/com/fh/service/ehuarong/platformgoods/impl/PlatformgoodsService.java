@@ -1,4 +1,4 @@
-package com.fh.service.ehuarong.suplygoodinfo.impl;
+package com.fh.service.ehuarong.platformgoods.impl;
 
 import java.util.List;
 import javax.annotation.Resource;
@@ -6,16 +6,16 @@ import org.springframework.stereotype.Service;
 import com.fh.dao.DaoSupport;
 import com.fh.entity.Page;
 import com.fh.util.PageData;
-import com.fh.service.ehuarong.suplygoodinfo.SuplygoodinfoManager;
+import com.fh.service.ehuarong.platformgoods.PlatformgoodsManager;
 
 /** 
- * 说明： suplygoodinfo
+ * 说明： 第三方平台商品表
  * 创建人：FH Q313596790
  * 创建时间：2018-04-08
  * @version
  */
-@Service("suplygoodinfoService")
-public class SuplygoodinfoService implements SuplygoodinfoManager{
+@Service("platformgoodsService")
+public class PlatformgoodsService implements PlatformgoodsManager{
 
 	@Resource(name = "daoSupport")
 	private DaoSupport dao;
@@ -25,7 +25,7 @@ public class SuplygoodinfoService implements SuplygoodinfoManager{
 	 * @throws Exception
 	 */
 	public void save(PageData pd)throws Exception{
-		dao.save("SuplygoodinfoMapper.save", pd);
+		dao.save("PlatformgoodsMapper.save", pd);
 	}
 	
 	/**删除
@@ -33,7 +33,7 @@ public class SuplygoodinfoService implements SuplygoodinfoManager{
 	 * @throws Exception
 	 */
 	public void delete(PageData pd)throws Exception{
-		dao.delete("SuplygoodinfoMapper.delete", pd);
+		dao.delete("PlatformgoodsMapper.delete", pd);
 	}
 	
 	/**修改
@@ -41,7 +41,7 @@ public class SuplygoodinfoService implements SuplygoodinfoManager{
 	 * @throws Exception
 	 */
 	public void edit(PageData pd)throws Exception{
-		dao.update("SuplygoodinfoMapper.edit", pd);
+		dao.update("PlatformgoodsMapper.edit", pd);
 	}
 	
 	/**列表
@@ -50,16 +50,7 @@ public class SuplygoodinfoService implements SuplygoodinfoManager{
 	 */
 	@SuppressWarnings("unchecked")
 	public List<PageData> list(Page page)throws Exception{
-		return (List<PageData>)dao.findForList("SuplygoodinfoMapper.datalistPage", page);
-	}
-
-	/**列表   listByGoodName
-	 * @param page
-	 * @throws Exception
-	 */
-	@SuppressWarnings("unchecked")
-	public List<PageData> listByGoodName(Page page)throws Exception{
-		return (List<PageData>)dao.findForList("SuplygoodinfoMapper.datalistPageByGoodName", page);
+		return (List<PageData>)dao.findForList("PlatformgoodsMapper.datalistPage", page);
 	}
 	
 	/**列表(全部)
@@ -68,7 +59,7 @@ public class SuplygoodinfoService implements SuplygoodinfoManager{
 	 */
 	@SuppressWarnings("unchecked")
 	public List<PageData> listAll(PageData pd)throws Exception{
-		return (List<PageData>)dao.findForList("SuplygoodinfoMapper.listAll", pd);
+		return (List<PageData>)dao.findForList("PlatformgoodsMapper.listAll", pd);
 	}
 	
 	/**通过id获取数据
@@ -76,7 +67,7 @@ public class SuplygoodinfoService implements SuplygoodinfoManager{
 	 * @throws Exception
 	 */
 	public PageData findById(PageData pd)throws Exception{
-		return (PageData)dao.findForObject("SuplygoodinfoMapper.findById", pd);
+		return (PageData)dao.findForObject("PlatformgoodsMapper.findById", pd);
 	}
 	
 	/**批量删除
@@ -84,7 +75,7 @@ public class SuplygoodinfoService implements SuplygoodinfoManager{
 	 * @throws Exception
 	 */
 	public void deleteAll(String[] ArrayDATA_IDS)throws Exception{
-		dao.delete("SuplygoodinfoMapper.deleteAll", ArrayDATA_IDS);
+		dao.delete("PlatformgoodsMapper.deleteAll", ArrayDATA_IDS);
 	}
 	
 }

@@ -1,16 +1,16 @@
-package com.fh.service.ehuarong.suplygoodinfo;
+package com.fh.service.ehuarong.platformgoods;
 
 import java.util.List;
 import com.fh.entity.Page;
 import com.fh.util.PageData;
 
 /** 
- * 说明： suplygoodinfo接口
+ * 说明： 第三方平台商品表接口
  * 创建人：FH Q313596790
  * 创建时间：2018-04-08
  * @version
  */
-public interface SuplygoodinfoManager{
+public interface PlatformgoodsManager{
 
 	/**新增
 	 * @param pd
@@ -35,12 +35,6 @@ public interface SuplygoodinfoManager{
 	 * @throws Exception
 	 */
 	public List<PageData> list(Page page)throws Exception;
-
-	/**列表
-	 * @param page
-	 * @throws Exception
-	 */
-	public List<PageData> listByGoodName(Page page)throws Exception;
 	
 	/**列表(全部)
 	 * @param pd

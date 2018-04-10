@@ -4,6 +4,8 @@ import com.fh.dao.DaoSupport;
 import com.fh.entity.Page;
 import com.fh.entity.ehuarong.Goods;
 import com.fh.service.ehuarong.orderinfo.OrderinfoManager;
+import com.fh.service.ehuarong.suplygoodinfo.SuplygoodinfoManager;
+import com.fh.service.ehuarong.supplierinfo.SupplierinfoManager;
 import com.fh.util.PageData;
 import com.fh.util.UuidUtil;
 import org.springframework.stereotype.Service;
@@ -23,10 +25,13 @@ import java.util.Map;
 @Service("orderinfoService") public class OrderinfoService implements OrderinfoManager {
 
 	@Resource(name = "daoSupport") private DaoSupport dao;
+	@Resource(name="suplygoodinfoService")
+	private SuplygoodinfoManager suplygoodinfoService;
 
-	public final static String SUCCESS= "success";
-	public final static String FAILURE= "failue";
-	public final static String EXIST= "exist";
+	@Resource(name="supplierinfoService")
+	private SupplierinfoManager supplierinfoService;
+
+
 	/**
 	 * 新增
 	 *
@@ -77,6 +82,7 @@ import java.util.Map;
 			pd.put("EXTGOOD_ID", goods.getGoodsNumber()); //第三方的 商品id
 			pd.put("REMARK", goods.getRemark());
 			pd.put("ORDERINFO_ID", UuidUtil.get32UUID());
+			pd.put("STATUS", TO_PURCHASE);
 
 			PageData searchPd = new PageData();
 			searchPd.put("ODER_ID", pd.get("ODER_ID"));
@@ -132,6 +138,16 @@ import java.util.Map;
 	/**
 	 * 列表
 	 *
+	 * @param page
+	 * @throws Exception
+	 */
+	@SuppressWarnings("unchecked") public List<PageData> purchaseList(Page page) throws Exception {
+		return (List<PageData>) dao.findForList("OrderinfoMapper.purchaseDatalistPage", page);
+	}
+
+	/**
+	 * 列表
+	 *
 	 * @param pd
 	 * @throws Exception
 	 */
@@ -169,5 +185,41 @@ import java.util.Map;
 		dao.delete("OrderinfoMapper.deleteAll", ArrayDATA_IDS);
 	}
 
+	/**
+	 * caigou
+	 * @param selectOrderIds
+	 * @param selectSupplyProductIds
+	 * @return
+	 */
+	public boolean purchase(String selectOrderIds, String selectSupplyProductIds) throws Exception{
+		String[] selectOrderIdArray = selectOrderIds.split(",");
+		PageData supplyPorductPD = new PageData();
+		supplyPorductPD.put("SUPLYGOODINFO_ID", supplyPorductPD);
+		PageData supplyProduct = suplygoodinfoService.findById(supplyPorductPD);
+
+		PageData supplyPD = new PageData();
+		supplyPD.put("", supplyProduct.getString("SUPPLIER_ID"));
+		PageData supply = supplierinfoService.findById(supplyPD);
+
+		for(String orderId: selectOrderIdArray){
+			PageData orderPD = new PageData();
+			orderPD.put("ORDERINFO_ID", orderId);
+			PageData order = this.findById(orderPD);
+
+			PageData pd = new PageData();
+			pd.put("ORDERINFO_ID", orderId);
+			String purchasePrice = String.valueOf(supplyProduct.get("SUPLYPRICE"));
+			pd.put("PURCHASEPRICE", purchasePrice);
+			double totalPrice = Double.valueOf(purchasePrice) * Double.valueOf(order.getString("GOODNUM"));
+			pd.put("PURCHASETOTALPRICE", String.valueOf(totalPrice));
+			pd.put("SUPPLIER_ID", supplyProduct.getString("SUPPLIER_ID"));
+			pd.put("SUPPLIER_EMAIL", supply.getString("EMAIL"));
+			pd.put("STATUS", TO_DELIVERY);
+
+			dao.update("OrderinfoMapper.purchase", pd);
+		}
+
+		return true;
+	}
 }
 

@@ -69,9 +69,9 @@ import java.util.Map;
             result = orderinfoManager.save(content);
 
         }
-        mv.addObject("successCount", result.get("success").size());
-        mv.addObject("falilureList", result.get("failue"));
-        mv.addObject("existList", result.get("exist"));
+        mv.addObject("successCount", result.get(OrderinfoManager.SUCCESS).size());
+        mv.addObject("falilureList", result.get(OrderinfoManager.FAILURE));
+        mv.addObject("existList", result.get(OrderinfoManager.EXIST));
         mv.addObject("QX",Jurisdiction.getHC());	//按钮权限
         mv.setViewName("ehuarong/uploadtrigger/save_result");
         return mv;

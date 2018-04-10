@@ -1,4 +1,4 @@
-package com.fh.controller.ehuarong.orderinfo;
+package com.fh.controller.ehuarong.platformgoods;
 
 import java.io.PrintWriter;
 import java.text.DateFormat;
@@ -11,7 +11,6 @@ import java.util.Map;
 import javax.annotation.Resource;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
-import org.springframework.util.StringUtils;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,20 +23,20 @@ import com.fh.util.ObjectExcelView;
 import com.fh.util.PageData;
 import com.fh.util.Jurisdiction;
 import com.fh.util.Tools;
-import com.fh.service.ehuarong.orderinfo.OrderinfoManager;
+import com.fh.service.ehuarong.platformgoods.PlatformgoodsManager;
 
 /** 
- * 说明：订单信息表
+ * 说明：第三方平台商品表
  * 创建人：FH Q313596790
- * 创建时间：2018-03-29
+ * 创建时间：2018-04-08
  */
 @Controller
-@RequestMapping(value="/orderinfo")
-public class OrderinfoController extends BaseController {
+@RequestMapping(value="/platformgoods")
+public class PlatformgoodsController extends BaseController {
 	
-	String menuUrl = "orderinfo/list.do"; //菜单地址(权限用)
-	@Resource(name="orderinfoService")
-	private OrderinfoManager orderinfoService;
+	String menuUrl = "platformgoods/list.do"; //菜单地址(权限用)
+	@Resource(name="platformgoodsService")
+	private PlatformgoodsManager platformgoodsService;
 	
 	/**保存
 	 * @param
@@ -45,14 +44,14 @@ public class OrderinfoController extends BaseController {
 	 */
 	@RequestMapping(value="/save")
 	public ModelAndView save() throws Exception{
-		logBefore(logger, Jurisdiction.getUsername()+"新增Orderinfo");
+		logBefore(logger, Jurisdiction.getUsername()+"新增Platformgoods");
 		if(!Jurisdiction.buttonJurisdiction(menuUrl, "add")){return null;} //校验权限
 		ModelAndView mv = this.getModelAndView();
 		PageData pd = new PageData();
 		pd = this.getPageData();
-		pd.put("ORDERINFO_ID", this.get32UUID());	//主键
+		pd.put("PLATFORMGOODS_ID", this.get32UUID());	//主键
 		pd.put("CREATETIME", Tools.date2Str(new Date()));	//创建时间
-		orderinfoService.save(pd);
+		platformgoodsService.save(pd);
 		mv.addObject("msg","success");
 		mv.setViewName("save_result");
 		return mv;
@@ -64,11 +63,11 @@ public class OrderinfoController extends BaseController {
 	 */
 	@RequestMapping(value="/delete")
 	public void delete(PrintWriter out) throws Exception{
-		logBefore(logger, Jurisdiction.getUsername()+"删除Orderinfo");
+		logBefore(logger, Jurisdiction.getUsername()+"删除Platformgoods");
 		if(!Jurisdiction.buttonJurisdiction(menuUrl, "del")){return;} //校验权限
 		PageData pd = new PageData();
 		pd = this.getPageData();
-		orderinfoService.delete(pd);
+		platformgoodsService.delete(pd);
 		out.write("success");
 		out.close();
 	}
@@ -79,12 +78,12 @@ public class OrderinfoController extends BaseController {
 	 */
 	@RequestMapping(value="/edit")
 	public ModelAndView edit() throws Exception{
-		logBefore(logger, Jurisdiction.getUsername()+"修改Orderinfo");
+		logBefore(logger, Jurisdiction.getUsername()+"修改Platformgoods");
 		if(!Jurisdiction.buttonJurisdiction(menuUrl, "edit")){return null;} //校验权限
 		ModelAndView mv = this.getModelAndView();
 		PageData pd = new PageData();
 		pd = this.getPageData();
-		orderinfoService.edit(pd);
+		platformgoodsService.edit(pd);
 		mv.addObject("msg","success");
 		mv.setViewName("save_result");
 		return mv;
@@ -96,7 +95,7 @@ public class OrderinfoController extends BaseController {
 	 */
 	@RequestMapping(value="/list")
 	public ModelAndView list(Page page) throws Exception{
-		logBefore(logger, Jurisdiction.getUsername()+"列表Orderinfo");
+		logBefore(logger, Jurisdiction.getUsername()+"列表Platformgoods");
 		//if(!Jurisdiction.buttonJurisdiction(menuUrl, "cha")){return null;} //校验权限(无权查看时页面会有提示,如果不注释掉这句代码就无法进入列表页面,所以根据情况是否加入本句代码)
 		ModelAndView mv = this.getModelAndView();
 		PageData pd = new PageData();
@@ -105,13 +104,9 @@ public class OrderinfoController extends BaseController {
 		if(null != keywords && !"".equals(keywords)){
 			pd.put("keywords", keywords.trim());
 		}
-		String EXTGOOD_ID = pd.getString("EXTGOOD_ID");
-		if(!StringUtils.isEmpty(EXTGOOD_ID)){
-			pd.put("EXTGOOD_ID", EXTGOOD_ID.trim());
-		}
 		page.setPd(pd);
-		List<PageData>	varList = orderinfoService.list(page);	//列出Orderinfo列表
-		mv.setViewName("ehuarong/orderinfo/orderinfo_list");
+		List<PageData>	varList = platformgoodsService.list(page);	//列出Platformgoods列表
+		mv.setViewName("ehuarong/platformgoods/platformgoods_list");
 		mv.addObject("varList", varList);
 		mv.addObject("pd", pd);
 		mv.addObject("QX",Jurisdiction.getHC());	//按钮权限
@@ -127,7 +122,7 @@ public class OrderinfoController extends BaseController {
 		ModelAndView mv = this.getModelAndView();
 		PageData pd = new PageData();
 		pd = this.getPageData();
-		mv.setViewName("ehuarong/orderinfo/orderinfo_edit");
+		mv.setViewName("ehuarong/platformgoods/platformgoods_edit");
 		mv.addObject("msg", "save");
 		mv.addObject("pd", pd);
 		return mv;
@@ -142,8 +137,8 @@ public class OrderinfoController extends BaseController {
 		ModelAndView mv = this.getModelAndView();
 		PageData pd = new PageData();
 		pd = this.getPageData();
-		pd = orderinfoService.findById(pd);	//根据ID读取
-		mv.setViewName("ehuarong/orderinfo/orderinfo_edit");
+		pd = platformgoodsService.findById(pd);	//根据ID读取
+		mv.setViewName("ehuarong/platformgoods/platformgoods_edit");
 		mv.addObject("msg", "edit");
 		mv.addObject("pd", pd);
 		return mv;
@@ -156,7 +151,7 @@ public class OrderinfoController extends BaseController {
 	@RequestMapping(value="/deleteAll")
 	@ResponseBody
 	public Object deleteAll() throws Exception{
-		logBefore(logger, Jurisdiction.getUsername()+"批量删除Orderinfo");
+		logBefore(logger, Jurisdiction.getUsername()+"批量删除Platformgoods");
 		if(!Jurisdiction.buttonJurisdiction(menuUrl, "del")){return null;} //校验权限
 		PageData pd = new PageData();		
 		Map<String,Object> map = new HashMap<String,Object>();
@@ -165,7 +160,7 @@ public class OrderinfoController extends BaseController {
 		String DATA_IDS = pd.getString("DATA_IDS");
 		if(null != DATA_IDS && !"".equals(DATA_IDS)){
 			String ArrayDATA_IDS[] = DATA_IDS.split(",");
-			orderinfoService.deleteAll(ArrayDATA_IDS);
+			platformgoodsService.deleteAll(ArrayDATA_IDS);
 			pd.put("msg", "ok");
 		}else{
 			pd.put("msg", "no");
@@ -181,54 +176,44 @@ public class OrderinfoController extends BaseController {
 	 */
 	@RequestMapping(value="/excel")
 	public ModelAndView exportExcel() throws Exception{
-		logBefore(logger, Jurisdiction.getUsername()+"导出Orderinfo到excel");
+		logBefore(logger, Jurisdiction.getUsername()+"导出Platformgoods到excel");
 		if(!Jurisdiction.buttonJurisdiction(menuUrl, "cha")){return null;}
 		ModelAndView mv = new ModelAndView();
 		PageData pd = new PageData();
 		pd = this.getPageData();
 		Map<String,Object> dataMap = new HashMap<String,Object>();
 		List<String> titles = new ArrayList<String>();
-		titles.add("订单编号");	//1
-		titles.add("订单数量");	//2
-		titles.add("发件人");	//3
-		titles.add("发件电话");	//4
-		titles.add("收件人");	//5
-		titles.add("收件电话");	//6
-		titles.add("收件地址");	//7
-		titles.add("快递公司");	//8
-		titles.add("快递单号");	//9
-		titles.add("商品售价单价");	//10
-		titles.add("商品售价总价");	//11
-		titles.add("商品采购单价");	//12
-		titles.add("商品采购总价");	//13
-		titles.add("所属平台id");	//14
-		titles.add("供应商id ");	//15
-		titles.add("供应商email");	//16
-		titles.add("创建时间");	//17
-		titles.add("备注");	//18
+		titles.add("第三方商品编号");	//1
+		titles.add("第三方商品名称");	//2
+		titles.add("单位");	//3
+		titles.add("规格");	//4
+		titles.add("说明");	//5
+		titles.add("商品类别号");	//6
+		titles.add("备注");	//7
+		titles.add("创建时间");	//8
+		titles.add("平台名称");	//9
+		titles.add("平台id");	//10
+		titles.add("状态 上架-on  下架-off");	//11
+		titles.add("华榕商品编号");	//12
+		titles.add("华榕商品名称");	//13
 		dataMap.put("titles", titles);
-		List<PageData> varOList = orderinfoService.listAll(pd);
+		List<PageData> varOList = platformgoodsService.listAll(pd);
 		List<PageData> varList = new ArrayList<PageData>();
 		for(int i=0;i<varOList.size();i++){
 			PageData vpd = new PageData();
-			vpd.put("var1", varOList.get(i).getString("ODER_ID"));	    //1
-			vpd.put("var2", varOList.get(i).getString("GOODNUM"));	    //2
-			vpd.put("var3", varOList.get(i).getString("SELLNAME"));	    //3
-			vpd.put("var4", varOList.get(i).getString("SELLPHONE"));	    //4
-			vpd.put("var5", varOList.get(i).getString("RECNAME"));	    //5
-			vpd.put("var6", varOList.get(i).getString("RECPHONE"));	    //6
-			vpd.put("var7", varOList.get(i).getString("RECADDRESS"));	    //7
-			vpd.put("var8", varOList.get(i).getString("EXPRESS"));	    //8
-			vpd.put("var9", varOList.get(i).getString("EXPRESSNO"));	    //9
-			vpd.put("var10", String.valueOf(varOList.get(i).get("SELLPRICE")));    //10
-			vpd.put("var11", String.valueOf(varOList.get(i).get("SELLTOTALPRICE")));    //11
-			vpd.put("var12", String.valueOf(varOList.get(i).get("PURCHASEPRICE")));    //12
-			vpd.put("var13", String.valueOf(varOList.get(i).get("PURCHASETOTALPRICE")));    //13
-			vpd.put("var14", varOList.get(i).getString("PLATFORMID"));	    //14
-			vpd.put("var15", varOList.get(i).getString("SUPPLIER_ID"));	    //15
-			vpd.put("var16", varOList.get(i).getString("SUPPLIER_EMAIL"));	    //16
-			vpd.put("var17", varOList.get(i).getString("CREATETIME"));	    //17
-			vpd.put("var18", varOList.get(i).getString("REMARK"));	    //18
+			vpd.put("var1", varOList.get(i).getString("EXTGOOD_ID"));	    //1
+			vpd.put("var2", varOList.get(i).getString("EXTGOODNAME"));	    //2
+			vpd.put("var3", varOList.get(i).getString("UNIT"));	    //3
+			vpd.put("var4", varOList.get(i).getString("SPEC"));	    //4
+			vpd.put("var5", varOList.get(i).getString("MEMO"));	    //5
+			vpd.put("var6", varOList.get(i).getString("CATEGORYID"));	    //6
+			vpd.put("var7", varOList.get(i).getString("REMARK"));	    //7
+			vpd.put("var8", varOList.get(i).getString("CREATETIME"));	    //8
+			vpd.put("var9", varOList.get(i).getString("PLATFORMNAME"));	    //9
+			vpd.put("var10", varOList.get(i).getString("PLATFORMID"));	    //10
+			vpd.put("var11", varOList.get(i).getString("STATUS"));	    //11
+			vpd.put("var12", varOList.get(i).getString("GOOD_ID"));	    //12
+			vpd.put("var13", varOList.get(i).getString("GOODNAME"));	    //13
 			varList.add(vpd);
 		}
 		dataMap.put("varList", varList);
