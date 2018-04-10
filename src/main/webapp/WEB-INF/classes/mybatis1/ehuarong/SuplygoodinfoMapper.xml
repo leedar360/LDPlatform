@@ -9,13 +9,13 @@
 
 	<!--表名 -->
 	<sql id="referenceTableName">
-		HR_SUPPLIERINFO as re
+		HR_SUPPLIERINFO
 	</sql>
 	
 	<!-- 字段 -->
 	<sql id="Field">
-		SUPPLIER_ID,	
-		SUPPLIERNAME,	
+		SUPPLIER_ID,
+		SUPPLIERNAME,
 		GOOD_ID,	
 		GOODNAME,	
 		UNIT,	
@@ -32,8 +32,8 @@
 
 	<!-- 字段 -->
 	<sql id="MappingField">
-		SUPPLIER_ID,
-		SUPPLIERNAME,
+		HR_SUPPLIERINFO.SUPPLIER_ID,
+		HR_SUPPLIERINFO.SUPPLIERNAME,
 		CONTACT,
 		PHONE,
 		EMAIL,
@@ -42,8 +42,6 @@
 		BANKNO,
 		WEIXIN,
 		ZHIFUBAO,
-		REMARK,
-		CREATETIME,
 		SUPPLIERINFO_ID,
 		GOOD_ID,
 		GOODNAME,
@@ -51,8 +49,8 @@
 		SPEC,
 		MEMO,
 		CATEGORYID,
-		REMARK,
-		CREATETIME,
+		HR_SUPLYGOODINFO.REMARK,
+		HR_SUPLYGOODINFO.CREATETIME,
 		SUPLYPRICE,
 		STARTTIME,
 		ENDTIME,
@@ -186,7 +184,7 @@
 		from
 		<include refid="tableName"></include>,
 		<include refid="referenceTableName"></include>
-		where 1=1 and SUPPLIER_ID = re.SUPPLIER_ID
+		where 1=1 and HR_SUPLYGOODINFO.SUPPLIER_ID = HR_SUPPLIERINFO.SUPPLIER_ID
 		<if test="pd.GOODNAME!= null and pd.GOODNAME != ''"><!-- 关键词检索 -->
 			and GOODNAME = #{pd.GOODNAME}
 		</if>
