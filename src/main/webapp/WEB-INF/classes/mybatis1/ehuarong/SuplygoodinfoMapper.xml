@@ -6,6 +6,11 @@
 	<sql id="tableName">
 		HR_SUPLYGOODINFO
 	</sql>
+
+	<!--表名 -->
+	<sql id="referenceTableName">
+		HR_SUPPLIERINFO as re
+	</sql>
 	
 	<!-- 字段 -->
 	<sql id="Field">
@@ -24,6 +29,35 @@
 		ENDTIME,	
 		SUPLYGOODINFO_ID
 	</sql>
+
+	<!-- 字段 -->
+	<sql id="MappingField">
+		SUPPLIER_ID,
+		SUPPLIERNAME,
+		CONTACT,
+		PHONE,
+		EMAIL,
+		ADDRESS,
+		BANK,
+		BANKNO,
+		WEIXIN,
+		ZHIFUBAO,
+		REMARK,
+		CREATETIME,
+		SUPPLIERINFO_ID,
+		GOOD_ID,
+		GOODNAME,
+		UNIT,
+		SPEC,
+		MEMO,
+		CATEGORYID,
+		REMARK,
+		CREATETIME,
+		SUPLYPRICE,
+		STARTTIME,
+		ENDTIME,
+		SUPLYGOODINFO_ID
+	</sql>
 	
 	<!-- 字段值 -->
 	<sql id="FieldValue">
@@ -40,6 +74,35 @@
 		#{SUPLYPRICE},	
 		#{STARTTIME},	
 		#{ENDTIME},	
+		#{SUPLYGOODINFO_ID}
+	</sql>
+
+	<!-- 字段值 -->
+	<sql id="MappingFieldValue">
+		#{SUPPLIER_ID},
+		#{SUPPLIERNAME},
+		#{CONTACT},
+		#{PHONE},
+		#{EMAIL},
+		#{ADDRESS},
+		#{BANK},
+		#{BANKNO},
+		#{WEIXIN},
+		#{ZHIFUBAO},
+		#{REMARK},
+		#{CREATETIME},
+		#{SUPPLIERINFO_ID}
+		#{GOOD_ID},
+		#{GOODNAME},
+		#{UNIT},
+		#{SPEC},
+		#{MEMO},
+		#{CATEGORYID},
+		#{REMARK},
+		#{CREATETIME},
+		#{SUPLYPRICE},
+		#{STARTTIME},
+		#{ENDTIME},
 		#{SUPLYGOODINFO_ID}
 	</sql>
 	
@@ -87,20 +150,23 @@
 	<!-- 通过ID获取数据 -->
 	<select id="findById" parameterType="pd" resultType="pd">
 		select 
-		<include refid="Field"></include>
+		<include refid="MappingField"></include>
 		from 
-		<include refid="tableName"></include>
-		where 
-			SUPLYGOODINFO_ID = #{SUPLYGOODINFO_ID}
+		<include refid="tableName"></include>,
+		<include refid="referenceTableName"></include>
+		where
+		 	SUPPLIER_ID = re.SUPPLIER_ID
+			and SUPLYGOODINFO_ID = #{SUPLYGOODINFO_ID}
 	</select>
 	
 	<!-- 列表 -->
 	<select id="datalistPage" parameterType="page" resultType="pd">
 		select
-		<include refid="Field"></include>
+		<include refid="MappingField"></include>
 		from 
-		<include refid="tableName"></include>
-		where 1=1
+		<include refid="tableName"></include>,
+		<include refid="referenceTableName"></include>
+		where 1=1 and SUPPLIER_ID = re.SUPPLIER_ID
 		<if test="pd.keywords!= null and pd.keywords != ''"><!-- 关键词检索 -->
 			and
 				(
@@ -116,10 +182,11 @@
 	<!-- 列表 -->
 	<select id="datalistPageByGoodName" parameterType="page" resultType="pd">
 		select
-		<include refid="Field"></include>
+		<include refid="MappingField"></include>
 		from
-		<include refid="tableName"></include>
-		where 1=1
+		<include refid="tableName"></include>,
+		<include refid="referenceTableName"></include>
+		where 1=1 and SUPPLIER_ID = re.SUPPLIER_ID
 		<if test="pd.GOODNAME!= null and pd.GOODNAME != ''"><!-- 关键词检索 -->
 			and GOODNAME = #{pd.GOODNAME}
 		</if>
@@ -128,9 +195,11 @@
 	<!-- 列表(全部) -->
 	<select id="listAll" parameterType="pd" resultType="pd">
 		select
-		<include refid="Field"></include>
+		<include refid="MappingField"></include>
 		from 
-		<include refid="tableName"></include>
+		<include refid="tableName"></include>,
+		<include refid="referenceTableName"></include>
+		where SUPPLIER_ID = re.SUPPLIER_ID
 	</select>
 	
 	<!-- 批量删除 -->
