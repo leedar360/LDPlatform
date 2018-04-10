@@ -31,7 +31,7 @@
 
 						<!-- 检索  -->
 						<form action="purchase/toPurchase.do" method="post" name="Form" id="Form">
-							<input type="hidden" name="selectIds" value="${selectIds}">
+							<input type="hidden" name="selectOrderIds" id="selectOrderIds" value="${selectIds}">
 						<table style="margin-top:5px;">
 							<tr>
 								<td>
@@ -227,7 +227,7 @@
 				if(result) {
 					var str = '';
 					var count = 0;
-					var selectOrderIds = $("#selectIds").val();
+					var selectOrderIds = $("#selectOrderIds").val();
 					for(var i=0;i < document.getElementsByName('ids').length;i++){
 					  if(document.getElementsByName('ids')[i].checked){
 					      count ++;
@@ -257,7 +257,7 @@
                             });
 						}
 
-						if(msg == '确定要对选中商品供应商采购吗?'){
+						if(msg == '确定对选中的商品供应商采购吗?'){
 							top.jzts();
 							$.ajax({
 								type: "POST",
