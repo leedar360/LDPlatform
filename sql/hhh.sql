@@ -72,11 +72,12 @@ CREATE TABLE IF NOT EXISTS `hr_goods` (
   PRIMARY KEY (`GOODS_ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- 正在导出表  fhadmin.hr_goods 的数据：~2 rows (大约)
+-- 正在导出表  fhadmin.hr_goods 的数据：~3 rows (大约)
 /*!40000 ALTER TABLE `hr_goods` DISABLE KEYS */;
 INSERT INTO `hr_goods` (`GOODS_ID`, `GOOD_ID`, `GOODNAME`, `GOODUNIT`, `SPEC`, `MEMO`, `GOODCATEGORYID`, `REMARK`, `CREATETIME`) VALUES
 	('56ad18b6d6144b5ab40d5bb3dc4735df', 'HR0002', '越南进口青芒4斤装', '件', '单果 200-300g', '广西中通直发', '新鲜水果', '4月', '2018-03-27 00:05:02'),
-	('c8fcd18a26014c219041bfc0fbc4bd43', 'HR0001', '越南进口青芒 8斤装 ', '件', '单果 200-300g', '广西中通直发', '新鲜水果', '4月成熟', '2018-03-27 00:04:02');
+	('c8fcd18a26014c219041bfc0fbc4bd43', 'HR0001', '越南进口青芒 8斤装 ', '件', '单果 200-300g', '广西中通直发', '新鲜水果', '4月成熟', '2018-03-27 00:04:02'),
+	('f164fa6d5f1c4f5b9dc8ff676f0fc66e', 'HR0003', '红心猕猴桃6粒装 单果 350g- 450g', '件', '单果 350-450g', '黑 吉 辽 新疆 西藏 甘肃 青海 宁夏 内蒙古 海南 偏远乡镇 港澳台及海外不发货', '新鲜水果', 'N', '2018-04-11 16:40:21');
 /*!40000 ALTER TABLE `hr_goods` ENABLE KEYS */;
 
 
@@ -84,7 +85,7 @@ INSERT INTO `hr_goods` (`GOODS_ID`, `GOOD_ID`, `GOODNAME`, `GOODUNIT`, `SPEC`, `
 CREATE TABLE IF NOT EXISTS `hr_orderinfo` (
   `ORDERINFO_ID` varchar(100) NOT NULL,
   `ODER_ID` varchar(255) DEFAULT NULL COMMENT '订单编号',
-  `GOODS_NAME` varchar(255) DEFAULT NULL COMMENT '商品名称 ',
+  `GOODS_NAME` varchar(255) DEFAULT NULL COMMENT '商品名称',
   `GOODNUM` varchar(255) DEFAULT NULL COMMENT '订单数量',
   `SELLNAME` varchar(255) DEFAULT NULL COMMENT '发件人',
   `SELLPHONE` varchar(255) DEFAULT NULL COMMENT '发件电话',
@@ -99,19 +100,66 @@ CREATE TABLE IF NOT EXISTS `hr_orderinfo` (
   `PURCHASETOTALPRICE` double(11,3) DEFAULT NULL COMMENT '商品采购总价',
   `PLATFORMID` varchar(255) DEFAULT NULL COMMENT '所属平台id',
   `SUPPLIER_ID` varchar(255) DEFAULT NULL COMMENT '供应商id ',
+  `SUPPLIERNAME` varchar(255) DEFAULT NULL COMMENT '供应商名称',
   `SUPPLIER_EMAIL` varchar(255) DEFAULT NULL COMMENT '供应商email',
   `CREATETIME` varchar(32) DEFAULT NULL COMMENT '创建时间',
   `REMARK` varchar(255) DEFAULT NULL COMMENT '备注',
   `EXTGOOD_ID` varchar(255) DEFAULT NULL COMMENT '第三方商品编号',
-  `STATUS` int(11) DEFAULT NULL COMMENT '状态',
+  `STATUS` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`ORDERINFO_ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- 正在导出表  fhadmin.hr_orderinfo 的数据：~21 rows (大约)
+-- 正在导出表  fhadmin.hr_orderinfo 的数据：~20 rows (大约)
 /*!40000 ALTER TABLE `hr_orderinfo` DISABLE KEYS */;
-INSERT INTO `hr_orderinfo` (`ORDERINFO_ID`, `ODER_ID`, `GOODS_NAME`, `GOODNUM`, `SELLNAME`, `SELLPHONE`, `RECNAME`, `RECPHONE`, `RECADDRESS`, `EXPRESS`, `EXPRESSNO`, `SELLPRICE`, `SELLTOTALPRICE`, `PURCHASEPRICE`, `PURCHASETOTALPRICE`, `PLATFORMID`, `SUPPLIER_ID`, `SUPPLIER_EMAIL`, `CREATETIME`, `REMARK`, `EXTGOOD_ID`, `STATUS`) VALUES
-	('a522630689004e44bf6a9df33aa83f07', '180327672024', '泰国进口龙眼2kg 桂圆新鲜水果（新疆 西藏 宁夏 青海 甘肃 内蒙古 海南 偏远乡镇 港澳台及海外地区不发货）', '1.0', '华榕在线', '13911881373', '刘建刚', '13901522875', '江苏无锡市江阴市:西门新村12幢406室', '', '', NULL, NULL, 98.000, 98.000, 'pinzhi365', '94ee8c6956aa4480a05d8bacd82be231', 'bolivin@126.com', '2018-03-27 13:11:09', '', '1452251', 2);
+INSERT INTO `hr_orderinfo` (`ORDERINFO_ID`, `ODER_ID`, `GOODS_NAME`, `GOODNUM`, `SELLNAME`, `SELLPHONE`, `RECNAME`, `RECPHONE`, `RECADDRESS`, `EXPRESS`, `EXPRESSNO`, `SELLPRICE`, `SELLTOTALPRICE`, `PURCHASEPRICE`, `PURCHASETOTALPRICE`, `PLATFORMID`, `SUPPLIER_ID`, `SUPPLIERNAME`, `SUPPLIER_EMAIL`, `CREATETIME`, `REMARK`, `EXTGOOD_ID`, `STATUS`) VALUES
+	('0d6c2855bb2a4a4b9774086dedfc9e4e', '180405686767', NULL, '1.0', '华榕在线', '13911881373', '李晓妮', '13504238998', '辽宁抚顺市新抚区:裕民装饰城北门钭对面兔宝宝专卖店', '', '', NULL, NULL, 98.000, 98.000, 'pinzhi365', '10e902ec70b44598bf3492171458453e', '郑诚', '13642320119', '2018-04-05 21:43:46', '', '1419549', '2'),
+	('104ef11cd0c649bcb02daaaa2aef99c9', '180405938525', NULL, '1.0', '华榕在线哈哈', '13911881373', '寇小梅', '18141331414', '四川南充市蓬安县:凯莱瑞景', '百世快递', '486172538066', 44.000, 4.000, 98.000, 98.000, 'pinzhi365', '10e902ec70b44598bf3492171458453e', '郑诚', '13642320119', '2018-04-05 13:40:16', 'n', '914149', '2'),
+	('376f6b623ddb4ed0a5f6b09a1da427f7', '180405705818', NULL, '1.0', '华榕在线', '13911881373', '刘冰', '15776549461', '黑龙江大庆市萨尔图区:大庆市萨尔图区经三街五号澳洲春天', '', '', NULL, NULL, 98.000, 98.000, 'pinzhi365', '10e902ec70b44598bf3492171458453e', '郑诚', '13642320119', '2018-04-05 12:02:54', '', '823133', '2'),
+	('3bc519eb9aa94eedafd636a872ced0ad', '180405012372', NULL, '1.0', '华榕在线', '13911881373', '龚术俊', '13303164098', '河北廊坊市广阳区:金泰小区32号楼707', '', '', NULL, NULL, 98.000, 98.000, 'pinzhi365', '10e902ec70b44598bf3492171458453e', '郑诚', '13642320119', '2018-04-05 09:44:21', '', '914149', '2'),
+	('51a34390b238441d9ad10c94b11024d6', '180405654827', NULL, '1.0', '华榕在线', '13911881373', '杨婉菊', '13705521588', '安徽蚌埠市经济开发区:南湖路600号', '', '', NULL, NULL, 98.000, 98.000, 'pinzhi365', '10e902ec70b44598bf3492171458453e', '郑诚', '13642320119', '2018-04-05 22:24:20', '', '914149', '2'),
+	('616d24ab681a4666a2f6a7fb687e3f69', '180405667625', NULL, '1.0', '华榕在线', '13911881373', '黄秀云', '15023074186', '重庆重庆市黔江区:气象局古楼港', '', '', NULL, NULL, 98.000, 98.000, 'pinzhi365', '10e902ec70b44598bf3492171458453e', '郑诚', '13642320119', '2018-04-05 21:36:07', '', '823133', '2'),
+	('774663e2b9954c79bb95cc9f0a765910', '180405332360', NULL, '1.0', '华榕在线', '13911881373', '谭义燕', '13723678088', '广东梅州市梅江区:金利来大街三十九号', '', '', NULL, NULL, 98.000, 98.000, 'pinzhi365', '10e902ec70b44598bf3492171458453e', '郑诚', '13642320119', '2018-04-05 20:51:48', '', '914149', '2'),
+	('7e3e87d39b7a4c11bdbd8591086e1d85', '180405806926', NULL, '1.0', '华榕在线', '13911881373', '李芳敏', '13407283030', '湖北潜江市潜江市:潜江市江汉油田广华华美小区', '', '', NULL, NULL, 98.000, 98.000, 'pinzhi365', '10e902ec70b44598bf3492171458453e', '郑诚', '13642320119', '2018-04-05 08:08:37', '', '914149', '2'),
+	('809a7b28552041e0a927ec973e6af58e', '180405484037', NULL, '1.0', '华榕在线', '13911881373', '张晓宇', '13641263611', '北京北京市西城区:北京市西城区广安门内街道北京市西城区广安西里41号', '', '', NULL, NULL, 98.000, 98.000, 'pinzhi365', '10e902ec70b44598bf3492171458453e', '郑诚', '13642320119', '2018-04-05 15:10:43', '', '914149', '2'),
+	('857e522f37a7479e901ae38fa87bb0a6', '180405808575', NULL, '1.0', '华榕在线', '13911881373', '韦丽君', '13636787119', '陕西渭南市合阳县:西新街信合小区', '', '', NULL, NULL, 98.000, 98.000, 'pinzhi365', '10e902ec70b44598bf3492171458453e', '郑诚', '13642320119', '2018-04-05 09:48:30', '', '914149', '2'),
+	('9652da5db4354be39c450012ed9699d3', '180405297962', NULL, '1.0', '华榕在线', '13911881373', '陈鑫鑫', '15369677572', '河北廊坊市三河市:河北省廊坊市燕郊燕顺路星河一八五小区。安博宝贝，双语幼儿园', '', '', NULL, NULL, 98.000, 98.000, 'pinzhi365', '94ee8c6956aa4480a05d8bacd82be231', '悠乐果', 'bolivin@126.com', '2018-04-05 12:51:07', '', '823133', '2'),
+	('a999818c297640c4a0190ad388eeecdc', '180405821468', NULL, '1.0', '华榕在线', '13911881373', '王保君', '15046861763', '黑龙江黑河市嫩江县:嫩江农场', '', '', NULL, NULL, 98.000, 98.000, 'pinzhi365', '94ee8c6956aa4480a05d8bacd82be231', '悠乐果', 'bolivin@126.com', '2018-04-05 11:59:36', '', '823133', '2'),
+	('b20a46fc5049480280ce58f1836c6bc2', '180405211627', NULL, '1.0', '华榕在线', '13911881373', '张晓晖', '13860195732', '福建厦门市思明区:莲秀里26号1003室', '', '', NULL, NULL, 98.000, 98.000, 'pinzhi365', '94ee8c6956aa4480a05d8bacd82be231', '悠乐果', 'bolivin@126.com', '2018-04-05 15:05:51', '', '914149', '2'),
+	('b58d37945da64c16b8a060748c2e94ae', '180405713449', NULL, '1.0', '华榕在线', '13911881373', '金英花', '13311628828', '上海上海市闵行区:万源路788弄30号1401', '', '', NULL, NULL, 98.000, 98.000, 'pinzhi365', '94ee8c6956aa4480a05d8bacd82be231', '悠乐果', 'bolivin@126.com', '2018-04-05 11:26:29', '', '914149', '2'),
+	('be3b0251d21c45fab3902f9de6cb81ff', '180405112023', NULL, '1.0', '华榕在线', '13911881373', '董艳伟', '13181306868', '山东济宁市嘉祥县:嘉祥县城建设北路26号北关居委院内', '', '', NULL, NULL, 50.000, 50.000, 'pinzhi365', '94ee8c6956aa4480a05d8bacd82be231', '悠乐果', 'bolivin@126.com', '2018-04-05 23:32:54', '', '914149', '2'),
+	('c08ab2e2cf664d54a43ee3e110d89a82', '180405878792', NULL, '1.0', '华榕在线', '13911881373', '黄秀云', '15023074186', '重庆重庆市黔江区:气象局古楼港', '', '', NULL, NULL, 50.000, 50.000, 'pinzhi365', '94ee8c6956aa4480a05d8bacd82be231', '悠乐果', 'bolivin@126.com', '2018-04-05 22:58:39', '', '823133', '2'),
+	('ca06021a24434cbbbdd66c7bb8196f9c', '180405737893', NULL, '1.0', '华榕在线', '13911881373', '罗小华', '13808444279', '湖南郴州市安仁县:永乐江镇状元洲街360号', '', '', NULL, NULL, 50.000, 50.000, 'pinzhi365', '94ee8c6956aa4480a05d8bacd82be231', '悠乐果', 'bolivin@126.com', '2018-04-05 17:16:00', '', '914149', '2'),
+	('f49cbf306fda48aea01f48bec0f4b15c', '180405611283', NULL, '1.0', '华榕在线', '13911881373', '蔡淑兰', '18943210624', '吉林吉林市船营区:紫晶城20号楼四单元302室', '', '', NULL, NULL, 50.000, 50.000, 'pinzhi365', '94ee8c6956aa4480a05d8bacd82be231', '悠乐果', 'bolivin@126.com', '2018-04-05 10:45:39', '', '1007090', '2'),
+	('fa1cde69efd24453ba4eaf03c8046535', '180405300401', NULL, '1.0', '华榕在线', '13911881373', '薛迅', '13961696196', '江苏无锡市江阴市:环城东路18号教师发展中心', '', '', NULL, NULL, 50.000, 50.000, 'pinzhi365', '94ee8c6956aa4480a05d8bacd82be231', '悠乐果', 'bolivin@126.com', '2018-04-05 08:54:23', '', '914149', '2'),
+	('ffa8bdba83eb4be9af9de5c15e5e52cc', '180406233705', NULL, '1.0', '华榕在线', '13911881373', '夏秋', '15673648480', '江苏常州市天宁区:清凉路103弄2号', '', '', NULL, NULL, 50.000, 50.000, 'pinzhi365', '94ee8c6956aa4480a05d8bacd82be231', '悠乐果', 'bolivin@126.com', '2018-04-06 00:59:58', '', '914147', '2');
 /*!40000 ALTER TABLE `hr_orderinfo` ENABLE KEYS */;
+
+
+-- 导出  表 fhadmin.hr_platformgoods 结构
+CREATE TABLE IF NOT EXISTS `hr_platformgoods` (
+  `PLATFORMGOODS_ID` varchar(100) NOT NULL,
+  `EXTGOOD_ID` varchar(255) DEFAULT NULL COMMENT '第三方商品编号',
+  `EXTGOODNAME` varchar(255) DEFAULT NULL COMMENT '第三方商品名称',
+  `UNIT` varchar(255) DEFAULT NULL COMMENT '单位',
+  `SPEC` varchar(255) DEFAULT NULL COMMENT '规格',
+  `MEMO` varchar(255) DEFAULT NULL COMMENT '说明',
+  `CATEGORYID` varchar(255) DEFAULT NULL COMMENT '商品类别号',
+  `REMARK` varchar(255) DEFAULT NULL COMMENT '备注',
+  `CREATETIME` varchar(32) DEFAULT NULL COMMENT '创建时间',
+  `PLATFORMNAME` varchar(255) DEFAULT NULL COMMENT '平台名称',
+  `PLATFORMID` varchar(255) DEFAULT NULL COMMENT '平台id',
+  `STATUS` varchar(255) DEFAULT NULL COMMENT '状态 上架-on  下架-off',
+  `GOOD_ID` varchar(255) DEFAULT NULL COMMENT '华榕商品编号',
+  `GOODNAME` varchar(255) DEFAULT NULL COMMENT '华榕商品名称',
+  PRIMARY KEY (`PLATFORMGOODS_ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- 正在导出表  fhadmin.hr_platformgoods 的数据：~2 rows (大约)
+/*!40000 ALTER TABLE `hr_platformgoods` DISABLE KEYS */;
+INSERT INTO `hr_platformgoods` (`PLATFORMGOODS_ID`, `EXTGOOD_ID`, `EXTGOODNAME`, `UNIT`, `SPEC`, `MEMO`, `CATEGORYID`, `REMARK`, `CREATETIME`, `PLATFORMNAME`, `PLATFORMID`, `STATUS`, `GOOD_ID`, `GOODNAME`) VALUES
+	('631245a161bb4093936e86029d4df87f', '869821', '云南高黎贡山三年生仿野生新鲜石斛鲜条125克 地方云南特色鲜枫斗礼品伴手礼', '瓶', '125克', 'N', 'N', 'N', '2018-04-12 15:34:02', '悦花', 'yuehua', 'on', 'N', 'N'),
+	('6dc8e3fd34604b4c9df46d5944a10721', '914149', '【产地直发】香格里拉红皮黄心土豆4.5kg 马铃薯 大土豆约28个（黑 吉 辽 新疆 西藏 甘肃 青海 宁夏 内蒙古 海南 偏远乡镇 港澳台及海外不发货）', '箱', '9斤装', '黑 吉 辽 新疆 西藏 甘肃 青海 宁夏 内蒙古 海南 偏远乡镇 港澳台及海外不发货', 'N', 'N', '2018-04-08 21:19:11', '品质', 'pinzhi365', 'on', 'N', 'N');
+/*!40000 ALTER TABLE `hr_platformgoods` ENABLE KEYS */;
 
 
 -- 导出  表 fhadmin.hr_suplygoodinfo 结构
@@ -133,10 +181,12 @@ CREATE TABLE IF NOT EXISTS `hr_suplygoodinfo` (
   PRIMARY KEY (`SUPLYGOODINFO_ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- 正在导出表  fhadmin.hr_suplygoodinfo 的数据：~1 rows (大约)
+-- 正在导出表  fhadmin.hr_suplygoodinfo 的数据：~3 rows (大约)
 /*!40000 ALTER TABLE `hr_suplygoodinfo` DISABLE KEYS */;
 INSERT INTO `hr_suplygoodinfo` (`SUPLYGOODINFO_ID`, `SUPPLIER_ID`, `SUPPLIERNAME`, `GOOD_ID`, `GOODNAME`, `UNIT`, `SPEC`, `MEMO`, `CATEGORYID`, `REMARK`, `CREATETIME`, `SUPLYPRICE`, `STARTTIME`, `ENDTIME`) VALUES
-	('334b73fc745a40eb9058b0db785c6d93', 'SP001', '悠乐果', 'HR0001', '芒果8斤装', '箱', '8斤', '西六省不发货', 'categroy1', '啊啊', '2018-04-08 15:56:33', 98.00, '2018-04-01', '2018-04-17');
+	('334b73fc745a40eb9058b0db785c6d93', 'SP001', '悠乐果', 'HR0001', '芒果8斤装', '箱', '8斤', '西六省不发货', 'categroy1', '啊啊', '2018-04-08 15:56:33', 98.00, '2018-04-01', '2018-04-17'),
+	('479010c3ad4e4e7d9f9d81b7c413108d', 'SP002', '郑诚', 'HR0003', '大连美早2斤装', '箱', '2斤装', '西六省不发货', 'N', 'N', '2018-04-12 16:02:19', 98.00, '2018-04-12', '2018-04-26'),
+	('dae52a000bad4b519f5c45ea42ac6206', 'SP001', '悠乐果', 'HR0002', '红心猕猴桃6粒装 单果 350g- 450g', '箱', '单果 350-450g', '黑 吉 辽 新疆 西藏 甘肃 青海 宁夏 内蒙古 海南 偏远乡镇 港澳台及海外不发货', 'N', 'n', '2018-04-11 01:00:23', 50.00, '2018-04-04', '2018-04-30');
 /*!40000 ALTER TABLE `hr_suplygoodinfo` ENABLE KEYS */;
 
 
@@ -158,10 +208,15 @@ CREATE TABLE IF NOT EXISTS `hr_supplierinfo` (
   PRIMARY KEY (`SUPPLIERINFO_ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- 正在导出表  fhadmin.hr_supplierinfo 的数据：~1 rows (大约)
+-- 正在导出表  fhadmin.hr_supplierinfo 的数据：~6 rows (大约)
 /*!40000 ALTER TABLE `hr_supplierinfo` DISABLE KEYS */;
 INSERT INTO `hr_supplierinfo` (`SUPPLIERINFO_ID`, `SUPPLIER_ID`, `SUPPLIERNAME`, `CONTACT`, `PHONE`, `EMAIL`, `ADDRESS`, `BANK`, `BANKNO`, `WEIXIN`, `ZHIFUBAO`, `REMARK`, `CREATETIME`) VALUES
-	('94ee8c6956aa4480a05d8bacd82be231', 'SP001', '悠乐果', '薄一文', '13426032098', 'bolivin@126.com', '丰台区', '中行', '123', 'bolivin', 'bolivin@126.com', '悠乐果', '2018-04-06 23:13:43');
+	('10e902ec70b44598bf3492171458453e', 'SP002', '郑诚', '郑诚', '13642320119', '13642320119', '四川广州', ' 中国银行广州市横滘支行', '6217587000005202549', 'smile_zc00', '18129592725 叶小芹 支付宝', '月结', '2018-04-08 17:11:09'),
+	('141aeff15c3740f281ea3153b9150178', 'SP004', 'ZW', '智文', 'N', 'N', 'N', 'N', 'N', 'N', 'N', 'N', '2018-04-08 17:16:13'),
+	('7cdbbb04a62d45f09e88875646f11edf', 'EXTTB', '淘宝零采', 'N', 'N', 'N', 'N', 'N', 'N', 'N', 'N', 'N', '2018-04-08 17:13:37'),
+	('94ee8c6956aa4480a05d8bacd82be231', 'SP001', '悠乐果', '薄一文', '13426032098', 'bolivin@126.com', '丰台区', '暂无', 'No', 'bolivin', 'bolivin@126.com', '可月结，账单每天邮件到邮箱', '2018-04-06 23:13:43'),
+	('cd40b63e718d445fb599ebf150730764', 'SP003', '大叔', '大叔', 'N', 'N', 'N', 'N', 'N', 'mangguo-dashu', 'N', 'N', '2018-04-08 17:15:22'),
+	('f77effe15473437587b0a8b7e78657c2', 'EXTJD', '京东零采', '京东零采', 'N', 'N', 'N', 'N', 'N', 'N', 'N', 'N', '2018-04-08 17:13:05');
 /*!40000 ALTER TABLE `hr_supplierinfo` ENABLE KEYS */;
 
 
@@ -345,7 +400,7 @@ CREATE TABLE IF NOT EXISTS `sys_createcode` (
   PRIMARY KEY (`CREATECODE_ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- 正在导出表  fhadmin.sys_createcode 的数据：~26 rows (大约)
+-- 正在导出表  fhadmin.sys_createcode 的数据：~27 rows (大约)
 /*!40000 ALTER TABLE `sys_createcode` DISABLE KEYS */;
 INSERT INTO `sys_createcode` (`CREATECODE_ID`, `PACKAGENAME`, `OBJECTNAME`, `TABLENAME`, `FIELDLIST`, `CREATETIME`, `TITLE`, `FHTYPE`) VALUES
 	('002ea762e3e242a7a10ea5ca633701d8', 'system', 'Buttonrights', 'sys_,fh,BUTTONRIGHTS', 'NAME,fh,String,fh,名称,fh,是,fh,无,fh,255Q313596790', '2016-01-16 23:20:36', '按钮权限', 'single'),
@@ -353,6 +408,7 @@ INSERT INTO `sys_createcode` (`CREATECODE_ID`, `PACKAGENAME`, `OBJECTNAME`, `TAB
 	('0ee023606efb45b9a3baaa072e502161', 'information', 'FtestMx', 'FH_,fh,FTESTMX', 'TITLE,fh,String,fh,标题,fh,是,fh,无,fh,255,fh,0Q313596790CHANGDU,fh,Integer,fh,长度,fh,是,fh,无,fh,11,fh,0Q313596790', '2016-04-21 01:52:11', '主表测试(明细)', 'sontable'),
 	('1be959583e82473b82f6e62087bd0d38', 'information', 'Attached', 'TB_,fh,ATTACHED', 'NAME,fh,String,fh,NAME,fh,是,fh,无,fh,255,fh,0Q313596790FDESCRIBE,fh,String,fh,FDESCRIBE,fh,是,fh,无,fh,255,fh,0Q313596790PRICE,fh,Double,fh,PRICE,fh,是,fh,无,fh,11,fh,2Q313596790CTIME,fh,Date,fh,CTIME,fh,否,fh,无,fh,32,fh,0Q313596790', '2016-04-21 17:07:59', '主表测试', 'fathertable'),
 	('1d428c33fb5b4eafab3d900fa6749731', 'ehuarong', 'Suplygoodinfo', 'HR_,fh,SUPLYGOODINFO', 'SUPPLIER_ID,fh,String,fh,供应商id,fh,是,fh,无,fh,255,fh,0Q313596790SUPPLIERNAME,fh,String,fh,供应商名称,fh,是,fh,无,fh,255,fh,0Q313596790GOOD_ID,fh,String,fh,商品编号,fh,是,fh,无,fh,255,fh,0Q313596790GOODNAME,fh,String,fh,商品名称,fh,是,fh,无,fh,255,fh,0Q313596790UNIT,fh,String,fh,单位,fh,是,fh,无,fh,255,fh,0Q313596790SPEC,fh,String,fh,规格,fh,是,fh,无,fh,255,fh,0Q313596790MEMO,fh,String,fh,说明,fh,是,fh,无,fh,255,fh,0Q313596790CATEGORYID,fh,String,fh,商品类别号,fh,是,fh,无,fh,255,fh,0Q313596790REMARK,fh,String,fh,备注,fh,是,fh,无,fh,255,fh,0Q313596790CREATETIME,fh,Date,fh,创建时间,fh,否,fh,无,fh,32,fh,0Q313596790SUPLYPRICE,fh,Double,fh,供应价格,fh,是,fh,无,fh,11,fh,2Q313596790STARTTIME,fh,Date,fh,有效时间start,fh,是,fh,无,fh,32,fh,0Q313596790ENDTIME,fh,Date,fh,有效时间end,fh,是,fh,无,fh,32,fh,0Q313596790', '2018-04-08 15:42:17', 'suplygoodinfo', 'single'),
+	('1fb30f08f22d4b098dc8de6e29e17d29', 'ehuarong', 'Platformgoods', 'hr_,fh,PLATFORMGOODS', 'EXTGOOD_ID,fh,String,fh,第三方商品编号,fh,是,fh,无,fh,255,fh,0Q313596790EXTGOODNAME,fh,String,fh,第三方商品名称,fh,是,fh,无,fh,255,fh,0Q313596790UNIT,fh,String,fh,单位,fh,是,fh,无,fh,255,fh,0Q313596790SPEC,fh,String,fh,规格,fh,是,fh,无,fh,255,fh,0Q313596790MEMO,fh,String,fh,说明,fh,是,fh,无,fh,255,fh,0Q313596790CATEGORYID,fh,String,fh,商品类别号,fh,是,fh,无,fh,255,fh,0Q313596790REMARK,fh,String,fh,备注,fh,是,fh,无,fh,255,fh,0Q313596790CREATETIME,fh,Date,fh,创建时间,fh,否,fh,无,fh,32,fh,0Q313596790PLATFORMNAME,fh,String,fh,平台名称,fh,是,fh,无,fh,255,fh,0Q313596790PLATFORMID,fh,String,fh,平台id,fh,是,fh,无,fh,255,fh,0Q313596790STATUS,fh,String,fh,状态 上架-on  下架-off,fh,是,fh,无,fh,255,fh,0Q313596790GOOD_ID,fh,String,fh,华榕商品编号,fh,是,fh,无,fh,255,fh,0Q313596790GOODNAME,fh,String,fh,华榕商品名称,fh,是,fh,无,fh,255,fh,0Q313596790', '2018-04-08 20:56:58', '第三方平台商品表', 'single'),
 	('3da8e8bd757c44148d89931a54d29c88', 'system', 'UserPhoto', 'SYS_,fh,USERPHOTO', 'USERNAME,fh,String,fh,用户名,fh,否,fh,无,fh,30,fh,0Q313596790PHOTO0,fh,String,fh,原图,fh,否,fh,无,fh,100,fh,0Q313596790PHOTO1,fh,String,fh,头像1,fh,否,fh,无,fh,100,fh,0Q313596790PHOTO2,fh,String,fh,头像2,fh,否,fh,无,fh,100,fh,0Q313596790PHOTO3,fh,String,fh,头像3,fh,否,fh,无,fh,100,fh,0Q313596790', '2016-06-05 17:54:25', '用户头像', 'single'),
 	('4173a8c56a504dd6b6213d2b9cd3e91b', 'information', 'AttachedMx', 'TB_,fh,ATTACHEDMX', 'NAME,fh,String,fh,NAME,fh,是,fh,无,fh,255,fh,0Q313596790TITLE,fh,String,fh,TITLE,fh,是,fh,无,fh,255,fh,0Q313596790CTIME,fh,Date,fh,CTIME,fh,否,fh,无,fh,32,fh,0Q313596790PRICE,fh,Double,fh,PRICE,fh,是,fh,无,fh,11,fh,2Q313596790', '2016-04-21 17:09:40', '主表测试(明细)', 'sontable'),
 	('41e07fb03763434daef41cd99d0406c3', 'system', 'LogInImg', 'SYS_,fh,LOGINIMG', 'NAME,fh,String,fh,文件名,fh,是,fh,无,fh,30,fh,0Q313596790FILEPATH,fh,String,fh,路径,fh,是,fh,无,fh,100,fh,0Q313596790TYPE,fh,Integer,fh,状态,fh,是,fh,无,fh,2,fh,0Q313596790FORDER,fh,Integer,fh,排序,fh,是,fh,无,fh,3,fh,0Q313596790', '2016-06-03 17:53:22', '登录页面背景图片', 'single'),
@@ -872,35 +928,46 @@ CREATE TABLE IF NOT EXISTS `sys_fhlog` (
   PRIMARY KEY (`FHLOG_ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- 正在导出表  fhadmin.sys_fhlog 的数据：~129 rows (大约)
+-- 正在导出表  fhadmin.sys_fhlog 的数据：~168 rows (大约)
 /*!40000 ALTER TABLE `sys_fhlog` DISABLE KEYS */;
 INSERT INTO `sys_fhlog` (`FHLOG_ID`, `USERNAME`, `CZTIME`, `CONTENT`) VALUES
 	('01048717ffce40c98883b2865f655c3a', 'huarong', '2018-03-28 23:25:38', '退出'),
 	('039421f2c55e4b2ba1da92af9882fd09', 'admin', '2018-04-06 23:11:12', '登录系统'),
+	('03d028d6d4374fa48413ba2515785688', 'admin', '2018-04-10 23:49:50', '登录系统'),
+	('04444f14d79b463b85abac80ccadbc0d', 'admin', '2018-04-11 00:14:16', '登录系统'),
 	('05bd75b871434ec295852845a11d52a4', 'admin', '2018-04-04 14:00:32', '登录系统密码或用户名错误'),
+	('06636e0e7f204b67a852f03660568c85', 'admin', '2018-04-08 20:34:33', '登录系统'),
 	('080cdfd41a324e5cbd1d5db76f38e229', 'admin', '2018-03-26 23:57:04', '登录系统'),
-	('0bbde28b730e41d5a52e59d3b7146098', 'admin', '2018-04-12 15:50:04', '导入订单'),
 	('0d96d22d566c4f3e8822d33a0da7c8f4', 'admin', '2018-03-28 23:22:34', '登录系统'),
 	('1228e2c1d27541f4956859f4e92deb4a', 'san', '2018-02-06 23:14:42', '登录系统'),
+	('12584fe4c83e464f89c68a27be27b5fc', 'admin', '2018-04-11 00:01:55', '登录系统'),
 	('125d65a2dbdf436288d2bd8b0a41c0c3', 'admin', '2018-04-04 20:58:48', '修改角色菜单权限，角色ID为:1'),
 	('1412f6f35a8a422ebb5eda84f3ce66f3', 'admin', '2018-04-06 22:40:21', '导入订单'),
+	('14759b74ab1a4535aecb8bbd0adf50d6', 'admin', '2018-04-08 17:17:10', '导入订单'),
 	('16502410f4ec4bad9372abab252b91d3', 'admin', '2018-03-28 23:18:04', '新增角色:华榕测试'),
+	('172c98d923424afaa7f1e912da74526b', 'admin', '2018-04-12 15:07:54', '登录系统'),
+	('18fed2dc9f504383845a7444a6fbdb2f', 'admin', '2018-04-10 14:45:32', '登录系统'),
 	('196af49489c84cd3b6a0d219e213f3a6', 'admin', '2018-04-08 16:30:46', '登录系统'),
 	('197a55ce3f9a476982eced0e6cce35d8', 'admin', '2018-04-04 21:09:27', '登录系统'),
 	('1abafdf1909649959b766d38c1edf813', 'admin', '2018-04-06 23:09:27', '新增菜单供应商管理'),
 	('1c3972e3ace942d68213471ac91e2df9', 'admin', '2018-03-28 23:19:33', '删除按钮权限{BUTTON_ID=4c7f34b9eed54683957f356afcda24df, ROLE_ID=75e75bc1b50c4ca1a6d64c1c4f249fd1, guid=1522250373357}'),
 	('1e9d3658caa94b358c9c5c726a357ad6', 'admin', '2018-03-26 23:54:53', '修改菜单华榕订单管理'),
+	('1ffc8f13da0b44f89aa168de79010fee', 'admin', '2018-04-12 15:01:02', '登录系统'),
 	('21a9d60ae34b49a8b55b45f32443aa9c', 'admin', '2018-03-26 23:55:24', '修改角色菜单权限，角色ID为:1'),
 	('2643405b44cc43d8b89c196f27c3c02b', 'admin', '2018-04-06 02:46:00', '导入订单'),
+	('27ca2c3788e14ebeb73203b144489f1e', 'admin', '2018-04-11 16:53:20', '登录系统'),
 	('2aa609d1d7d44302b40553cf3b0d2025', 'admin', '2018-04-08 16:54:35', '退出'),
 	('2abbfaf575fe4a14837e7bc7f33ae743', 'admin', '2018-03-28 23:19:27', '新增按钮权限pd{BUTTON_ID=3542adfbda73410c976e185ffe50ad06, RB_ID=80cc5ceca2fe4863ba9e00ff999ccd82, ROLE_ID=75e75bc1b50c4ca1a6d64c1c4f249fd1, guid=1522250367690}'),
 	('2e66280ae1a441839c75a8ae87a1ec0d', 'admin', '2018-04-08 16:50:30', '新增菜单华榕商品管理'),
+	('312d11d1740548068bae162b2ea874e3', 'admin', '2018-04-11 16:53:20', '登录系统'),
 	('31ee3942a46d43eaa41419c15b1301cc', 'admin', '2018-04-04 14:00:50', '登录系统'),
+	('324cb40022d442a68db4ba4d451316fe', 'admin', '2018-04-12 15:09:44', '删除菜单ID124'),
 	('32ca3fdf4db744af92222c495fb79ab4', 'admin', '2018-03-28 23:23:22', '新增按钮权限pd{BUTTON_ID=fc5e8767b4564f34a0d2ce2375fcc92e, RB_ID=e8f525a2d0504896922435498986327e, ROLE_ID=75e75bc1b50c4ca1a6d64c1c4f249fd1, guid=1522250602334}'),
 	('33397e12cdba463fa7a29e6678698e21', 'admin', '2018-04-04 20:59:01', '登录系统'),
 	('348e6a2025d14cf3a5dbaff4bfddf835', 'admin', '2018-03-29 00:12:07', '修改菜单订单信息管理'),
 	('352a39b747bb40028570650556799b85', 'admin', '2018-04-08 14:35:13', '导入订单'),
 	('36235f26eb5848e7ae80c3c57fa4840b', 'admin', '2018-04-06 02:47:51', '导入订单'),
+	('370e40e4a0834461b44adc33c918e48b', 'huarong', '2018-04-10 16:26:48', '登录系统密码或用户名错误'),
 	('37715e84bf4f4222acc7f6dbb4b0451f', 'admin', '2018-03-24 01:42:38', '登录系统'),
 	('380ba4cdcd0d4d6c85888441dbbbda13', 'admin', '2018-04-08 15:50:23', '新增菜单华榕在线管理'),
 	('3951f3b098534ed8b767d7093f0900e6', 'admin', '2018-03-28 23:21:58', '退出'),
@@ -912,39 +979,51 @@ INSERT INTO `sys_fhlog` (`FHLOG_ID`, `USERNAME`, `CZTIME`, `CONTENT`) VALUES
 	('442faa46a790423d9674c80de1b4c001', 'admin', '2018-04-08 14:37:15', '导入订单'),
 	('4467fcd5b14e4e2991cd0758e11050f9', 'admin', '2018-03-26 23:22:43', '登录系统'),
 	('449ec0b78ec941b5a8fd18b82c6b1de6', 'admin', '2018-03-28 23:23:23', '删除按钮权限{BUTTON_ID=fc5e8767b4564f34a0d2ce2375fcc92e, ROLE_ID=75e75bc1b50c4ca1a6d64c1c4f249fd1, guid=1522250603256}'),
+	('45161c2b067e4dc58efb352cd7943e70', 'admin', '2018-04-10 12:02:38', '新增菜单采购管理'),
 	('45d93e702c63472ab3ced20fdbeee7ee', 'admin', '2018-04-04 14:00:38', '登录系统密码或用户名错误'),
 	('45f17a4ed4114e6490065826d2fd08df', 'admin', '2018-03-29 00:18:52', '新增菜单商品名称'),
 	('460862f7ded94731a69113443c04f86e', 'admin', '2018-04-08 15:50:47', '修改菜单华榕在线管理'),
 	('46639c50dcf04436a4694ed16956521a', 'admin', '2018-04-08 16:53:42', '新增菜单  订单上传'),
-	('4b4e044ca2ea49be94c358bc18479a86', 'admin', '2018-04-11 15:29:45', '退出'),
 	('4bb51dd32f164f259ea607237e330512', 'admin', '2018-02-06 23:09:54', '修改系统用户：admin'),
-	('513578d866614f47bbd1e5bc9f732cfe', 'admin', '2018-04-12 15:49:49', '登录系统'),
-	('532d95983760482e9b7fa1740fb78039', 'admin', '2018-04-08 17:17:22', '登录系统'),
+	('51098f0680d94fe4bd520b0af548a4de', 'admin', '2018-04-11 16:27:09', '登录系统'),
+	('538639d7f23f4e9db07a81243778a84e', 'admin', '2018-04-11 00:50:59', '登录系统'),
+	('542e62d942f94512bdb5aea86dcd73b8', 'admin', '2018-04-10 11:54:46', '登录系统'),
+	('5483560702124b3ab318a7c788c413ae', 'admin', '2018-04-12 14:46:49', '登录系统'),
+	('56eb7c0ae77e4aae87ff08e0b263c26a', 'admin', '2018-04-10 16:27:06', '修改系统用户：huarong'),
+	('56ee5aab2fe64bba8dc5caa37438b0d9', 'admin', '2018-04-12 19:08:37', '登录系统'),
+	('5b7eae1721f047e285a8a4151a3c4fef', 'admin', '2018-04-08 20:37:03', '导入订单'),
 	('5e9c6a4697c5433a84a8417e99ad4374', 'admin', '2018-03-28 23:19:36', '新增按钮权限pd{BUTTON_ID=cc51b694d5344d28a9aa13c84b7166cd, RB_ID=40864ef63e5f4cb78c1560772b04a6b5, ROLE_ID=75e75bc1b50c4ca1a6d64c1c4f249fd1, guid=1522250376861}'),
 	('5ffda41a36fe488d98adaa1f47eb1688', 'admin', '2018-04-06 02:47:05', '导入订单'),
 	('606104f4716447feb99c12dc30c14bd3', 'admin', '2018-02-08 22:48:49', '登录系统'),
-	('609d93a7f25c4f8d8ef36749e40b7e2c', 'admin', '2018-04-11 16:48:24', '登录系统'),
-	('61923d1e3dea4f0892743d14a4eeb31a', 'admin', '2018-04-12 15:22:15', '登录系统'),
 	('63988e4886a4474bbcf380583071bbe1', 'admin', '2018-03-28 23:25:43', '登录系统'),
 	('64c67e90ff174d4a882879de7d204d9a', 'admin', '2018-03-28 22:52:50', '登录系统'),
+	('6590ef1aaeb8423bb1973dee32cb0ca5', 'admin', '2018-04-12 16:31:12', '退出'),
 	('6771f0cf53b3440a8b5c5f8e881577ae', 'admin', '2018-04-04 20:43:08', '修改角色菜单权限，角色ID为:75e75bc1b50c4ca1a6d64c1c4f249fd1'),
+	('6a4235e69ebc4b09bc6af52c5f896ade', 'admin', '2018-04-10 12:02:56', '登录系统'),
+	('6b04200e55f44daab9b53edb3155ed6d', 'admin', '2018-04-10 12:12:45', '登录系统'),
 	('6c49316e574a445181416536234356f0', 'admin', '2018-04-08 16:53:50', '修改角色菜单权限，角色ID为:1'),
 	('6dec2a5a99c1472ab8d28e2b66b22516', 'admin', '2018-02-06 23:07:58', '登录系统密码或用户名错误'),
 	('6f0a39ebbf55499ea4a9055333e64f54', 'admin', '2018-04-04 21:15:01', '登录系统'),
+	('6f0f71a24e8742a2b2e63c337ce730e3', 'admin', '2018-04-08 21:04:06', '登录系统'),
+	('6f30fc1d5e404715aacc32d07d859928', 'admin', '2018-04-10 12:02:47', '修改角色菜单权限，角色ID为:1'),
 	('6f63056a67624b438f9144f3555e203a', 'admin', '2018-02-08 22:48:38', '登录系统密码或用户名错误'),
+	('706e10f820e64f56aff19d46f66ca593', 'admin', '2018-04-08 21:02:16', '新增菜单第三方平台商品表管理'),
+	('70987960a9924402997a613b96d8472c', 'admin', '2018-04-10 19:17:42', '登录系统'),
 	('7297bb22ad5943308aa34ca4e61a279f', 'admin', '2018-04-08 16:53:05', '修改角色菜单权限，角色ID为:1'),
+	('73489ff909d64e4faa88adb9a7685bc9', 'admin', '2018-04-10 12:02:49', '退出'),
 	('73791df6e678450e87a3de52c7797f8f', 'admin', '2018-04-04 20:42:41', '新增菜单订单上传'),
 	('746cb0d784dc466694cb05491fdd6efe', 'admin', '2018-04-08 16:54:31', '修改角色菜单权限，角色ID为:1'),
 	('756d4197dc5d4a4d9201f9a64ebf9a73', 'admin', '2018-03-28 23:21:51', '新增系统用户：huarong'),
+	('778f638f914141dba5afeaa43f8f7375', 'admin', '2018-04-09 22:42:28', '登录系统'),
 	('77ed2f4185624fdf8bd0f3f189d18bbf', 'admin', '2018-03-28 23:24:57', '退出'),
-	('7809b5ab32ef4aa58c4060f4fc2ab4b4', 'admin', '2018-04-11 15:28:35', '登录系统'),
 	('7a6526f4bace46e4b9315a965daf39f9', 'admin', '2018-04-06 22:01:53', '登录系统'),
 	('7a74f1c867ae43fdb8d8f1167a3f513e', 'admin', '2018-04-08 14:36:37', '导入订单'),
 	('7c37b59337d448a7b964d81f92a48f5a', 'admin', '2018-04-03 07:00:38', '登录系统'),
 	('7ca95275fa1948639485dca2c287caea', 'admin', '2018-03-29 00:16:04', '登录系统'),
 	('7ca9e6795d3443318fac1be7e483ffd0', 'admin', '2018-04-06 22:41:27', '导入订单'),
-	('7d727963fb2b4e18a353f4f14959c4a2', 'admin', '2018-04-12 16:01:56', '登录系统'),
+	('7d00f4f9a9364cdf9505462b43497b79', 'admin', '2018-04-12 15:09:54', '删除菜单ID122'),
 	('7d8be205803549b595f154397ffb5f78', 'admin', '2018-04-08 16:08:48', '登录系统'),
+	('7eb57ddc4b4e426493c1129b3e33745a', 'admin', '2018-04-08 20:36:28', '导入订单'),
 	('7fa3190650af4ecabbee98b85d6706ed', 'admin', '2018-03-28 23:18:19', '修改角色菜单权限，角色ID为:75e75bc1b50c4ca1a6d64c1c4f249fd1'),
 	('802eadb65528466587ad57dcdc38da18', 'admin', '2018-04-04 20:18:59', '登录系统'),
 	('81d5574f58794e1bbf82633572ec84b3', 'admin', '2018-04-08 16:31:19', '导入订单'),
@@ -952,29 +1031,39 @@ INSERT INTO `sys_fhlog` (`FHLOG_ID`, `USERNAME`, `CZTIME`, `CONTENT`) VALUES
 	('83bba2b38cea4da3859198dee682bc60', 'admin', '2018-03-28 23:26:21', '修改cha_qx权限，角色ID为:75e75bc1b50c4ca1a6d64c1c4f249fd1'),
 	('8546d4825c3a40ec883ec09e9a12ee2f', 'admin', '2018-04-08 15:50:43', '修改菜单华榕在线管理'),
 	('8698cd0821044b45bd9c6e7942e66ef9', 'admin', '2018-04-06 22:44:19', '登录系统'),
+	('88d70554acb34a63a3e4bb5597525f1c', 'admin', '2018-04-11 00:27:23', '登录系统'),
 	('8bd54e10d5214978927a8e953f8d3a49', 'admin', '2018-04-08 15:52:14', '修改角色菜单权限，角色ID为:1'),
 	('8cfa387e70184a1895fa5b02723c8be6', 'admin', '2018-04-04 21:57:01', '登录系统'),
+	('8ed35b20bb7548c699a961f9eb5838df', 'admin', '2018-04-11 00:03:04', '登录系统'),
 	('91500edef75441398356bbe1de53bed0', 'admin', '2018-02-06 23:14:31', '修改系统用户：san'),
 	('971f114cd0b7474897eecd9063ba8a4b', 'admin', '2018-04-06 11:11:21', '登录系统'),
+	('97584d56d27c49d9b4bdde7d04b28b24', 'admin', '2018-04-12 15:09:48', '删除菜单ID123'),
+	('97f1b5ec34ce4a498f9d9bda89553eff', 'admin', '2018-04-10 12:06:46', '导入订单'),
 	('980167a890bc47a89769a708471ec430', 'admin', '2018-04-08 16:54:24', '新增菜单供应商管理'),
+	('994a74671a404c66a9298e67c1a40a24', 'admin', '2018-04-08 21:02:26', '修改角色菜单权限，角色ID为:1'),
 	('9a56f164fa344a49b41fc256e17f1478', 'admin', '2018-04-08 15:53:17', '修改角色菜单权限，角色ID为:1'),
 	('9c0788c85dea4ec8981b3284d2f324b9', 'admin', '2018-04-08 16:50:36', '修改菜单供应商商品价格管理'),
+	('9cfd24520fb44bc0b30a88ffea6ea9bd', 'admin', '2018-04-12 16:42:14', '登录系统'),
 	('9d1345c8ad4f4f18abd76d0eec8a8d09', 'admin', '2018-04-06 11:08:42', '登录系统'),
 	('9ea719221a3b4913812f3a4c197e378d', 'admin', '2018-03-28 23:19:37', '新增按钮权限pd{BUTTON_ID=da7fd386de0b49ce809984f5919022b8, RB_ID=5b4781c41d5840cb90907acc46893c82, ROLE_ID=75e75bc1b50c4ca1a6d64c1c4f249fd1, guid=1522250377578}'),
 	('9ffb2a34d80e4c2785994400d0c0263d', 'admin', '2018-03-29 00:21:30', '修改角色菜单权限，角色ID为:1'),
+	('a1389a40ffdd445fa685eeabaab664b0', 'admin', '2018-04-11 21:58:37', '登录系统'),
 	('a79b353d736f4537ad2126763e22e235', 'huarong', '2018-03-28 23:25:08', '登录系统'),
 	('a7e3e499e78045b0a3b737157d0f268e', 'admin', '2018-04-08 15:50:37', '修改菜单华榕在线管理'),
 	('a8bf5df9063c4c678cd459c86f7be614', 'huarong', '2018-03-28 23:22:09', '登录系统'),
+	('a8c73cf05bd742f79fff4eaab960b6e5', 'admin', '2018-04-11 16:27:05', '登录系统'),
+	('aa1a2f0bb53a44f3b38995a062b50ad3', 'admin', '2018-04-11 00:12:48', '登录系统'),
 	('ab2eee3438bc4787922819d2a61a12f8', 'huarong', '2018-03-28 23:22:26', '退出'),
 	('b1215a7383e74e698579ebd08d6606e0', 'admin', '2018-03-28 23:19:29', '新增按钮权限pd{BUTTON_ID=46992ea280ba4b72b29dedb0d4bc0106, RB_ID=eec36157e6c744d9a25c9fa29995264f, ROLE_ID=75e75bc1b50c4ca1a6d64c1c4f249fd1, guid=1522250369156}'),
 	('b28fc40257f94ed5b41c2bb3642f7301', 'admin', '2018-04-08 15:11:44', '登录系统'),
 	('b3143b1398aa47b3938477cf6c538b0c', 'admin', '2018-04-08 14:34:46', '登录系统'),
-	('b73eec47abcb413587415adef44e17a8', 'admin', '2018-04-11 15:29:51', '登录系统'),
+	('b4367c9bca8a48a8aba67f639c65f59f', 'admin', '2018-04-12 15:09:51', '删除菜单ID50'),
+	('b7a4bb5a11ee4966a037163320732513', 'admin', '2018-04-12 14:55:29', '登录系统'),
 	('b9d2c3094b15401caed6b3158380bc04', 'admin', '2018-03-28 23:19:31', '新增按钮权限pd{BUTTON_ID=4c7f34b9eed54683957f356afcda24df, RB_ID=a6443507a14049f3945690110a16de1b, ROLE_ID=75e75bc1b50c4ca1a6d64c1c4f249fd1, guid=1522250371949}'),
 	('bd00d44a5d5e4a589fc44eca61ab7f9b', 'admin', '2018-03-31 22:44:59', '登录系统'),
+	('bddc7446ac9b48bf93b0b903a573693e', 'admin', '2018-04-11 01:18:14', '登录系统'),
 	('bddcfdcca1134e8d936f8894fff75205', 'admin', '2018-03-29 00:20:06', '修改菜单商品管理'),
 	('be70f611b52d4a5fb7f7ed541567382b', 'admin', '2018-02-06 23:09:13', '登录系统'),
-	('c0c56bfa395d40528a7a9858cd3dae76', 'admin', '2018-04-11 15:29:37', '修改角色菜单权限，角色ID为:1'),
 	('c1d40d2911c9462f859fdd203dc3b13e', 'admin', '2018-03-24 01:41:48', '登录系统密码或用户名错误'),
 	('c29b85cef1574e33943dfcc8ffecce07', 'admin', '2018-03-26 23:56:52', '退出'),
 	('c2ae237eb01a4666b04da1bf4d5746c9', 'admin', '2018-04-07 11:52:04', '登录系统'),
@@ -982,6 +1071,7 @@ INSERT INTO `sys_fhlog` (`FHLOG_ID`, `USERNAME`, `CZTIME`, `CONTENT`) VALUES
 	('c91939370d024b7e89b65d06aba67dad', 'admin', '2018-03-26 23:59:09', '登录系统'),
 	('ca27151b557740b6b1a2fc26169d0317', 'admin', '2018-03-28 23:19:35', '新增按钮权限pd{BUTTON_ID=4efa162fce8340f0bd2dcd3b11d327ec, RB_ID=7fcbbb2c319647ffb8642bfcfb64b430, ROLE_ID=75e75bc1b50c4ca1a6d64c1c4f249fd1, guid=1522250375661}'),
 	('cefc1bc09c7141d8a77d8cbd44efe515', 'admin', '2018-04-04 14:00:45', '登录系统密码或用户名错误'),
+	('d059933964dc43af823664b520ac45eb', 'huarong', '2018-04-10 16:27:11', '登录系统'),
 	('d070f71acd874c67bf62dc66e1bf42a3', 'admin', '2018-04-06 22:31:21', '登录系统'),
 	('d0b196d82e9a4c9e8c7089e36ad658b8', 'admin', '2018-04-04 21:08:48', '修改菜单订单上传'),
 	('d0d7c4a847534d08a94cdfb9a4b58a40', 'admin', '2018-02-08 22:48:26', '登录系统密码或用户名错误'),
@@ -989,22 +1079,26 @@ INSERT INTO `sys_fhlog` (`FHLOG_ID`, `USERNAME`, `CZTIME`, `CONTENT`) VALUES
 	('d4689599afa04d68b0d64cd6e3c6671c', 'admin', '2018-02-08 22:56:21', '删除系统用户：{USER_ID=e128d0b8807b4a128d6390c44a6accef, tm=1518101781568}'),
 	('d5a58fbd1c2f49afa1488ffcf8f03938', 'admin', '2018-03-28 23:23:17', '新增按钮权限pd{BUTTON_ID=4c7f34b9eed54683957f356afcda24df, RB_ID=ac6547f3130c41e5882bf82dabbb18d5, ROLE_ID=75e75bc1b50c4ca1a6d64c1c4f249fd1, guid=1522250597404}'),
 	('d6eb9d152e674850bdece6996ab6abfb', 'admin', '2018-04-04 20:46:26', '登录系统'),
-	('dc687d12e7ad4dee952d369c02bf7703', 'admin', '2018-04-11 15:30:24', '导入订单'),
 	('de464f61489d4d4e86d848f31a20f11e', 'admin', '2018-04-04 20:58:51', '退出'),
+	('e19fe3e9bad847b192c970a4afe13678', 'admin', '2018-04-11 00:22:59', '登录系统'),
 	('e27dfed9f9c04d3cab9e86b3d168627b', 'admin', '2018-04-08 16:09:48', '导入订单'),
 	('e2c47380f111406592148ccde3802679', 'admin', '2018-04-08 15:54:48', '登录系统'),
 	('e3de8db654034edea0327ea9641c7029', 'admin', '2018-04-04 21:09:17', '退出'),
-	('ec342166476f4b12a22037efee806280', 'admin', '2018-04-12 15:37:22', '登录系统'),
 	('ed763c30fc7a43ce85947e49e4134fb1', 'admin', '2018-04-08 15:53:09', '新增菜单供应商商品价格管理'),
 	('ee4eb6f1f34e4f93b14dc7644c18cb60', 'admin', '2018-02-08 22:55:08', '删除系统用户：{USER_ID=eded77bdf35347249b2bacfa181c869d, tm=1518101708704}'),
-	('f0fd081e792540c0bdd96be9874950f6', 'admin', '2018-04-11 15:29:27', '新增菜单采购管理'),
 	('f1144b466c7044b887de6204a6f615ba', 'admin', '2018-04-03 23:57:41', '登录系统'),
 	('f25f77421e9545d9bd7787344d97d8f2', 'admin', '2018-04-06 22:44:39', '导入订单'),
 	('f551a80b963748aa8bea41d41da31361', 'admin', '2018-02-06 23:08:27', '登录系统'),
 	('f60964f35af64224b0847c7f8382971e', 'admin', '2018-03-29 00:21:38', '退出'),
+	('f673601c56eb44f1b01f10d3eef87fb1', 'admin', '2018-04-12 19:12:11', '登录系统'),
 	('f8abab3e7e7d49438ecca2e7bc73372e', 'admin', '2018-04-06 23:09:40', '修改角色菜单权限，角色ID为:1'),
 	('f8b90e3dfc8d4869837a554886128fdd', 'admin', '2018-03-26 23:42:48', '登录系统'),
+	('fa711d146f5643b49a8cadfd36b956ad', 'admin', '2018-04-12 16:31:19', '登录系统'),
+	('fa743a87220947319bed5d8c717d38c9', 'admin', '2018-04-08 17:17:23', '导入订单'),
 	('fbd81e44e9674f9ab296a35d453167bd', 'admin', '2018-04-05 23:23:37', '登录系统'),
+	('fc2a730bf4804fb2aba6f1867b0a1639', 'admin', '2018-04-10 14:52:18', '登录系统'),
+	('fda92ee914ab485e866fa1b4c69a3f20', 'admin', '2018-04-11 00:44:48', '登录系统'),
+	('fdc9474efbda4092b044c1a242d5b36b', 'admin', '2018-04-11 00:03:09', '退出'),
 	('fe28ab39219848c18ad6b14e94e307f6', 'admin', '2018-04-06 02:45:21', '登录系统'),
 	('fef8fd9a6ab143c98a30bf2d223ad3c9', 'admin', '2018-04-08 16:50:51', '修改角色菜单权限，角色ID为:1');
 /*!40000 ALTER TABLE `sys_fhlog` ENABLE KEYS */;
@@ -1077,7 +1171,7 @@ CREATE TABLE IF NOT EXISTS `sys_menu` (
   PRIMARY KEY (`MENU_ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- 正在导出表  fhadmin.sys_menu 的数据：~122 rows (大约)
+-- 正在导出表  fhadmin.sys_menu 的数据：~119 rows (大约)
 /*!40000 ALTER TABLE `sys_menu` DISABLE KEYS */;
 INSERT INTO `sys_menu` (`MENU_ID`, `MENU_NAME`, `MENU_URL`, `PARENT_ID`, `MENU_ORDER`, `MENU_ICON`, `MENU_TYPE`, `MENU_STATE`) VALUES
 	(1, '系统管理', '#', '0', '1', 'menu-icon fa fa-home blue', '2', 1),
@@ -1121,7 +1215,6 @@ INSERT INTO `sys_menu` (`MENU_ID`, `MENU_NAME`, `MENU_URL`, `PARENT_ID`, `MENU_O
 	(46, '七级菜单2', '#', '33', '2', 'menu-icon fa fa-leaf black', '1', 1),
 	(47, '八级菜单', 'login_default.do', '45', '1', 'menu-icon fa fa-leaf black', '1', 1),
 	(48, '图表报表', ' tool/fusionchartsdemo.do', '9', '5', 'menu-icon fa fa-bar-chart-o black', '1', 1),
-	(50, '订单信息管理', 'orderinfo/list.do', '6', '7', 'menu-icon fa fa-envelope green', '1', 1),
 	(51, '图片列表', 'pictures/list.do', '7', '1', 'menu-icon fa fa-folder-open-o green', '1', 1),
 	(52, '图片爬虫', 'pictures/goImageCrawler.do', '7', '2', 'menu-icon fa fa-cloud-download green', '1', 1),
 	(53, '表单构建器', 'tool/goFormbuilder.do', '9', '1', 'menu-icon fa fa-leaf black', '1', 1),
@@ -1192,16 +1285,14 @@ INSERT INTO `sys_menu` (`MENU_ID`, `MENU_NAME`, `MENU_URL`, `PARENT_ID`, `MENU_O
 	(119, '实体类', 'codeeditor/goEdit.do?type=createTreeCode&ftl=entityTemplate', '71', '4', 'menu-icon fa fa-folder green', '1', 1),
 	(120, 'jsp_tree', 'codeeditor/goEdit2.do?type=createTreeCode&ftl=jsp_tree_Template', '71', '13', 'menu-icon fa fa-folder purple', '1', 1),
 	(121, '视频DEMO', 'tool/video.do', '9', '9', 'menu-icon fa fa-film blue', '1', 1),
-	(122, '商品管理', 'goods/list.do', '6', '6', 'menu-icon fa fa-leaf black', '1', 1),
-	(123, '订单上传', 'uploadtrigger/goupload.do', '6', '9', 'menu-icon fa fa-cloud-upload black', '1', 1),
-	(124, '供应商管理', 'supplierinfo/list.do', '6', '9', 'menu-icon fa fa-leaf black', '1', 1),
 	(125, '华榕在线管理', '#', '0', '1', 'menu-icon fa fa-cloud red', '2', 1),
 	(126, '供应商商品价格管理', 'suplygoodinfo/list.do', '125', '2', 'menu-icon fa fa-leaf black', '1', 1),
 	(127, '华榕商品管理', 'goods/list.do', '125', '1', 'menu-icon fa fa-leaf black', '1', 1),
 	(128, '订单信息管理', 'orderinfo/list.do', '125', '3', 'menu-icon fa fa-leaf black', '1', 1),
 	(129, '  订单上传', 'uploadtrigger/goupload.do', '125', '4', 'menu-icon fa fa-leaf black', '1', 1),
 	(130, '供应商管理', 'supplierinfo/list.do', '125', '5', 'menu-icon fa fa-leaf black', '1', 1),
-	(131, '采购管理', 'purchase/list.do', '125', '7', 'menu-icon fa fa-leaf black', '1', 1);
+	(131, '第三方平台商品表管理', 'platformgoods/list.do', '125', '6', 'menu-icon fa fa-leaf black', '1', 1),
+	(132, '采购管理', 'purchase/list.do', '125', '10', 'menu-icon fa fa-leaf black', '1', 1);
 /*!40000 ALTER TABLE `sys_menu` ENABLE KEYS */;
 
 
@@ -1221,7 +1312,7 @@ CREATE TABLE IF NOT EXISTS `sys_role` (
 -- 正在导出表  fhadmin.sys_role 的数据：~15 rows (大约)
 /*!40000 ALTER TABLE `sys_role` DISABLE KEYS */;
 INSERT INTO `sys_role` (`ROLE_ID`, `ROLE_NAME`, `RIGHTS`, `PARENT_ID`, `ADD_QX`, `DEL_QX`, `EDIT_QX`, `CHA_QX`) VALUES
-	('1', '系统管理组', '5444517870734976729787765487823707168734', '0', '1', '1', '1', '1'),
+	('1', '系统管理组', '10889035741469992145201759206731998552030', '0', '1', '1', '1', '1'),
 	('115b386ff04f4352b060dffcd2b5d1da', '中级会员', '2658455991531145831358883798259359488', '2', '0', '0', '0', '0'),
 	('1b67fc82ce89457a8347ae53e43a347e', '初级会员', '2658455991531145831358883798259359488', '2', '0', '0', '0', '0'),
 	('2', '会员组', '2658455991531145831358883798259359488', '0', '0', '0', '0', '1'),
@@ -1292,8 +1383,8 @@ CREATE TABLE IF NOT EXISTS `sys_user` (
 -- 正在导出表  fhadmin.sys_user 的数据：~8 rows (大约)
 /*!40000 ALTER TABLE `sys_user` DISABLE KEYS */;
 INSERT INTO `sys_user` (`USER_ID`, `USERNAME`, `PASSWORD`, `NAME`, `RIGHTS`, `ROLE_ID`, `LAST_LOGIN`, `IP`, `STATUS`, `BZ`, `SKIN`, `EMAIL`, `NUMBER`, `PHONE`, `ROLE_IDS`) VALUES
-	('1', 'admin', 'de41b7fb99201d8334c23c014db35ecd92df81bc', 'LD', '1133671055321055258374707980945218933803269864762743594642571294', '1', '2018-04-12 16:01:56', '0:0:0:0:0:0:0:1', '0', 'admin', 'default', 'a@main.com', '001', '18788888888', NULL),
-	('16f59e60d97643c6a41d4b6027a0404a', 'huarong', 'c9e536f07b59ed10f769fd4a3fd1da661661838c', '华榕', '', '75e75bc1b50c4ca1a6d64c1c4f249fd1', '2018-03-28 23:25:08', '0:0:0:0:0:0:0:1', '0', '', 'default', 'a@qq.com', 'huarong', '13911111111', '75e75bc1b50c4ca1a6d64c1c4f249fd1,fh,'),
+	('1', 'admin', 'de41b7fb99201d8334c23c014db35ecd92df81bc', 'LD', '1133671055321055258374707980945218933803269864762743594642571294', '1', '2018-04-12 19:12:11', '0:0:0:0:0:0:0:1', '0', 'admin', 'default', 'a@main.com', '001', '18788888888', NULL),
+	('16f59e60d97643c6a41d4b6027a0404a', 'huarong', 'c9e536f07b59ed10f769fd4a3fd1da661661838c', '华榕', '', '75e75bc1b50c4ca1a6d64c1c4f249fd1', '2018-04-10 16:27:11', '0:0:0:0:0:0:0:1', '0', '', 'default', 'a@qq.com', 'admin', '13911111111', '75e75bc1b50c4ca1a6d64c1c4f249fd1,fh,'),
 	('280417faf62348ad82de85fa82206c85', 'w3', 'd77c1e457d6af24fa0bf31f0c08c331aaa15fd44', 'kkl', '', '3264c8e83d0248bb9e3ea6195b4c0216', '2017-11-25 04:24:32', '127.0.0.1', '0', 'q1', 'default', '25222222@qq.com', '33656', '13796586965', '68f8e4a39efe47c7bb869e9d15ab925d,fh,'),
 	('59c48e228f7243ae9246671708a36174', 'ft', '01e8ff9758807284ae0d520905a4ba35f4efe688', '1', '', '3264c8e83d0248bb9e3ea6195b4c0216', '2017-11-25 04:25:34', '127.0.0.1', '0', 'ddd', 'default', 'ssdsd@qq.com', '12', '18765810286', ''),
 	('69177258a06e4927b4639ab1684c3320', 'san', 'a9812f34b2ae8f9dc912cee860e5e5025c117696', '三', '', '3264c8e83d0248bb9e3ea6195b4c0216', '2018-02-06 23:14:42', '0:0:0:0:0:0:0:1', '0', '111', 'default', '978336446@qq.com', '333', '13562202556', '68f8e4a39efe47c7bb869e9d15ab925d,fh,de9de2f006e145a29d52dfadda295353,fh,'),
