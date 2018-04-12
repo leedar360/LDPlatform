@@ -55,7 +55,7 @@
 								<c:if test="${QX.cha == 1 }">
 								<td style="vertical-align:top;padding-left:2px"><a class="btn btn-light btn-xs" onclick="tosearch();"  title="检索"><i id="nav-search-icon" class="ace-icon fa fa-search bigger-110 nav-search-icon blue"></i></a></td>
 								</c:if>
-								<c:if test="${QX.toExcel == 1 }"><td style="vertical-align:top;padding-left:2px;"><a class="btn btn-light btn-xs" onclick="toExcel();" title="导出到EXCEL"><i id="nav-search-icon" class="ace-icon fa fa-download bigger-110 nav-search-icon blue"></i></a></td></c:if>
+
 							</tr>
 						</table>
 						<!-- 检索  -->
@@ -68,7 +68,7 @@
 									</th>
 									<th class="center" style="width:50px;">序号</th>
 									<th class="center">供应商id</th>
-									<th class="center">供应商名称</th>
+									<th class="center">供应商</th>
 									<th class="center">商品编号</th>
 									<th class="center">商品名称</th>
 									<th class="center">单位</th>
@@ -123,12 +123,19 @@
 							</tbody>
 						</table>
 						<div class="page-header position-relative">
+							<table style="width:100%; align-content: center">
+								<tr>
+									<td style="vertical-align:top; align-content: center">
+										<c:if test="${QX.del == 1 }">
+											<a class="btn btn-mini btn-success" onclick="makeAll('确定对选中的商品供应商采购吗?');" title="采购" >确定采购</a>
+										</c:if>
+									</td>
+								</tr>
+							</table>
 						<table style="width:100%;">
 							<tr>
 								<td style="vertical-align:top;">
-									<c:if test="${QX.del == 1 }">
-									<a class="btn btn-mini btn-danger" onclick="makeAll('确定对选中的商品供应商采购吗?');" title="采购" ><i class='ace-icon fa fa-trash-o bigger-120'></i></a>
-									</c:if>
+
 								</td>
 								<td style="vertical-align:top;"><div class="pagination" style="float: right;padding-top: 0px;margin-top: 0px;">${page.pageStr}</div></td>
 							</tr>

@@ -88,9 +88,9 @@
 									<c:if test="${QX.toExcel == 1 }">
 										<td style="vertical-align:top;padding-left:2px;">
 											<input type="hidden" name="selectIds">
-											<a class="btn btn-light btn-xs" onclick="toPurchase()" title="采购">
-												去采购<i id="nav-search-icon" class="ace-icon fa fa-download bigger-110 nav-search-icon blue"></i>
-											</a>
+											<a class="btn btn-mini btn-success" onclick="toPurchase()" title="采购">
+												按商品采购
+											</a> Note: 按照当天商品搜索结果可以对所搜索的商品进行 统一采购
 										</td>
 									</c:if>
 								</tr>
@@ -171,7 +171,7 @@
 														<div class="hidden-sm hidden-xs btn-group">
 															<c:if test="${QX.edit == 1 }">
 																<a class="btn btn-xs btn-success" title="采购" onclick="toOrderItemPurchase('${var.ORDERINFO_ID}');">
-																	<i class="ace-icon fa fa-pencil-square-o bigger-120" title="采购"></i>
+																	采购该订单
 																</a>
 															</c:if>
 														</div>
