@@ -222,7 +222,7 @@ import java.util.Map;
 			pd.put("PURCHASEPRICE", purchasePrice);
 			double totalPrice = Double.valueOf(purchasePrice) * Double.valueOf(order.getString("GOODNUM"));
 			pd.put("PURCHASETOTALPRICE", String.valueOf(totalPrice));
-			pd.put("SUPPLIER_ID", supply.getString("SUPPLIERINFO_ID"));
+			pd.put("SUPPLIER_ID", supply.getString("SUPPLIER_ID"));
 			pd.put("SUPPLIER_EMAIL", supply.getString("EMAIL"));
 			pd.put("STATUS", TO_DELIVERY);
 
