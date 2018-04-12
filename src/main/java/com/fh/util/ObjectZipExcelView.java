@@ -68,6 +68,7 @@ public class ObjectZipExcelView extends AbstractView {
        // ServletOutputStream out = response.getOutputStream();
         //workbook.write(out);
         zipOutputStream.flush();
+        zipOutputStream.close();
     }
 
     protected HSSFWorkbook getTemplateSource(String url, HttpServletRequest request) throws Exception {
