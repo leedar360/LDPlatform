@@ -263,8 +263,10 @@ public class OrderinfoController extends BaseController {
 		dataMap.put("titles", titles);
 		List<PageData> varOList = orderinfoService.listToPurchase(pd);
 		List<PageData> varList = new ArrayList<PageData>();
+		Map<String, Object[]> supplyProductMap = new HashMap<>();
 		for(int i=0;i<varOList.size();i++){
 			PageData vpd = new PageData();
+			String supplyId = varOList.get(i).getString("SUPPLIER_ID");
 			vpd.put("var1", varOList.get(i).getString("ORDERINFO_ID"));	    //1
 			vpd.put("var2", DateUtil.getDay());	    //2
 			vpd.put("var3", varOList.get(i).getString("ODER_ID"));	    //3
@@ -278,7 +280,19 @@ public class OrderinfoController extends BaseController {
 			vpd.put("var11", "");    //11
 			vpd.put("var12", "");    //12
 			vpd.put("var13", String.valueOf(varOList.get(i).get("PURCHASETOTALPRICE")));    //13
-			varList.add(vpd);
+			List<PageData> supplyProductList = new ArrayList<>();
+			Object[] obj  = new Object[3];
+			if(supplyProductMap.containsKey(supplyId)){
+				obj = supplyProductMap.get(supplyId);
+				supplyProductList = (ArrayList<PageData>)obj[2];
+			} else {
+				obj[0] = varOList.get(i).getString("SUPPLIERNAME");
+				obj[1] = varOList.get(i).getString("SUPPLIER_EMAIL");
+			}
+
+			supplyProductList.add(vpd);
+			obj[2] = supplyProductList;
+			supplyProductMap.put(supplyId,obj);
 		}
 		dataMap.put("varList", varList);
 		ObjectExcelView erv = new ObjectExcelView();
