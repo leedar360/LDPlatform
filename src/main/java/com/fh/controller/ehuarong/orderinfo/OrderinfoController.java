@@ -262,7 +262,6 @@ public class OrderinfoController extends BaseController {
 		titles.add("结算结算（元）");	//13
 		dataMap.put("titles", titles);
 		List<PageData> varOList = orderinfoService.listToPurchase(pd);
-		List<PageData> varList = new ArrayList<PageData>();
 		Map<String, Object[]> supplyProductMap = new HashMap<>();
 		for(int i=0;i<varOList.size();i++){
 			PageData vpd = new PageData();
@@ -294,12 +293,12 @@ public class OrderinfoController extends BaseController {
 			obj[2] = supplyProductList;
 			supplyProductMap.put(supplyId,obj);
 		}
-		dataMap.put("varList", varList);
-		ObjectExcelView erv = new ObjectExcelView();
+		dataMap.put("supplyProduct", supplyProductMap);
+		ObjectZipExcelView erv = new ObjectZipExcelView();
 		mv = new ModelAndView(erv,dataMap);
 
 		//update the status
-		orderinfoService.consignment(varOList);
+		//orderinfoService.consignment(varOList);
 		return mv;
 	}
 	

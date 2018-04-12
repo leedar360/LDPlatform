@@ -14,6 +14,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
 public class ObjectZipExcelView extends AbstractView {
@@ -36,21 +37,37 @@ public class ObjectZipExcelView extends AbstractView {
 
     protected final void renderMergedOutputModel(Map<String, Object> model, HttpServletRequest request, HttpServletResponse response) throws Exception {
 
-        ZipOutputStream zipOutputStream = new ZipOutputStream( new FileOutputStream(Tools.date2Str(new Date(), "yyyyMMddHHmmss") + ".zip"));
+        response.setContentType("application/octet-stream");
 
-        HSSFWorkbook workbook;
-        if (this.url != null) {
-            workbook = this.getTemplateSource(this.url, request);
-        } else {
-            workbook = new HSSFWorkbook();
-            this.logger.debug("Created Excel Workbook from scratch");
+        String filename = Tools.date2Str(new Date(), "yyyyMMddHHmmss");
+        response.setHeader("Content-Disposition", "attachment;filename="+filename+".zip");
+
+        ZipOutputStream zipOutputStream = new ZipOutputStream(response.getOutputStream());
+
+
+
+
+
+
+        List<String> titles = (List<String>) model.get("titles");
+
+
+        Map<String, Object[]> supplyProductMap = (Map<String, Object[]>)model.get("supplyProduct");
+        for(Map.Entry<String, Object[]> entry : supplyProductMap.entrySet()){
+            String supplyName = (String)entry.getValue()[0];
+            String supplyEmail = (String) entry.getValue()[1];
+            HSSFWorkbook workbook = this.buildExcelDocument(titles, (List<PageData>)entry.getValue()[2], request, response);
+            ZipEntry zipEntry = new ZipEntry(supplyName + "-" + supplyEmail + "-" + DateUtil.getDay()+".xls");
+            zipOutputStream.putNextEntry(zipEntry);
+            workbook.write(zipOutputStream);
+            zipOutputStream.closeEntry();
         }
 
-        this.buildExcelDocument(model, workbook, request, response);
+
         response.setContentType(this.getContentType());
-        ServletOutputStream out = response.getOutputStream();
-        workbook.write(out);
-        out.flush();
+       // ServletOutputStream out = response.getOutputStream();
+        //workbook.write(out);
+        zipOutputStream.flush();
     }
 
     protected HSSFWorkbook getTemplateSource(String url, HttpServletRequest request) throws Exception {
@@ -64,19 +81,18 @@ public class ObjectZipExcelView extends AbstractView {
         return new HSSFWorkbook(inputFile.getInputStream());
     }
 
-    protected void buildExcelDocument(Map<String, Object> model,
-            HSSFWorkbook workbook, HttpServletRequest request,
+    protected HSSFWorkbook buildExcelDocument(List<String> titles, List<PageData> varList, HttpServletRequest request,
             HttpServletResponse response) throws Exception {
         // TODO Auto-generated method stub
+
+        HSSFWorkbook workbook = new HSSFWorkbook();
         Date date = new Date();
         String filename = Tools.date2Str(date, "yyyyMMddHHmmss");
         HSSFSheet sheet;
         HSSFCell cell;
-        response.setContentType("application/octet-stream");
-        response.setHeader("Content-Disposition", "attachment;filename="+filename+".xls");
+
         sheet = workbook.createSheet("sheet1");
 
-        List<String> titles = (List<String>) model.get("titles");
         int len = titles.size();
         HSSFCellStyle headerStyle = workbook.createCellStyle(); //标题样式
         headerStyle.setAlignment(HSSFCellStyle.ALIGN_CENTER);
@@ -97,7 +113,6 @@ public class ObjectZipExcelView extends AbstractView {
 
         HSSFCellStyle contentStyle = workbook.createCellStyle(); //内容样式
         contentStyle.setAlignment(HSSFCellStyle.ALIGN_CENTER);
-        List<PageData> varList = (List<PageData>) model.get("varList");
         int varCount = varList.size();
         for(int i=0; i<varCount; i++){
             PageData vpd = varList.get(i);
@@ -109,7 +124,7 @@ public class ObjectZipExcelView extends AbstractView {
             }
 
         }
-
+        return workbook;
     }
 
     protected HSSFCell getCell(HSSFSheet sheet, int row, int col) {
