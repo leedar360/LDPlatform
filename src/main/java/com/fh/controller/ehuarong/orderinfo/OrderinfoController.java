@@ -277,7 +277,7 @@ public class OrderinfoController extends BaseController {
 			vpd.put("var10", "");    //10
 			vpd.put("var11", "");    //11
 			vpd.put("var12", "");    //12
-			vpd.put("var13", varOList.get(i).get("PURCHASETOTALPRICE"));    //13
+			vpd.put("var13", String.valueOf(varOList.get(i).get("PURCHASETOTALPRICE")));    //13
 			varList.add(vpd);
 		}
 		dataMap.put("varList", varList);
@@ -285,7 +285,7 @@ public class OrderinfoController extends BaseController {
 		mv = new ModelAndView(erv,dataMap);
 
 		//update the status
-		//orderinfoService.consignment(varOList);
+		orderinfoService.consignment(varOList);
 		return mv;
 	}
 	
