@@ -58,7 +58,7 @@ import java.util.Map;
 			PageData pd = new PageData();
 			pd.put("ODER_ID", goods.getOrderNumber()); //订单编号
 			pd.put("GOODNUM", goods.getOrderCount()); //商品数量
-			//pd.put("GOODSNAME", goods.getShopGoodsName()) ;//商品名称
+			pd.put("GOODS_NAME", goods.getShopGoodsName()) ;//商品名称
 
 			pd.put("SELLNAME", "华榕在线"); // 发件人
 			pd.put("SELLPHONE", "13911881373"); //发件电话
@@ -166,6 +166,16 @@ import java.util.Map;
 	}
 
 	/**
+	 * 列表(全部)
+	 *
+	 * @param pd
+	 * @throws Exception
+	 */
+	public List<PageData> listToPurchase(PageData pd) throws Exception{
+		return (List<PageData>) dao.findForList("OrderinfoMapper.listToPurchase", pd);
+	}
+
+	/**
 	 * 通过id获取数据
 	 *
 	 * @param pd
@@ -220,6 +230,22 @@ import java.util.Map;
 		}
 
 		return true;
+	}
+
+	/**
+	 *
+	 * @param varOList
+	 * @return
+	 */
+	public void consignment(List<PageData> varOList) throws Exception{
+		for(int i=0;i<varOList.size();i++){
+			PageData orderPD = new PageData();
+			orderPD.put("ORDERINFO_ID", varOList.get(i).getString("ORDERINFO_ID"));
+			orderPD.put("STATUS", TO_CONSIGNMENT);
+			dao.update("OrderinfoMapper.consignment", orderPD);
+		}
+
+
 	}
 }
 

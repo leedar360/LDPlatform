@@ -83,6 +83,13 @@
 												id="nav-search-icon"
 												class="ace-icon fa fa-download bigger-110 nav-search-icon blue"></i></a></td>
 									</c:if>
+									<c:if test="${QX.toExcel == 1 }">
+										<td style="vertical-align:top;padding-left:2px;">
+											<a class="btn btn-light btn-xs" onclick="toPurchasedExcel();" title="导出采购商品到EXCEL">
+												<i id="nav-search-icon" class="ace-icon fa fa-download bigger-110 nav-search-icon blue">导出采购商品到EXCEL</i>
+											</a>
+										</td>
+									</c:if>
 								</tr>
 							</table>
 							<!-- 检索  -->
@@ -444,6 +451,10 @@
     function toExcel() {
         window.location.href = '<%=basePath%>orderinfo/excel.do';
     }
+
+    function toPurchasedExcel(){
+        window.location.href = '<%=basePath%>orderinfo/purchasedExcel.do';
+	}
 </script>
 
 

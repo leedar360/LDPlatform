@@ -19,6 +19,7 @@ public interface OrderinfoManager {
 	String EXIST= "exist";
 	int TO_PURCHASE = 1;
 	int TO_DELIVERY = 2;
+	int TO_CONSIGNMENT = 3;
 
 	/**
 	 * 新增
@@ -77,6 +78,14 @@ public interface OrderinfoManager {
 	public List<PageData> listAll(PageData pd) throws Exception;
 
 	/**
+	 * 列表(全部)
+	 *
+	 * @param pd
+	 * @throws Exception
+	 */
+	public List<PageData> listToPurchase(PageData pd) throws Exception;
+
+	/**
 	 * 通过id获取数据
 	 *
 	 * @param pd
@@ -99,5 +108,13 @@ public interface OrderinfoManager {
 	 * @return
 	 */
 	public boolean purchase(String selectOrderIds, String selectSupplyProductIds) throws Exception;
+
+
+	/**
+	 *
+	 * @param varOList
+	 * @return
+	 */
+	public void consignment(List<PageData> varOList) throws Exception;
 }
 

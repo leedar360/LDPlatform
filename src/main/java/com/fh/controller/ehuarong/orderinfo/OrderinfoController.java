@@ -9,6 +9,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import javax.annotation.Resource;
+
+import com.fh.util.*;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
@@ -19,11 +21,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import com.fh.controller.base.BaseController;
 import com.fh.entity.Page;
-import com.fh.util.AppUtil;
-import com.fh.util.ObjectExcelView;
-import com.fh.util.PageData;
-import com.fh.util.Jurisdiction;
-import com.fh.util.Tools;
 import com.fh.service.ehuarong.orderinfo.OrderinfoManager;
 
 /** 
@@ -234,6 +231,61 @@ public class OrderinfoController extends BaseController {
 		dataMap.put("varList", varList);
 		ObjectExcelView erv = new ObjectExcelView();
 		mv = new ModelAndView(erv,dataMap);
+		return mv;
+	}
+
+	/**导出到excel
+	 * @param
+	 * @throws Exception
+	 */
+	@RequestMapping(value="/purchasedExcel")
+	public ModelAndView purchasedExcel() throws Exception{
+		logBefore(logger, Jurisdiction.getUsername()+"导出Orderinfo到excel");
+		if(!Jurisdiction.buttonJurisdiction(menuUrl, "cha")){return null;}
+		ModelAndView mv = new ModelAndView();
+		PageData pd = new PageData();
+		pd = this.getPageData();
+		Map<String,Object> dataMap = new HashMap<String,Object>();
+		List<String> titles = new ArrayList<String>();
+		titles.add("ID");	//1
+		titles.add("发货日期");	//2
+		titles.add("用户订单号");	//3
+		titles.add("寄件公司");	//4
+		titles.add("寄件电话(可改)");	//5
+		titles.add("收件人");	//6
+		titles.add("收件电话");	//7
+		titles.add("收件详细地址");	//8
+		titles.add("数量");	//9
+		titles.add("物流单号");	//10
+		titles.add("快递");	//11
+		titles.add("产品规格");	//12
+		titles.add("结算结算（元）");	//13
+		dataMap.put("titles", titles);
+		List<PageData> varOList = orderinfoService.listToPurchase(pd);
+		List<PageData> varList = new ArrayList<PageData>();
+		for(int i=0;i<varOList.size();i++){
+			PageData vpd = new PageData();
+			vpd.put("var1", varOList.get(i).getString("ORDERINFO_ID"));	    //1
+			vpd.put("var2", DateUtil.getDay());	    //2
+			vpd.put("var3", varOList.get(i).getString("ODER_ID"));	    //3
+			vpd.put("var4", varOList.get(i).getString("华榕在线"));	    //4
+			vpd.put("var5", "13911881373");	    //5
+			vpd.put("var6", varOList.get(i).getString("RECNAME"));	    //6
+			vpd.put("var7", varOList.get(i).getString("RECPHONE"));	    //7
+			vpd.put("var8", varOList.get(i).getString("RECADDRESS"));	    //8
+			vpd.put("var9", varOList.get(i).getString("GOODNUM"));	    //9
+			vpd.put("var10", "");    //10
+			vpd.put("var11", "");    //11
+			vpd.put("var12", "");    //12
+			vpd.put("var13", varOList.get(i).get("PURCHASETOTALPRICE"));    //13
+			varList.add(vpd);
+		}
+		dataMap.put("varList", varList);
+		ObjectExcelView erv = new ObjectExcelView();
+		mv = new ModelAndView(erv,dataMap);
+
+		//update the status
+		//orderinfoService.consignment(varOList);
 		return mv;
 	}
 	

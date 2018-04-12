@@ -10,6 +10,7 @@
 	<!-- 字段 -->
 	<sql id="Field">
 		ODER_ID,
+		GOODS_NAME,
 		GOODNUM,
 		SELLNAME,
 		SELLPHONE,
@@ -35,6 +36,7 @@
 	<!-- 字段值 -->
 	<sql id="FieldValue">
 		#{ODER_ID},
+		#{GOODS_NAME},
 		#{GOODNUM},
 		#{SELLNAME},
 		#{SELLPHONE},
@@ -120,6 +122,17 @@
 		ORDERINFO_ID = #{ORDERINFO_ID}
 	</update>
 
+	<!-- 发货 -->
+	<update id="consignment" parameterType="pd">
+		update
+		<include refid="tableName"></include>
+		set
+		STATUS = #{STATUS}
+
+		where
+		ORDERINFO_ID = #{ORDERINFO_ID}
+	</update>
+
 	<!-- 通过ID获取数据 -->
 	<select id="findById" parameterType="pd" resultType="pd">
 		select
@@ -192,6 +205,14 @@
 		<include refid="Field"></include>
 		from
 		<include refid="tableName"></include>
+	</select>
+
+	<select id="listToPurchase" parameterType="pd" resultType="pd">
+		select
+		<include refid="Field"></include>
+		from
+		<include refid="tableName"></include>
+		where STATUS = 2
 	</select>
 
 	<!-- 批量删除 -->
