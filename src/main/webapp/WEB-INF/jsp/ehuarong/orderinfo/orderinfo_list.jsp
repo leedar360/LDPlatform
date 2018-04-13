@@ -86,7 +86,7 @@
 									<c:if test="${QX.toExcel == 1 }">
 										<td style="vertical-align:top;padding-left:2px;">
 											<a class="btn btn-light btn-xs" onclick="toPurchasedExcel();" title="导出采购商品到EXCEL">
-												<i id="nav-search-icon" class="ace-icon fa fa-download bigger-110 nav-search-icon blue">导出采购商品到EXCEL</i>
+												导出采购商品到EXCEL
 											</a>
 										</td>
 									</c:if>
@@ -122,8 +122,8 @@
 									<th class="center">供应商email</th>
 									<th class="center">创建时间</th>
 									<th class="center">备注</th>
-									<th class="center">商品编号</th>
-									<th class="center">商品描述</th>
+									<th class="center">平台商品编号</th>
+									<th class="center">平台商品描述</th>
 									<th class="center">操作</th>
 								</tr>
 								</thead>
@@ -162,7 +162,7 @@
 													<td class='center'>${var.CREATETIME}</td>
 													<td class='center'>${var.REMARK}</td>
 													<td class='center'>${var.EXTGOOD_ID}</td>
-													<td class='center'></td>
+													<td class='center'>${var.EXTGOODS_NAME}</td>
 													<td class="center">
 														<c:if test="${QX.edit != 1 && QX.del != 1 }">
                                                             <span class="label label-large label-grey arrowed-in-right arrowed-in"><i

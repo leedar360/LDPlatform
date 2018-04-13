@@ -258,8 +258,8 @@ public class OrderinfoController extends BaseController {
 		titles.add("数量");	//9
 		titles.add("物流单号");	//10
 		titles.add("快递");	//11
-		titles.add("产品规格");	//12
-		titles.add("结算结算（元）");	//13
+		titles.add("产品规格描述");	//12
+		titles.add("结算单价（元）");	//13
 		dataMap.put("titles", titles);
 		List<PageData> varOList = orderinfoService.listToPurchase(pd);
 		Map<String, Object[]> supplyProductMap = new HashMap<>();
@@ -277,7 +277,7 @@ public class OrderinfoController extends BaseController {
 			vpd.put("var9", varOList.get(i).getString("GOODNUM"));	    //9
 			vpd.put("var10", "");    //10
 			vpd.put("var11", "");    //11
-			vpd.put("var12", "");    //12
+			vpd.put("var12", varOList.get(i).getString("SUPPLYGOOD_NAME"));    //12
 			vpd.put("var13", String.valueOf(varOList.get(i).get("PURCHASETOTALPRICE")));    //13
 			List<PageData> supplyProductList = new ArrayList<>();
 			Object[] obj  = new Object[3];

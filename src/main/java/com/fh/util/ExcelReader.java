@@ -156,11 +156,11 @@ public class ExcelReader {
             goods.setOrderNumber(getCellFormatValue(row.getCell(0)).trim());
             goods.setShopGoodsName(getCellFormatValue(row.getCell(1)).trim());
             goods.setGoodsNumber(getCellFormatValue(row.getCell(2)).trim());
-            goods.setGoodsPrice(getCellFormatValue(row.getCell(6)).trim());
+            goods.setGoodsPrice(getCellFormatValue(row.getCell(6)).trim());//商品单价
             goods.setOrderCount(getCellFormatValue(row.getCell(7)).trim());
             goods.setOrderMaoney(getCellFormatValue(row.getCell(8)).trim());
 
-            goods.setOrderDate(getCellFormatValue(row.getCell(13)).trim());
+            goods.setOrderDate(getCellFormatValue(row.getCell(14)).trim());//付款时间
 
             goods.setCustomerName(getCellFormatValue(row.getCell(19)).trim());
             //goods.setCustomerNo(getCellFormatValue(row.getCell(12)).trim());

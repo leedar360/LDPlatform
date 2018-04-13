@@ -58,7 +58,7 @@ import java.util.Map;
 			PageData pd = new PageData();
 			pd.put("ODER_ID", goods.getOrderNumber()); //订单编号
 			pd.put("GOODNUM", goods.getOrderCount()); //商品数量
-			pd.put("GOODS_NAME", goods.getShopGoodsName()) ;//商品名称
+			pd.put("EXTGOODS_NAME", goods.getShopGoodsName());//商品名称
 
 			pd.put("SELLNAME", "华榕在线"); // 发件人
 			pd.put("SELLPHONE", "13911881373"); //发件电话
@@ -206,7 +206,9 @@ import java.util.Map;
 		PageData supplyPorductPD = new PageData();
 		supplyPorductPD.put("SUPLYGOODINFO_ID", selectSupplyProductIds);
 		PageData supplyProduct = suplygoodinfoService.findById(supplyPorductPD);
-
+		System.out.println("============================");
+		System.out.println(supplyProduct);
+		System.out.println("============================");
 		PageData supplyPD = new PageData();
 		supplyPD.put("SUPPLIERINFO_ID", supplyProduct.getString("SUPPLIERINFO_ID"));
 		PageData supply = supplierinfoService.findById(supplyPD);
@@ -222,9 +224,10 @@ import java.util.Map;
 			pd.put("PURCHASEPRICE", purchasePrice);
 			double totalPrice = Double.valueOf(purchasePrice) * Double.valueOf(order.getString("GOODNUM"));
 			pd.put("PURCHASETOTALPRICE", String.valueOf(totalPrice));
-			pd.put("SUPPLIER_ID", supply.getString("SUPPLIERINFO_ID"));
+			pd.put("SUPPLIER_ID", supply.getString("SUPPLIER_ID"));
 			pd.put("SUPPLIERNAME", supply.getString("SUPPLIERNAME"));
 			pd.put("SUPPLIER_EMAIL", supply.getString("EMAIL"));
+			pd.put("SUPPLYGOOD_NAME", supplyProduct.getString("GOODNAME")); //供应商商品名称
 			pd.put("STATUS", TO_DELIVERY);
 
 			dao.update("OrderinfoMapper.purchase", pd);
