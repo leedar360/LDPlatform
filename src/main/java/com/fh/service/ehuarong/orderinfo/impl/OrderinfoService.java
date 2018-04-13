@@ -69,8 +69,9 @@ import java.util.Map;
 			pd.put("EXPRESS", "");// 快递公司
 			pd.put("EXPRESSNO", ""); //快递单号
 
-			//pd.put("SELLPRICE", goods.getGoodsPrice()); //商品售价单价
-			//pd.put("SELLTOTALPRICE", goods.getOrderMaoney()); //商品售价总价
+			double totalPrice = Double.valueOf(goods.getGoodsPrice()) * Double.valueOf(goods.getOrderCount());
+			pd.put("SELLPRICE", goods.getGoodsPrice()); //商品售价单价
+			pd.put("SELLTOTALPRICE",  String.valueOf(totalPrice)); //商品售价总价
 			//pd.put("PURCHASEPRICE", ""); //商品采购单价
 			//pd.put("PURCHASETOTALPRICE", ""); //商品采购总价
 			pd.put("PLATFORMID", goods.getPltSource()); //平台
