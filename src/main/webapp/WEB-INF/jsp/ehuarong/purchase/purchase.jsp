@@ -37,21 +37,12 @@
 								<td>
 									<div class="nav-search">
 										<span class="input-icon">
-											<input type="text" placeholder="这里输入商品名称搜索" class="nav-search-input" id="nav-search-input" autocomplete="off" name="goodName" value="${pd.goodName}" placeholder="这里输入商品名称搜索"/>
+											<input type="text" placeholder="这里输入商品名称搜索 支持模糊搜索" class="nav-search-input" id="nav-search-input" autocomplete="off" name="goodName" value="${pd.goodName}" placeholder="这里输入商品名称搜索"/>
 											<i class="ace-icon fa fa-search nav-search-icon"></i>
 										</span>
 									</div>
 								</td>
-								<td style="padding-left:2px;"><input class="span10 date-picker" name="lastStart" id="lastStart"  value="" type="text" data-date-format="yyyy-mm-dd" readonly="readonly" style="width:88px;" placeholder="开始日期" title="开始日期"/></td>
-								<td style="padding-left:2px;"><input class="span10 date-picker" name="lastEnd" name="lastEnd"  value="" type="text" data-date-format="yyyy-mm-dd" readonly="readonly" style="width:88px;" placeholder="结束日期" title="结束日期"/></td>
-								<td style="vertical-align:top;padding-left:2px;">
-								 	<select class="chosen-select form-control" name="name" id="id" data-placeholder="请选择" style="vertical-align:top;width: 120px;">
-									<option value=""></option>
-									<option value="">全部</option>
-									<option value="">1</option>
-									<option value="">2</option>
-								  	</select>
-								</td>
+
 								<c:if test="${QX.cha == 1 }">
 								<td style="vertical-align:top;padding-left:2px"><a class="btn btn-light btn-xs" onclick="tosearch();"  title="检索"><i id="nav-search-icon" class="ace-icon fa fa-search bigger-110 nav-search-icon blue"></i></a></td>
 								</c:if>
@@ -126,9 +117,7 @@
 							<table style="width:100%; align-content: center">
 								<tr>
 									<td style="vertical-align:top; align-content: center">
-										<c:if test="${QX.del == 1 }">
-											<a class="btn btn-mini btn-success" onclick="makeAll('确定对选中的商品供应商采购吗?');" title="采购" >确定采购</a>
-										</c:if>
+											<a class="btn btn-mini btn-success；" onclick="makeAll('确定对选中的商品供应商采购吗?');" title="采购" >确定采购</a>
 									</td>
 								</tr>
 							</table>

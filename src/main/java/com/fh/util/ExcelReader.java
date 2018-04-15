@@ -202,7 +202,7 @@ public class ExcelReader {
             goods.setShopGoodsName(getCellFormatValue(row.getCell(4)).trim());
             //goods.setShopName(shopNameProperties.getProperty(goods.getGoodsNumber()));
             goods.setOrderCount(getCellFormatValue(row.getCell(5)).trim());
-            goods.setGoodsPrice(getCellFormatValue(row.getCell(6)).trim());
+            goods.setGoodsPrice(getCellFormatValue(row.getCell(7)).trim());      //品质卖价
             goods.setGoodsCostPrice(getCellFormatValue(row.getCell(7)).trim());
             goods.setVendor(getCellFormatValue(row.getCell(8)).trim());
             goods.setPayDate(getCellFormatValue(row.getCell(9)).trim());

@@ -104,26 +104,21 @@
 									</th>
 									<th class="center" style="width:50px;">序号</th>
 									<th class="center">订单编号</th>
-									<th class="center">订单数量</th>
 									<th class="center">商品编码</th>
-									<th class="center">发件人</th>
-									<th class="center">发件电话</th>
-									<th class="center">收件人</th>
-									<th class="center">收件电话</th>
-									<th class="center" style="width:20px;overflow: hidden;text-overflow:ellipsis;white-space: nowrap;">收件地址</th>
-									<th class="center">快递公司</th>
-									<th class="center">快递单号</th>
-									<th class="center">商品售价单价</th>
-									<th class="center">商品售价总价</th>
-									<th class="center">商品采购单价</th>
-									<th class="center">商品采购总价</th>
-									<th class="center">所属平台id</th>
+									<th class="center">平台商品描述</th>
+
+									<th class="center">收件信息</th>
+									<th class="center">快递信息</th>
+									<th class="center">数量</th>
+									<th class="center">售价单价</th>
+									<th class="center">售价总价</th>
+									<th class="center">采购单价</th>
+									<th class="center">采购总价</th>
+									<th class="center">平台id</th>
 									<th class="center">供应商id</th>
-									<th class="center">供应商email</th>
+									<th class="center">供应商邮件</th>
 									<th class="center">创建时间</th>
 									<th class="center">备注</th>
-									<th class="center">平台商品编号</th>
-									<th class="center">平台商品描述</th>
 									<th class="center">操作</th>
 								</tr>
 								</thead>
@@ -143,15 +138,19 @@
 													</td>
 													<td class='center' style="width: 30px;">${vs.index+1}</td>
 													<td class='center'>${var.ODER_ID}</td>
-													<td class='center'>${var.GOODNUM}</td>
 													<td class='center'>${var.EXTGOOD_ID}</td>
-													<td class='center'>${var.SELLNAME}</td>
-													<td class='center'>${var.SELLPHONE}</td>
-													<td class='center'>${var.RECNAME}</td>
-													<td class='center'>${var.RECPHONE}</td>
-													<td class='center'>${var.RECADDRESS}</td>
-													<td class='center'>${var.EXPRESS}</td>
-													<td class='center'>${var.EXPRESSNO}</td>
+													<td class='center'>
+														<textarea readonly>${var.EXTGOODS_NAME}</textarea>
+													</td>
+
+													<td class='center'>
+														<textarea readonly>姓名：${var.RECNAME}<br>电话：${var.RECPHONE}<br>地址：${var.RECADDRESS}</textarea>
+													</td>
+													<td class='center'>
+														<textarea readonly>快递：${var.EXPRESS}
+															单号：${var.EXPRESSNO}</textarea>
+													</td>
+													<td class='center'>${var.GOODNUM}</td>
 													<td class='center'>${var.SELLPRICE}</td>
 													<td class='center'>${var.SELLTOTALPRICE}</td>
 													<td class='center'>${var.PURCHASEPRICE}</td>
@@ -160,9 +159,8 @@
 													<td class='center'>${var.SUPPLIER_ID}</td>
 													<td class='center'>${var.SUPPLIER_EMAIL}</td>
 													<td class='center'>${var.CREATETIME}</td>
-													<td class='center'>${var.REMARK}</td>
-													<td class='center'>${var.EXTGOOD_ID}</td>
-													<td class='center'>${var.EXTGOODS_NAME}</td>
+													<td class='center'>${var.REMARK}
+													</td>
 													<td class="center">
 														<c:if test="${QX.edit != 1 && QX.del != 1 }">
                                                             <span class="label label-large label-grey arrowed-in-right arrowed-in"><i

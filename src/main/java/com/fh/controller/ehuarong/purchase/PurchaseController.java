@@ -71,6 +71,11 @@ public class PurchaseController  extends BaseController {
         pd = this.getPageData();
         String selectIds = pd.getString("selectIds");				//关键词检索条件
 
+        String selectOrderIds = pd.getString("selectOrderIds");     //当前页面做第二次检索时 把当前selectOrderIds值带上
+        if(!StringUtils.isEmpty(selectOrderIds)) {
+            selectIds = selectOrderIds;
+        }
+
         String goodName = pd.getString("goodName");				//关键词检索条件
         if(!StringUtils.isEmpty(goodName)){
             pd.put("GOODNAME", goodName.trim());
@@ -88,14 +93,13 @@ public class PurchaseController  extends BaseController {
     }
 
     /**列表
-     * @param page
      * @throws Exception
      */
     @RequestMapping(value="/purchase")
     @ResponseBody
     public Object purchase() throws Exception{
-        logBefore(logger, Jurisdiction.getUsername()+"列表Orderinfo");
-        //if(!Jurisdiction.buttonJurisdiction(menuUrl, "cha")){return null;} //校验权限(无权查看时页面会有提示,如果不注释掉这句代码就无法进入列表页面,所以根据情况是否加入本句代码)
+        logBefore(logger, Jurisdiction.getUsername()+" 采购操作");
+        if(!Jurisdiction.buttonJurisdiction(menuUrl, "cha")){return null;} //校验权限(无权查看时页面会有提示,如果不注释掉这句代码就无法进入列表页面,所以根据情况是否加入本句代码)
         ModelAndView mv = this.getModelAndView();
         PageData pd = new PageData();
         pd = this.getPageData();

@@ -104,7 +104,7 @@
 											<td class='center'>${var.CATEGORYID}</td>
 											<td class='center'>${var.REMARK}</td>
 											<td class='center'>${var.CREATETIME}</td>
-											<td class='center'>${var.SUPLYPRICE}</td>
+											<td class='center'><b>${var.SUPLYPRICE}</b></td>
 											<td class='center'>${var.STARTTIME}</td>
 											<td class='center'>${var.ENDTIME}</td>
 											<td class="center">
