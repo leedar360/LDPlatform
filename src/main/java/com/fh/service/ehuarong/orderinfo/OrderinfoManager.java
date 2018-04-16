@@ -17,9 +17,11 @@ public interface OrderinfoManager {
 	String SUCCESS= "success";
 	String FAILURE= "failue";
 	String EXIST= "exist";
-	int TO_PURCHASE = 1;
-	int TO_DELIVERY = 2;
-	int TO_CONSIGNMENT = 3;
+	String BACKUP = "bak";
+	int TO_PURCHASE = 1;  //待采购标志 -  新增数据，导入数据后 进入采购
+	int TO_DELIVERY = 2;  //待发货标志 - 采购完成后 状态置成 2   采购完成后
+	int TO_CONSIGNMENT = 3; //待发货状态  - 物流导入后的状态 为 3
+
 
 	/**
 	 * 新增

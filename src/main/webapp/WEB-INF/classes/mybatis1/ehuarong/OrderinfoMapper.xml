@@ -166,7 +166,7 @@
 		<include refid="Field"></include>
 		from
 		<include refid="tableName"></include>
-		where 1=1
+		where 1=1 and status != 'bak'
 		<if test="pd.EXTGOOD_ID!= null and pd.EXTGOOD_ID != ''"><!-- 关键词检索 -->
 			and EXTGOOD_ID = #{pd.EXTGOOD_ID}
 		</if>
@@ -174,6 +174,9 @@
 		<if test="pd.keywords!= null and pd.keywords != ''"><!-- 关键词检索 -->
 			and
 			(
+			EXTGOODS_NAME LIKE CONCAT(CONCAT('%', #{pd.keywords}),'%')
+			OR
+			SUPPLYGOOD_NAME LIKE CONCAT(CONCAT('%', #{pd.keywords}),'%')
 			<!--	根据需求自己加检索条件
                 字段1 LIKE CONCAT(CONCAT('%', #{pd.keywords}),'%')
                  or
@@ -214,7 +217,17 @@
 		<include refid="tableName"></include>
 	</select>
 
+	<!-- 采购管理列表 status =1-->
 	<select id="listToPurchase" parameterType="pd" resultType="pd">
+		select
+		<include refid="Field"></include>
+		from
+		<include refid="tableName"></include>
+		where STATUS = 1 <!-- status = 1 订单导入完成， 新建订单 -->
+	</select>
+
+	<!-- 发货管理列表 status = 2 -->
+	<select id="listToDelivery" parameterType="pd" resultType="pd">
 		select
 		<include refid="Field"></include>
 		from

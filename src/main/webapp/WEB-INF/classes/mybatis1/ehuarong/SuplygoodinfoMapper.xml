@@ -168,6 +168,11 @@
 		<if test="pd.keywords!= null and pd.keywords != ''"><!-- 关键词检索 -->
 			and
 				(
+				HR_SUPLYGOODINFO.GOODNAME LIKE CONCAT(CONCAT('%', #{pd.keywords}),'%')
+				OR
+				HR_SUPPLIERINFO.SUPPLIER_ID  LIKE CONCAT(CONCAT('%', #{pd.keywords}),'%')
+				OR
+				HR_SUPPLIERINFO.SUPPLIERNAME  LIKE CONCAT(CONCAT('%', #{pd.keywords}),'%')
 				<!--	根据需求自己加检索条件
 					字段1 LIKE CONCAT(CONCAT('%', #{pd.keywords}),'%')
 					 or 

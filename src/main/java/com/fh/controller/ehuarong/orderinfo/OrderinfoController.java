@@ -99,9 +99,21 @@ public class OrderinfoController extends BaseController {
 		PageData pd = new PageData();
 		pd = this.getPageData();
 		String keywords = pd.getString("keywords");				//关键词检索条件
+		String lastStart = pd.getString("lastStart");
+		String lastEnd = pd.getString("lastEnd");
+
 		if(null != keywords && !"".equals(keywords)){
 			pd.put("keywords", keywords.trim());
 		}
+		if(null != lastStart && !"".equals(lastStart)){
+			pd.put("lastStart", lastStart.trim());
+		}
+		if(null != lastEnd && !"".equals(lastEnd)){
+			pd.put("lastEnd", lastEnd.trim());
+		}
+
+
+
 		String EXTGOOD_ID = pd.getString("EXTGOOD_ID");
 		if(!StringUtils.isEmpty(EXTGOOD_ID)){
 			pd.put("EXTGOOD_ID", EXTGOOD_ID.trim());

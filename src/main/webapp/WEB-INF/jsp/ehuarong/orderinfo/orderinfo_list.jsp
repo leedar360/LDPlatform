@@ -93,6 +93,32 @@
 								</tr>
 							</table>
 							<!-- 检索  -->
+							<div class="page-header position-relative">
+								<table style="width:100%;">
+									<tr>
+										<td style="vertical-align:top;">
+											<c:if test="${QX.add == 1 }">
+												<a class="btn btn-mini btn-success" onclick="add();">新增订单</a>
+											</c:if>
+											&nbsp;&nbsp;&nbsp;&nbsp;
+											<c:if test="${QX.del == 1 }">
+												<a class="btn btn-mini btn-danger" onclick="makeAll('确定要删除选中的数据吗?');"
+												   title="批量删除"><i class='ace-icon fa fa-trash-o bigger-120'>批量删除</i></a>
+											</c:if>
+											&nbsp;&nbsp;&nbsp;&nbsp;
+											<c:if test="${QX.del == 1 }">
+												<a class="btn btn-mini btn-success" onclick="makebackup('确定要存档选中的数据吗?');"
+												   title="批量存档">批量存档</a>
+											</c:if>
+
+										</td>
+										<td style="vertical-align:top;">
+											<div class="pagination"
+												 style="float: right;padding-top: 0px;margin-top: 0px;">${page.pageStr}</div>
+										</td>
+									</tr>
+								</table>
+							</div>
 
 							<table id="simple-table" class="table table-striped table-bordered table-hover"
 								   style="margin-top:5px;">
@@ -144,11 +170,13 @@
 													</td>
 
 													<td class='center'>
-														<textarea readonly>姓名：${var.RECNAME}<br>电话：${var.RECPHONE}<br>地址：${var.RECADDRESS}</textarea>
+														<textarea readonly>姓名：${var.RECNAME}
+电话：${var.RECPHONE}
+地址：${var.RECADDRESS}</textarea>
 													</td>
 													<td class='center'>
 														<textarea readonly>快递：${var.EXPRESS}
-															单号：${var.EXPRESSNO}</textarea>
+单号：${var.EXPRESSNO}</textarea>
 													</td>
 													<td class='center'>${var.GOODNUM}</td>
 													<td class='center'>${var.SELLPRICE}</td>
@@ -156,7 +184,7 @@
 													<td class='center'>${var.PURCHASEPRICE}</td>
 													<td class='center'>${var.PURCHASETOTALPRICE}</td>
 													<td class='center'>${var.PLATFORMID}</td>
-													<td class='center'>${var.SUPPLIER_ID}</td>
+													<td class='center' title="${var.SUPPLIERNAME}">${var.SUPPLIER_ID}</td>
 													<td class='center'>${var.SUPPLIER_EMAIL}</td>
 													<td class='center'>${var.CREATETIME}</td>
 													<td class='center'>${var.REMARK}
@@ -240,12 +268,19 @@
 									<tr>
 										<td style="vertical-align:top;">
 											<c:if test="${QX.add == 1 }">
-												<a class="btn btn-mini btn-success" onclick="add();">新增</a>
+												<a class="btn btn-mini btn-success" onclick="add();">新增订单</a>
 											</c:if>
+											&nbsp;&nbsp;&nbsp;&nbsp;
 											<c:if test="${QX.del == 1 }">
 												<a class="btn btn-mini btn-danger" onclick="makeAll('确定要删除选中的数据吗?');"
 												   title="批量删除"><i class='ace-icon fa fa-trash-o bigger-120'></i></a>
 											</c:if>
+											&nbsp;&nbsp;&nbsp;&nbsp;
+											<c:if test="${QX.del == 1 }">
+												<a class="btn btn-mini btn-success" onclick="makeAll('确定要存档选中的数据吗?');"
+												   title="批量存档">批量存档</a>
+											</c:if>
+
 										</td>
 										<td style="vertical-align:top;">
 											<div class="pagination"
@@ -442,6 +477,23 @@
                             }
                         });
                     }
+
+					if (msg == '确定要存档选中的数据吗?') {
+						top.jzts();
+						$.ajax({
+							type: "POST",
+							url: '<%=basePath%>orderinfo/bakupAll.do?tm=' + new Date().getTime(),
+							data: {DATA_IDS: str},
+							dataType: 'json',
+							//beforeSend: validateData,
+							cache: false,
+							success: function (data) {
+								$.each(data.list, function (i, list) {
+									tosearch();
+								});
+							}
+						});
+					}
                 }
             }
         });
