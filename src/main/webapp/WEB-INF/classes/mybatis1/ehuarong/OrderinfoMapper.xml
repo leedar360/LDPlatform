@@ -209,6 +209,29 @@
 		</if>
 	</select>
 
+	<!-- 发货列表 -->
+	<select id="deliveryList" parameterType="page" resultType="pd">
+		select
+		<include refid="Field"></include>
+		from
+		<include refid="tableName"></include>
+		where 1=1 and STATUS = 4
+		<if test="pd.EXTGOOD_ID!= null and pd.EXTGOOD_ID != ''"><!-- 关键词检索 -->
+			and EXTGOOD_ID = #{pd.EXTGOOD_ID}
+		</if>
+
+		<if test="pd.keywords!= null and pd.keywords != ''"><!-- 关键词检索 -->
+			and
+			(
+			<!--	根据需求自己加检索条件
+                字段1 LIKE CONCAT(CONCAT('%', #{pd.keywords}),'%')
+                 or
+                字段2 LIKE CONCAT(CONCAT('%', #{pd.keywords}),'%')
+            -->
+			)
+		</if>
+	</select>
+
 	<!-- 列表(全部) -->
 	<select id="listAll" parameterType="pd" resultType="pd">
 		select

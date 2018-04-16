@@ -147,6 +147,16 @@ import java.util.Map;
 	}
 
 	/**
+	 * 发货列表
+	 *
+	 * @param page
+	 * @throws Exception
+	 */
+	public List<PageData> deliveryList(Page page) throws Exception{
+		return (List<PageData>) dao.findForList("OrderinfoMapper.deliveryList", page);
+	}
+
+	/**
 	 * 列表
 	 *
 	 * @param pd
@@ -252,5 +262,12 @@ import java.util.Map;
 
 
 	}
+
+    @Override public void uploadDelivery(List<Object> data) {
+		for(int i=0;i<data.size();i++){
+			PageData orderPD = new PageData();
+			orderPD.put("", "");
+		}
+    }
 }
 

@@ -1,0 +1,109 @@
+package com.fh.controller.ehuarong.delivery;
+
+import com.fh.controller.base.BaseController;
+import com.fh.entity.Page;
+import com.fh.entity.ehuarong.Goods;
+import com.fh.service.ehuarong.orderinfo.OrderinfoManager;
+import com.fh.service.system.fhlog.FHlogManager;
+import com.fh.util.ExcelReader;
+import com.fh.util.Jurisdiction;
+import com.fh.util.ObjectExcelRead;
+import com.fh.util.PageData;
+import org.springframework.stereotype.Controller;
+import org.springframework.util.StringUtils;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
+
+import javax.annotation.Resource;
+import java.util.List;
+import java.util.Map;
+
+@Controller
+@RequestMapping(value="/delivery")
+public class DeliveryController extends BaseController {
+
+    String menuUrl = "orderinfo/list.do"; //菜单地址(权限用)
+    @Resource(name="orderinfoService")
+    private OrderinfoManager orderinfoService;
+
+    @Resource(name = "fhlogService") private FHlogManager FHLOG;
+
+    @Resource(name = "orderinfoService") private OrderinfoManager orderinfoManager;
+
+    /**列表
+     * @param page
+     * @throws Exception
+     */
+    @RequestMapping(value="/list")
+    public ModelAndView list(Page page) throws Exception{
+        logBefore(logger, Jurisdiction.getUsername()+"列表Orderinfo");
+        //if(!Jurisdiction.buttonJurisdiction(menuUrl, "cha")){return null;} //校验权限(无权查看时页面会有提示,如果不注释掉这句代码就无法进入列表页面,所以根据情况是否加入本句代码)
+        ModelAndView mv = this.getModelAndView();
+        PageData pd = new PageData();
+        pd = this.getPageData();
+        String keywords = pd.getString("keywords");				//关键词检索条件
+        if(null != keywords && !"".equals(keywords)){
+            pd.put("keywords", keywords.trim());
+        }
+        String EXTGOOD_ID = pd.getString("EXTGOOD_ID");
+        if(!StringUtils.isEmpty(EXTGOOD_ID)){
+            pd.put("EXTGOOD_ID", EXTGOOD_ID.trim());
+        }
+        page.setPd(pd);
+        List<PageData> varList = orderinfoService.deliveryList(page);	//列出Orderinfo列表
+        mv.setViewName("ehuarong/delivery/delivery_list");
+        mv.addObject("varList", varList);
+        mv.addObject("pd", pd);
+        mv.addObject("QX",Jurisdiction.getHC());	//按钮权限
+        return mv;
+    }
+
+    /**
+     * 保存
+     *
+     * @param
+     * @throws Exception
+     */
+    @RequestMapping(value = "/goUploadDelivery") public ModelAndView goUploadDelivery() throws Exception {
+        logBefore(logger, Jurisdiction.getUsername() + "go to Upload excel page");
+        if (!Jurisdiction.buttonJurisdiction(menuUrl, "goupload")) {
+            return null;
+        } //校验权限
+        ModelAndView mv = this.getModelAndView();
+        PageData pd = new PageData();
+        mv.addObject("msg", "upload");
+        mv.setViewName("ehuarong/delivery/upload_delivery");
+        return mv;
+    }
+
+    /**
+     * 保存
+     *
+     * @param
+     * @throws Exception
+     */
+    @RequestMapping(value = "/saveUpload") public ModelAndView upload(
+            @RequestParam(value = "excel", required = false) MultipartFile file) throws Exception {
+        FHLOG.save(Jurisdiction.getUsername(), "导入订单");
+        ModelAndView mv = this.getModelAndView();
+        PageData pd = new PageData();
+        Map<String,List<Goods>> result = null;
+        if (!Jurisdiction.buttonJurisdiction(menuUrl, "add")) {
+            return null;
+        }
+        if (null != file && !file.isEmpty()) {
+
+            List<Object> data = ObjectExcelRead.readExcel(file.getInputStream(), 0,0,0);
+            orderinfoManager.uploadDelivery(data);
+
+        }
+        mv.addObject("successCount", result.get(OrderinfoManager.SUCCESS).size());
+        mv.addObject("falilureList", result.get(OrderinfoManager.FAILURE));
+        mv.addObject("existList", result.get(OrderinfoManager.EXIST));
+        mv.addObject("QX",Jurisdiction.getHC());	//按钮权限
+        mv.setViewName("ehuarong/uploadtrigger/save_result");
+        return mv;
+    }
+}

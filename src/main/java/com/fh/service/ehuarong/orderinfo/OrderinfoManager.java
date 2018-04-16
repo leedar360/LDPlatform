@@ -17,11 +17,10 @@ public interface OrderinfoManager {
 	String SUCCESS= "success";
 	String FAILURE= "failue";
 	String EXIST= "exist";
-	String BACKUP = "bak";
-	int TO_PURCHASE = 1;  //待采购标志 -  新增数据，导入数据后 进入采购
-	int TO_DELIVERY = 2;  //待发货标志 - 采购完成后 状态置成 2   采购完成后
-	int TO_CONSIGNMENT = 3; //待发货状态  - 物流导入后的状态 为 3
-
+	int TO_PURCHASE = 1; //待采购
+	int TO_DELIVERY = 2; //已采购
+	int TO_CONSIGNMENT = 3; //待发货
+	int FINISHED = 4; //已发货
 
 	/**
 	 * 新增
@@ -72,6 +71,14 @@ public interface OrderinfoManager {
 	public List<PageData> purchaseList(Page page) throws Exception;
 
 	/**
+	 * 发货列表
+	 *
+	 * @param page
+	 * @throws Exception
+	 */
+	public List<PageData> deliveryList(Page page) throws Exception;
+
+	/**
 	 * 列表(全部)
 	 *
 	 * @param pd
@@ -118,5 +125,7 @@ public interface OrderinfoManager {
 	 * @return
 	 */
 	public void consignment(List<PageData> varOList) throws Exception;
+
+	void uploadDelivery(List<Object> data);
 }
 
