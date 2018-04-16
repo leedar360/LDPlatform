@@ -312,7 +312,7 @@ public class OrderinfoController extends BaseController {
 		mv = new ModelAndView(erv,dataMap);
 
 		//update the status
-		//orderinfoService.consignment(varOList);
+		orderinfoService.consignment(varOList);
 		return mv;
 	}
 	
