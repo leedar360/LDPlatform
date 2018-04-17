@@ -94,7 +94,7 @@ public class DeliveryController extends BaseController {
             return null;
         }
         if (null != file && !file.isEmpty()) {
-            List<Object> data = ObjectExcelRead.readExcel(file.getInputStream(), 0,0,0);
+            List<Object> data = ObjectExcelRead.readExcel(file.getInputStream(), 1,0,0);
             orderinfoManager.uploadDelivery(data);
             mv.addObject("successed", data.size());
         }

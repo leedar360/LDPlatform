@@ -126,6 +126,6 @@ public interface OrderinfoManager {
 	 */
 	public void consignment(List<PageData> varOList) throws Exception;
 
-	void uploadDelivery(List<Object> data);
+	void uploadDelivery(List<Object> data) throws Exception;
 }
 

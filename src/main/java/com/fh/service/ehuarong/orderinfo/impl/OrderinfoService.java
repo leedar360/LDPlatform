@@ -263,7 +263,7 @@ import java.util.Map;
 
 	}
 
-    @Override public void uploadDelivery(List<Object> data) {
+    @Override public void uploadDelivery(List<Object> data) throws Exception{
 		for(int i=0;i<data.size();i++){
 			PageData varpd = (PageData)data.get(i);
 			PageData orderPD = new PageData();
@@ -271,6 +271,7 @@ import java.util.Map;
 			orderPD.put("EXPRESS",varpd.getString("var10"));
 			orderPD.put("EXPRESSNO",varpd.getString("var9"));
 			orderPD.put("STATUS",FINISHED);
+			dao.update("OrderinfoMapper.delivery", orderPD);
 		}
     }
 }

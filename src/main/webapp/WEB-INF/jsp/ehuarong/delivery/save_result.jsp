@@ -35,7 +35,9 @@
                 <div class="hr hr-18 dotted hr-double"></div>
                 <div class="row">
                     <div class="col-xs-12">
+                        <div id="zhongxin" style="padding-top: 13px;">
                             <div class="well well-sm">
+
                                 <table style="width:50%" id="table_report" class="table table-striped table-bordered table-hover">
                                     <tr>
                                         <td style="width:75px;text-align: right;padding-top: 13px;" id="FILEPATHn">上传成功条数:</td>
@@ -57,6 +59,7 @@
                             </div><!-- PAGE CONTENT ENDS -->
 
                             <div class="hr hr-18 dotted hr-double"></div>
+                        </div>
                     </div>
                     <!-- /.col -->
                 </div>
