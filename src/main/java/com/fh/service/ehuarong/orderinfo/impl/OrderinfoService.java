@@ -265,8 +265,12 @@ import java.util.Map;
 
     @Override public void uploadDelivery(List<Object> data) {
 		for(int i=0;i<data.size();i++){
+			PageData varpd = (PageData)data.get(i);
 			PageData orderPD = new PageData();
-			orderPD.put("", "");
+			orderPD.put("ORDERINFO_ID",varpd.getString("var0"));
+			orderPD.put("EXPRESS",varpd.getString("var10"));
+			orderPD.put("EXPRESSNO",varpd.getString("var9"));
+			orderPD.put("STATUS",FINISHED);
 		}
     }
 }

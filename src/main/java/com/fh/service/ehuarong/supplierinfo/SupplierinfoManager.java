@@ -41,6 +41,11 @@ public interface SupplierinfoManager{
 	 * @throws Exception
 	 */
 	public List<PageData> listAll(PageData pd)throws Exception;
+
+	/**供应商ID
+	 * @throws Exception
+	 */
+	public List<PageData> distinctSupplyId() throws Exception;
 	
 	/**通过id获取数据
 	 * @param pd
