@@ -107,11 +107,9 @@
 									<th class="center">订单数量</th>
 									<th class="center">发件信息</th>
 									<th class="center">收件信息</th>
-									<th class="center">快递公司</th>
-									<th class="center">快递单号</th>
+									<th class="center">快递信息</th>
 									<th class="center">所属平台</th>
 									<th class="center">供应商</th>
-									<th class="center">供应商email</th>
 									<th class="center">创建时间</th>
 									<th class="center">备注</th>
 									<th class="center">平台商品编号</th>
@@ -139,14 +137,11 @@
 													<td class='center'><textarea readonly>姓名：${var.SELLNAME}
 电话：${var.SELLPHONE}</textarea></td>
 													<td class='center'><textarea readonly>收件人：${var.RECNAME}
-收件电话：${var.RECPHONE}
-收件地址：${var.RECADDRESS}
-</textarea></td>
-													<td class='center'>${var.EXPRESS}</td>
-													<td class='center'>${var.EXPRESSNO}</td>
+电话：${var.RECPHONE}
+地址：${var.RECADDRESS}</textarea></td>
+													<td class='left'>单号：${var.EXPRESSNO}<br>快递：${var.EXPRESS}</td>
 													<td class='center'>${var.PLATFORMID}</td>
-													<td class='center'>${var.SUPPLIER_ID}</td>
-													<td class='center'>${var.SUPPLIER_EMAIL}</td>
+													<td class='center' title='${var.SUPPLIER_ID}'>${var.SUPPLIERNAME}</td>
 													<td class='center'>${var.CREATETIME}</td>
 													<td class='center'><textarea readonly>${var.REMARK}</textarea></td>
 													<td class='center'>${var.EXTGOOD_ID}</td>
@@ -158,10 +153,10 @@
 														</c:if>
 														<div class="hidden-sm hidden-xs btn-group">
 															<c:if test="${QX.edit == 1 }">
-																<a class="btn btn-xs btn-success" title="编辑"
+																<a class="btn btn-xs btn-success" title="发货"
 																   onclick="edit('${var.ORDERINFO_ID}');">
 																	<i class="ace-icon fa fa-pencil-square-o bigger-120"
-																	   title="编辑"></i>
+																	   title="发货">发货</i>
 																</a>
 															</c:if>
 															<c:if test="${QX.del == 1 }">
@@ -222,6 +217,10 @@
 												<a class="btn btn-mini btn-success" onclick="uploadDelivery();">上传快递数据</a>
 											</c:if>
 										</td>
+									</tr>
+								</table>
+								<table style="width:100%;">
+									<tr>
 										<td style="vertical-align:top;">
 											<div class="pagination" style="float: right;padding-top: 0px;margin-top: 0px;">${page.pageStr}</div>
 										</td>
@@ -361,8 +360,8 @@
         diag.Drag = true;
         diag.Title = "编辑";
         diag.URL = '<%=basePath%>delivery/goEdit.do?ORDERINFO_ID=' + Id;
-        diag.Width = 550;
-        diag.Height = 400;
+        diag.Width = 800;
+        diag.Height = 600;
         diag.Modal = true;				//有无遮罩窗口
         diag.ShowMaxButton = true;	//最大化按钮
         diag.ShowMinButton = true;		//最小化按钮

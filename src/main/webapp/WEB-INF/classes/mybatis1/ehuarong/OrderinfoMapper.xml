@@ -108,7 +108,6 @@
 		EXTGOOD_ID = #{EXTGOOD_ID},
 		EXTGOODS_NAME = #{EXTGOODS_NAME},
 		ORDERINFO_ID = ORDERINFO_ID,
-		STATUS = #{STATUS}
 		where
 		ORDERINFO_ID = #{ORDERINFO_ID}
 	</update>
@@ -129,7 +128,22 @@
 		ORDERINFO_ID = #{ORDERINFO_ID}
 	</update>
 
-	<!-- 发货 -->
+	<!-- For 京东 淘宝 其他平台采购采购 -->
+	<update id="purchase_other_edit" parameterType="pd">
+		update
+		<include refid="tableName"></include>
+		set
+		PURCHASEPRICE = #{PURCHASEPRICE},
+		SUPPLIER_ID = #{SUPPLIER_ID},
+		SUPPLIERNAME = #{SUPPLIERNAME},
+		SUPPLIER_EMAIL = #{SUPPLIER_EMAIL},
+		REMARK = #{REMARK},
+		STATUS = '3'
+    where
+    ORDERINFO_ID = #{ORDERINFO_ID}
+</update>
+
+<!-- 发货 -->
 	<update id="consignment" parameterType="pd">
 		update
 		<include refid="tableName"></include>
@@ -145,10 +159,8 @@
 		update
 		<include refid="tableName"></include>
 		set
-		STATUS = #{STATUS},
 		EXPRESS= #{EXPRESS},
 		EXPRESSNO = #{EXPRESSNO}
-
 		where
 		ORDERINFO_ID = #{ORDERINFO_ID}
 	</update>

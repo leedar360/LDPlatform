@@ -113,8 +113,7 @@
 
 										</td>
 										<td style="vertical-align:top;">
-											<div class="pagination"
-												 style="float: right;padding-top: 0px;margin-top: 0px;">${page.pageStr}</div>
+											<div class="pagination" style="float: right;padding-top: 0px;margin-top: 0px;">${page.pageStr}</div>
 										</td>
 									</tr>
 								</table>

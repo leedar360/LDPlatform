@@ -101,9 +101,8 @@
 													<td class='center'>${var.ODER_ID}</td>
 													<td class='center'>${var.GOODNUM}</td>
 													<td class='center'><textarea readonly>收件人：${var.RECNAME}
-收件电话：${var.RECPHONE}
-收件地址：${var.RECADDRESS}
-</textarea></td>
+电话：${var.RECPHONE}
+地址：${var.RECADDRESS}</textarea></td>
 													<td class='center'>${var.SELLPRICE}</td>
 													<td class='center'>${var.PLATFORMID}</td>
 													<td class='center'>${var.EXTGOOD_ID}</td>
@@ -114,11 +113,11 @@
 														</c:if>
 														<div class="hidden-sm hidden-xs btn-group">
 															<c:if test="${QX.edit == 1 }">
-																<a class="btn btn-xs btn-success" title="采购" onclick="toOrderItemPurchase('${var.ORDERINFO_ID}');">
-																	采购该订单
-																</a>
-																<a class="fa fa-trash-o bigger-120" title="零采" onclick="toOrderItemPurchase('${var.ORDERINFO_ID}');">
-																	零采该订单
+																<a class="btn btn-xs btn-success" title="向供应商采购" onclick="toOrderItemPurchase('${var.ORDERINFO_ID}');">
+																	采购该单
+																</a>&nbsp;
+																<a class="btn btn-xs btn-danger" title="临采" onclick="purchase_other_edit('${var.ORDERINFO_ID}');">
+																	临采该单
 																</a>
 															</c:if>
 														</div>
@@ -332,6 +331,29 @@
     function toExcel() {
         window.location.href = '<%=basePath%>orderinfo/excel.do';
     }
+
+
+    //其他平台采购修改
+    function purchase_other_edit(Id){
+        top.jzts();
+        var diag = new top.Dialog();
+        diag.Drag=true;
+        diag.Title ="编辑";
+        diag.URL = '<%=basePath%>purchase/goPurchase_other.do?ORDERINFO_ID='+Id;
+        diag.Width = 800;
+        diag.Height = 600;
+        diag.Modal = true;				//有无遮罩窗口
+        diag. ShowMaxButton = true;	//最大化按钮
+        diag.ShowMinButton = true;		//最小化按钮
+        diag.CancelEvent = function(){ //关闭事件
+            if(diag.innerFrame.contentWindow.document.getElementById('zhongxin').style.display == 'none'){
+                tosearch();
+            }
+            diag.close();
+        };
+        diag.show();
+    }
+
 
     //采购
 	function toPurchase() {

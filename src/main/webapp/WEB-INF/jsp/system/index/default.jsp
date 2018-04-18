@@ -54,7 +54,7 @@ setTimeout("top.hangge()",500);
 						        // 指定图表的配置项和数据
 								var option = {
 						            title: {
-						                text: 'FH Admin用户统计'
+						                text: 'Leedar360 用户统计'
 						            },
 						            tooltip: {},
 						            xAxis: {

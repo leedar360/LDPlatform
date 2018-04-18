@@ -6,10 +6,12 @@ import com.fh.entity.ehuarong.Goods;
 import com.fh.service.ehuarong.orderinfo.OrderinfoManager;
 import com.fh.service.ehuarong.suplygoodinfo.SuplygoodinfoManager;
 import com.fh.service.ehuarong.supplierinfo.SupplierinfoManager;
+import com.fh.util.Jurisdiction;
+import com.fh.util.Logger;
 import com.fh.util.PageData;
 import com.fh.util.UuidUtil;
 import org.springframework.stereotype.Service;
-
+import org.springframework.util.StringUtils;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
@@ -23,6 +25,9 @@ import java.util.Map;
  * 创建时间：2018-03-29
  */
 @Service("orderinfoService") public class OrderinfoService implements OrderinfoManager {
+
+	protected Logger logger = Logger.getLogger(this.getClass());
+
 
 	@Resource(name = "daoSupport") private DaoSupport dao;
 	@Resource(name="suplygoodinfoService")
@@ -264,13 +269,19 @@ import java.util.Map;
 	}
 
     @Override public void uploadDelivery(List<Object> data) throws Exception{
+
+
 		for(int i=0;i<data.size();i++){
 			PageData varpd = (PageData)data.get(i);
 			PageData orderPD = new PageData();
-			orderPD.put("ORDERINFO_ID",varpd.getString("var0"));
-			orderPD.put("EXPRESS",varpd.getString("var10"));
-			orderPD.put("EXPRESSNO",varpd.getString("var9"));
-			orderPD.put("STATUS",FINISHED);
+			String tmpStrexpressno = varpd.getString("var9");
+			//如果快递单号不为空
+			if(!StringUtils.isEmpty(tmpStrexpressno)) {
+				orderPD.put("ORDERINFO_ID", varpd.getString("var0"));
+				orderPD.put("EXPRESS", varpd.getString("var10"));
+				orderPD.put("EXPRESSNO", varpd.getString("var9"));
+//				orderPD.put("STATUS", FINISHED);
+			}
 			dao.update("OrderinfoMapper.delivery", orderPD);
 		}
     }

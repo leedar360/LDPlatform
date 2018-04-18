@@ -32,26 +32,60 @@
 						<!-- 检索  -->
 						<form action="purchase/toPurchase.do" method="post" name="Form" id="Form">
 							<input type="hidden" name="selectOrderIds" id="selectOrderIds" value="${selectIds}">
-						<table style="margin-top:5px;">
-							<tr>
-								<td>
-									<div class="nav-search">
-										<span class="input-icon">
-											<input type="text" placeholder="这里输入商品名称搜索 支持模糊搜索" class="nav-search-input" id="nav-search-input" autocomplete="off" name="goodName" value="${pd.goodName}" placeholder="这里输入商品名称搜索"/>
-											<i class="ace-icon fa fa-search nav-search-icon"></i>
-										</span>
-									</div>
-								</td>
+							<table style="margin-top:5px;">
+								<tr>
+									<td>
+										<div class="nav-search">
+											<span class="input-icon">
+												<input type="text" placeholder="这里输入商品名称搜索 支持模糊搜索" class="nav-search-input" id="nav-search-input" autocomplete="off" name="goodName" value="${pd.goodName}" placeholder="这里输入商品名称搜索"/>
+												<i class="ace-icon fa fa-search nav-search-icon"></i>
+											</span>
+										</div>
+									</td>
 
-								<c:if test="${QX.cha == 1 }">
-								<td style="vertical-align:top;padding-left:2px"><a class="btn btn-light btn-xs" onclick="tosearch();"  title="检索"><i id="nav-search-icon" class="ace-icon fa fa-search bigger-110 nav-search-icon blue"></i></a></td>
-								</c:if>
+									<c:if test="${QX.cha == 1 }">
+									<td style="vertical-align:top;padding-left:2px"><a class="btn btn-light btn-xs" onclick="tosearch();"  title="检索"><i id="nav-search-icon" class="ace-icon fa fa-search bigger-110 nav-search-icon blue"></i></a></td>
+									</c:if>
 
-							</tr>
-						</table>
+								</tr>
+							</table>
 						<!-- 检索  -->
-					
-						<table id="simple-table" class="table table-striped table-bordered table-hover" style="margin-top:5px;">	
+
+						<!-- 当前采购信息  -->
+							<table id="table_report1" class="table table-striped table-bordered table-hover">
+								<tr>
+									<td style="width:75px;text-align: right;padding-top: 13px;">订单编号:</td>
+									<td>${orderinfopd.ODER_ID}</td>
+									<td style="width:75px;text-align: right;padding-top: 13px;">订单数量:</td>
+									<td>${orderinfopd.GOODNUM}</td>
+								</tr>
+								<tr>
+									<td style="width:75px;text-align: right;padding-top: 13px;">发件人:</td>
+									<td>${orderinfopd.SELLNAME}</td>
+									<td style="width:75px;text-align: right;padding-top: 13px;">发件电话:</td>
+									<td>${orderinfopd.SELLPHONE}</td>
+								</tr>
+								<tr>
+									<td style="width:75px;text-align: right;padding-top: 13px;">商品编号:</td>
+									<td>${orderinfopd.EXTGOOD_ID}</td>
+									<td style="width:75px;text-align: right;padding-top: 13px;">商品名称:</td>
+									<td>${orderinfopd.EXTGOODS_NAME}</td>
+								</tr>
+								<tr>
+									<td style="width:75px;text-align: right;padding-top: 13px;">收件人:</td>
+									<td>${orderinfopd.RECNAME}</td>
+									<td style="width:75px;text-align: right;padding-top: 13px;">收件电话:</td>
+									<td>${orderinfopd.RECPHONE}</td>
+								</tr>
+								<tr>
+									<td style="width:75px;text-align: right;padding-top: 13px;">售价单价:</td>
+									<td ><B>${orderinfopd.SELLPRICE}</B></td>
+									<td style="width:75px;text-align: right;padding-top: 13px;">收件地址:</td>
+									<td >${orderinfopd.RECADDRESS}</td>
+								</tr>
+							</table>
+
+							<table id="simple-table" class="table table-striped table-bordered table-hover" style="margin-top:5px;">
 							<thead>
 								<tr>
 									<th class="center" style="width:35px;">

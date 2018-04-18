@@ -3,6 +3,7 @@ package com.fh.controller.ehuarong.purchase;
 import com.fh.controller.base.BaseController;
 import com.fh.entity.Page;
 import com.fh.service.ehuarong.orderinfo.OrderinfoManager;
+import com.fh.service.ehuarong.purchase.PurchaseManager;
 import com.fh.service.ehuarong.suplygoodinfo.SuplygoodinfoManager;
 import com.fh.util.AppUtil;
 import com.fh.util.Jurisdiction;
@@ -29,6 +30,9 @@ public class PurchaseController  extends BaseController {
 
     @Resource(name="suplygoodinfoService")
     private SuplygoodinfoManager suplygoodinfoService;
+
+    @Resource(name="purchaseService")
+    private PurchaseManager purchaseService;
 
     /**列表
      * @param page
@@ -64,17 +68,21 @@ public class PurchaseController  extends BaseController {
      */
     @RequestMapping(value="/toPurchase")
     public ModelAndView toPurchase(Page page) throws Exception{
-        logBefore(logger, Jurisdiction.getUsername()+"列表Orderinfo");
+        logBefore(logger, Jurisdiction.getUsername()+" 向供应商采购");
         //if(!Jurisdiction.buttonJurisdiction(menuUrl, "cha")){return null;} //校验权限(无权查看时页面会有提示,如果不注释掉这句代码就无法进入列表页面,所以根据情况是否加入本句代码)
         ModelAndView mv = this.getModelAndView();
         PageData pd = new PageData();
         pd = this.getPageData();
         String selectIds = pd.getString("selectIds");				//关键词检索条件
-
         String selectOrderIds = pd.getString("selectOrderIds");     //当前页面做第二次检索时 把当前selectOrderIds值带上
+
         if(!StringUtils.isEmpty(selectOrderIds)) {
             selectIds = selectOrderIds;
         }
+        pd.put("ORDERINFO_ID",selectIds);
+
+        PageData orderinfopd = new PageData();
+        orderinfopd = purchaseService.findById(pd);	//根据ID读取
 
         String goodName = pd.getString("goodName");				//关键词检索条件
         if(!StringUtils.isEmpty(goodName)){
@@ -88,6 +96,7 @@ public class PurchaseController  extends BaseController {
         mv.addObject("selectIds", selectIds);
         mv.addObject("varList", varList);
         mv.addObject("pd", pd);
+        mv.addObject("orderinfopd", orderinfopd);
         mv.addObject("QX",Jurisdiction.getHC());	//按钮权限
         return mv;
     }
@@ -130,5 +139,41 @@ public class PurchaseController  extends BaseController {
             return AppUtil.returnObject(pd, map);
         }
         return  AppUtil.returnObject(pd, map);
+    }
+
+
+
+    /**去新增页面
+     * @param
+     * @throws Exception
+     */
+    @RequestMapping(value="/goPurchase_other")
+    public ModelAndView goPurchase_other()throws Exception{
+        ModelAndView mv = this.getModelAndView();
+        PageData pd = new PageData();
+        pd = this.getPageData();
+        pd = purchaseService.findById(pd);	//根据ID读取
+        mv.setViewName("ehuarong/purchase/purchase_other");
+        mv.addObject("msg", "purchase_other_edit");
+        mv.addObject("pd", pd);
+        return mv;
+    }
+
+
+    /**修改
+     * @param
+     * @throws Exception
+     */
+    @RequestMapping(value="/purchase_other_edit")
+    public ModelAndView purchase_other_edit() throws Exception{
+        logBefore(logger, Jurisdiction.getUsername()+"For 京东 淘宝单独采购");
+        if(!Jurisdiction.buttonJurisdiction(menuUrl, "purchase_other_edit")){return null;} //校验权限
+        ModelAndView mv = this.getModelAndView();
+        PageData pd = new PageData();
+        pd = this.getPageData();
+        purchaseService.purchase_other_edit(pd);
+        mv.addObject("msg","success");
+        mv.setViewName("save_result");
+        return mv;
     }
 }
