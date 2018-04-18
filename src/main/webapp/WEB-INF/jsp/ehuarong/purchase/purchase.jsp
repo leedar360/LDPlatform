@@ -60,13 +60,12 @@
 									<th class="center" style="width:50px;">序号</th>
 									<th class="center">供应商id</th>
 									<th class="center">供应商</th>
-									<th class="center">商品编号</th>
+									<th class="center">供应价格</th>
 									<th class="center">商品名称</th>
 									<th class="center">单位</th>
 									<th class="center">规格</th>
 									<th class="center">说明</th>
 									<th class="center">备注</th>
-									<th class="center">供应价格</th>
 									<th class="center">有效时间start</th>
 									<th class="center">有效时间end</th>
 								</tr>
@@ -85,13 +84,12 @@
 											<td class='center' style="width: 30px;">${vs.index+1}</td>
 											<td class='center'>${var.SUPPLIER_ID}</td>
 											<td class='center'>${var.SUPPLIERNAME}</td>
-											<td class='center'>${var.GOOD_ID}</td>
-											<td class='center'>${var.GOODNAME}</td>
+											<td class='center'>${var.SUPLYPRICE}</td>
+											<td class='center'><B>${var.GOODNAME}</B></td>
 											<td class='center'>${var.UNIT}</td>
 											<td class='center'>${var.SPEC}</td>
-											<td class='center'>${var.MEMO}</td>
+											<td class='center'><textarea readonly>${var.MEMO}</textarea></td>
 											<td class='center'>${var.REMARK}</td>
-											<td class='center'>${var.SUPLYPRICE}</td>
 											<td class='center'>${var.STARTTIME}</td>
 											<td class='center'>${var.ENDTIME}</td>
 

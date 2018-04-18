@@ -75,16 +75,9 @@
 									<th class="center" style="width:50px;">序号</th>
 									<th class="center">订单编号</th>
 									<th class="center">订单数量</th>
-									<th class="center">商品编码</th>
-									<th class="center">收件人</th>
-									<th class="center">收件电话</th>
-									<th class="center" style="width:20px;overflow: hidden;text-overflow:ellipsis;white-space: nowrap;">收件地址</th>
+									<th class="center">收件信息</th>
 									<th class="center">商品售价单价</th>
-									<th class="center">商品采购单价</th>
-									<th class="center">商品采购名称</th>
 									<th class="center">所属平台id</th>
-									<th class="center">供应商id</th>
-									<th class="center">供应商email</th>
 									<th class="center">平台商品编号</th>
 									<th class="center">平台商品描述</th>
 									<th class="center">操作</th>
@@ -107,16 +100,12 @@
 													<td class='center' style="width: 30px;">${vs.index+1}</td>
 													<td class='center'>${var.ODER_ID}</td>
 													<td class='center'>${var.GOODNUM}</td>
-													<td class='center'>${var.EXTGOOD_ID}</td>
-													<td class='center'>${var.RECNAME}</td>
-													<td class='center'>${var.RECPHONE}</td>
-													<td class='center'>${var.RECADDRESS}</td>
+													<td class='center'><textarea readonly>收件人：${var.RECNAME}
+收件电话：${var.RECPHONE}
+收件地址：${var.RECADDRESS}
+</textarea></td>
 													<td class='center'>${var.SELLPRICE}</td>
-													<td class='center'>${var.PURCHASEPRICE}</td>
-													<td class='center'>${var.SUPPLYGOOD_NAME}</td>
 													<td class='center'>${var.PLATFORMID}</td>
-													<td class='center'>${var.SUPPLIER_ID}</td>
-													<td class='center'>${var.SUPPLIER_EMAIL}</td>
 													<td class='center'>${var.EXTGOOD_ID}</td>
 													<td class='center'><textarea readonly>${var.EXTGOODS_NAME}</textarea></td>
 													<td class="center">
@@ -127,6 +116,9 @@
 															<c:if test="${QX.edit == 1 }">
 																<a class="btn btn-xs btn-success" title="采购" onclick="toOrderItemPurchase('${var.ORDERINFO_ID}');">
 																	采购该订单
+																</a>
+																<a class="fa fa-trash-o bigger-120" title="零采" onclick="toOrderItemPurchase('${var.ORDERINFO_ID}');">
+																	零采该订单
 																</a>
 															</c:if>
 														</div>

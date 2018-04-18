@@ -215,7 +215,7 @@
 		<include refid="Field"></include>
 		from
 		<include refid="tableName"></include>
-		where 1=1 and STATUS = 4
+		where 1=1 and STATUS = 2
 		<if test="pd.EXTGOOD_ID!= null and pd.EXTGOOD_ID != ''"><!-- 关键词检索 -->
 			and EXTGOOD_ID = #{pd.EXTGOOD_ID}
 		</if>
@@ -268,4 +268,17 @@
 			#{item}
 		</foreach>
 	</delete>
+
+	<!-- 发货 物流单号 修改 -->
+	<update id="deliveryedit" parameterType="pd">
+		update
+		<include refid="tableName"></include>
+		set
+		EXPRESS = #{EXPRESS},
+		EXPRESSNO = #{EXPRESSNO},
+		REMARK = #{REMARK}
+		where
+		ORDERINFO_ID = #{ORDERINFO_ID}
+	</update>
+
 </mapper>

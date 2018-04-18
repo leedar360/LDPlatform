@@ -3,7 +3,9 @@ package com.fh.controller.ehuarong.delivery;
 import com.fh.controller.base.BaseController;
 import com.fh.entity.Page;
 import com.fh.entity.ehuarong.Goods;
+import com.fh.service.ehuarong.delivery.DeliveryManager;
 import com.fh.service.ehuarong.orderinfo.OrderinfoManager;
+import com.fh.service.ehuarong.delivery.impl.DeliveryService;
 import com.fh.service.system.fhlog.FHlogManager;
 import com.fh.util.ExcelReader;
 import com.fh.util.Jurisdiction;
@@ -15,7 +17,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
-
 import javax.annotation.Resource;
 import java.util.List;
 import java.util.Map;
@@ -24,9 +25,10 @@ import java.util.Map;
 @RequestMapping(value="/delivery")
 public class DeliveryController extends BaseController {
 
-    String menuUrl = "orderinfo/list.do"; //菜单地址(权限用)
-    @Resource(name="orderinfoService")
-    private OrderinfoManager orderinfoService;
+    String menuUrl = "delivery/list.do"; //菜单地址(权限用)
+    @Resource(name="orderinfoService") private OrderinfoManager orderinfoService;
+
+    @Resource(name="deliveryService") private DeliveryManager deliveryService;
 
     @Resource(name = "fhlogService") private FHlogManager FHLOG;
 
@@ -38,7 +40,7 @@ public class DeliveryController extends BaseController {
      */
     @RequestMapping(value="/list")
     public ModelAndView list(Page page) throws Exception{
-        logBefore(logger, Jurisdiction.getUsername()+"列表Orderinfo");
+        logBefore(logger, Jurisdiction.getUsername()+" delivery list ");
         //if(!Jurisdiction.buttonJurisdiction(menuUrl, "cha")){return null;} //校验权限(无权查看时页面会有提示,如果不注释掉这句代码就无法进入列表页面,所以根据情况是否加入本句代码)
         ModelAndView mv = this.getModelAndView();
         PageData pd = new PageData();
@@ -104,6 +106,40 @@ public class DeliveryController extends BaseController {
         mv.addObject("existList", result.get(OrderinfoManager.EXIST));
         mv.addObject("QX",Jurisdiction.getHC());	//按钮权限
         mv.setViewName("ehuarong/uploadtrigger/save_result");
+        return mv;
+    }
+
+
+    /**去修改页面
+     * @param
+     * @throws Exception
+     */
+    @RequestMapping(value="/goEdit")
+    public ModelAndView goEdit()throws Exception{
+        ModelAndView mv = this.getModelAndView();
+        PageData pd = new PageData();
+        pd = this.getPageData();
+        pd = orderinfoService.findById(pd);	//根据ID读取
+        mv.setViewName("ehuarong/delivery/delivery_edit");
+        mv.addObject("msg", "edit");
+        mv.addObject("pd", pd);
+        return mv;
+    }
+
+    /**修改
+     * @param
+     * @throws Exception
+     */
+    @RequestMapping(value="/edit")
+    public ModelAndView edit() throws Exception{
+        logBefore(logger, Jurisdiction.getUsername()+" 修改 delivery");
+        if(!Jurisdiction.buttonJurisdiction(menuUrl, "edit")){return null;} //校验权限
+        ModelAndView mv = this.getModelAndView();
+        PageData pd = new PageData();
+        pd = this.getPageData();
+        deliveryService.edit(pd);
+        mv.addObject("msg","success");
+        mv.setViewName("save_result");
         return mv;
     }
 }

@@ -132,7 +132,6 @@
 									<th class="center">订单编号</th>
 									<th class="center">商品编码</th>
 									<th class="center">平台商品描述</th>
-
 									<th class="center">收件信息</th>
 									<th class="center">快递信息</th>
 									<th class="center">数量</th>

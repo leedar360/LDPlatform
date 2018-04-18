@@ -28,7 +28,7 @@
 					<div class="col-xs-12">
 
 						<!-- 检索  -->
-						<form action="orderinfo/list.do" method="post" name="Form" id="Form">
+						<form action="delivery/list.do" method="post" name="Form" id="Form">
 							<table style="margin-top:5px;">
 								<tr>
 									<td>
@@ -80,7 +80,7 @@
 									<c:if test="${QX.toExcel == 1 }">
 										<td style="vertical-align:top;padding-left:2px;"><a class="btn btn-light btn-xs"
 																							onclick="toExcel();" title="导出到EXCEL"><i
-												id="nav-search-icon"
+												id="nav-search-icon2"
 												class="ace-icon fa fa-download bigger-110 nav-search-icon blue"></i></a></td>
 									</c:if>
 									<c:if test="${QX.toExcel == 1 }">
@@ -105,20 +105,12 @@
 									<th class="center" style="width:50px;">序号</th>
 									<th class="center">订单编号</th>
 									<th class="center">订单数量</th>
-									<th class="center">商品编码</th>
-									<th class="center">发件人</th>
-									<th class="center">发件电话</th>
-									<th class="center">收件人</th>
-									<th class="center">收件电话</th>
-									<th class="center" style="width:20px;overflow: hidden;text-overflow:ellipsis;white-space: nowrap;">收件地址</th>
+									<th class="center">发件信息</th>
+									<th class="center">收件信息</th>
 									<th class="center">快递公司</th>
 									<th class="center">快递单号</th>
-									<th class="center">商品售价单价</th>
-									<th class="center">商品售价总价</th>
-									<th class="center">商品采购单价</th>
-									<th class="center">商品采购总价</th>
-									<th class="center">所属平台id</th>
-									<th class="center">供应商id</th>
+									<th class="center">所属平台</th>
+									<th class="center">供应商</th>
 									<th class="center">供应商email</th>
 									<th class="center">创建时间</th>
 									<th class="center">备注</th>
@@ -144,25 +136,21 @@
 													<td class='center' style="width: 30px;">${vs.index+1}</td>
 													<td class='center'>${var.ODER_ID}</td>
 													<td class='center'>${var.GOODNUM}</td>
-													<td class='center'>${var.EXTGOOD_ID}</td>
-													<td class='center'>${var.SELLNAME}</td>
-													<td class='center'>${var.SELLPHONE}</td>
-													<td class='center'>${var.RECNAME}</td>
-													<td class='center'>${var.RECPHONE}</td>
-													<td class='center'>${var.RECADDRESS}</td>
+													<td class='center'><textarea readonly>姓名：${var.SELLNAME}
+电话：${var.SELLPHONE}</textarea></td>
+													<td class='center'><textarea readonly>收件人：${var.RECNAME}
+收件电话：${var.RECPHONE}
+收件地址：${var.RECADDRESS}
+</textarea></td>
 													<td class='center'>${var.EXPRESS}</td>
 													<td class='center'>${var.EXPRESSNO}</td>
-													<td class='center'>${var.SELLPRICE}</td>
-													<td class='center'>${var.SELLTOTALPRICE}</td>
-													<td class='center'>${var.PURCHASEPRICE}</td>
-													<td class='center'>${var.PURCHASETOTALPRICE}</td>
 													<td class='center'>${var.PLATFORMID}</td>
 													<td class='center'>${var.SUPPLIER_ID}</td>
 													<td class='center'>${var.SUPPLIER_EMAIL}</td>
 													<td class='center'>${var.CREATETIME}</td>
-													<td class='center'>${var.REMARK}</td>
+													<td class='center'><textarea readonly>${var.REMARK}</textarea></td>
 													<td class='center'>${var.EXTGOOD_ID}</td>
-													<td class='center'>${var.EXTGOODS_NAME}</td>
+													<td class='center'><textarea readonly>${var.EXTGOODS_NAME}</textarea></td>
 													<td class="center">
 														<c:if test="${QX.edit != 1 && QX.del != 1 }">
                                                             <span class="label label-large label-grey arrowed-in-right arrowed-in"><i
@@ -203,18 +191,7 @@
 																			</a>
 																		</li>
 																	</c:if>
-																	<c:if test="${QX.del == 1 }">
-																		<li>
-																			<a style="cursor:pointer;"
-																			   onclick="del('${var.ORDERINFO_ID}');"
-																			   class="tooltip-error" data-rel="tooltip"
-																			   title="删除">
-																	<span class="red">
-																		<i class="ace-icon fa fa-trash-o bigger-120"></i>
-																	</span>
-																			</a>
-																		</li>
-																	</c:if>
+
 																</ul>
 															</div>
 														</div>
@@ -246,8 +223,7 @@
 											</c:if>
 										</td>
 										<td style="vertical-align:top;">
-											<div class="pagination"
-												 style="float: right;padding-top: 0px;margin-top: 0px;">${page.pageStr}</div>
+											<div class="pagination" style="float: right;padding-top: 0px;margin-top: 0px;">${page.pageStr}</div>
 										</td>
 									</tr>
 								</table>
@@ -384,9 +360,9 @@
         var diag = new top.Dialog();
         diag.Drag = true;
         diag.Title = "编辑";
-        diag.URL = '<%=basePath%>orderinfo/goEdit.do?ORDERINFO_ID=' + Id;
-        diag.Width = 450;
-        diag.Height = 355;
+        diag.URL = '<%=basePath%>delivery/goEdit.do?ORDERINFO_ID=' + Id;
+        diag.Width = 550;
+        diag.Height = 400;
         diag.Modal = true;				//有无遮罩窗口
         diag.ShowMaxButton = true;	//最大化按钮
         diag.ShowMinButton = true;		//最小化按钮
