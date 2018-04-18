@@ -51,6 +51,14 @@
 									<option value="">2</option>
 								  	</select>
 								</td>
+								<td style="vertical-align:top;padding-left:2px;">
+									<select class="chosen-select form-control" name="SUPPLIER_ID" id="SUPPLIER_ID" data-placeholder="请选择" style="vertical-align:top;width: 120px;">
+										<option value=""></option>
+										<c:forEach items="${distinctSupplyId}" var="var" varStatus="vs">
+											<option value="${var.SUPPLIER_ID}">${var.SUPPLIER_ID}</option>
+										</c:forEach>
+									</select>
+								</td>
 								<c:if test="${QX.cha == 1 }">
 								<td style="vertical-align:top;padding-left:2px"><a class="btn btn-light btn-xs" onclick="tosearch();"  title="检索"><i id="nav-search-icon" class="ace-icon fa fa-search bigger-110 nav-search-icon blue"></i></a></td>
 								</c:if>

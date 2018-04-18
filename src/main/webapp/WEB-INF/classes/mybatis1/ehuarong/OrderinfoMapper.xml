@@ -140,6 +140,19 @@
 		ORDERINFO_ID = #{ORDERINFO_ID}
 	</update>
 
+	<!-- 交付 -->
+	<update id="delivery" parameterType="pd">
+		update
+		<include refid="tableName"></include>
+		set
+		STATUS = #{STATUS},
+		EXPRESS= #{EXPRESS},
+		EXPRESSNO = #{EXPRESSNO}
+
+		where
+		ORDERINFO_ID = #{ORDERINFO_ID}
+	</update>
+
 	<!-- 通过ID获取数据 -->
 	<select id="findById" parameterType="pd" resultType="pd">
 		select
@@ -246,7 +259,7 @@
 		<include refid="Field"></include>
 		from
 		<include refid="tableName"></include>
-		where STATUS = 1 <!-- status = 1 订单导入完成， 新建订单 -->
+		where STATUS = 2 <!-- status = 1 订单导入完成， 新建订单 -->
 	</select>
 
 	<!-- 发货管理列表 status = 2 -->
@@ -255,7 +268,7 @@
 		<include refid="Field"></include>
 		from
 		<include refid="tableName"></include>
-		where STATUS = 2
+		where STATUS = 3
 	</select>
 
 	<!-- 批量删除 -->

@@ -91,21 +91,18 @@ public class DeliveryController extends BaseController {
         FHLOG.save(Jurisdiction.getUsername(), "导入订单");
         ModelAndView mv = this.getModelAndView();
         PageData pd = new PageData();
-        Map<String,List<Goods>> result = null;
+
         if (!Jurisdiction.buttonJurisdiction(menuUrl, "add")) {
             return null;
         }
         if (null != file && !file.isEmpty()) {
-
-            List<Object> data = ObjectExcelRead.readExcel(file.getInputStream(), 0,0,0);
+            List<Object> data = ObjectExcelRead.readExcel(file.getInputStream(), 1,0,0);
             orderinfoManager.uploadDelivery(data);
-
+            mv.addObject("successed", data.size());
         }
-        mv.addObject("successCount", result.get(OrderinfoManager.SUCCESS).size());
-        mv.addObject("falilureList", result.get(OrderinfoManager.FAILURE));
-        mv.addObject("existList", result.get(OrderinfoManager.EXIST));
+
         mv.addObject("QX",Jurisdiction.getHC());	//按钮权限
-        mv.setViewName("ehuarong/uploadtrigger/save_result");
+        mv.setViewName("ehuarong/delivery/save_result");
         return mv;
     }
 

@@ -104,10 +104,16 @@ public class SupplierinfoController extends BaseController {
 		if(null != keywords && !"".equals(keywords)){
 			pd.put("keywords", keywords.trim());
 		}
+		String SUPPLIER_ID = pd.getString("SUPPLIER_ID");
+		if(null != SUPPLIER_ID && !"".equals(SUPPLIER_ID)){
+			pd.put("SUPPLIER_ID", SUPPLIER_ID.trim());
+		}
 		page.setPd(pd);
 		List<PageData>	varList = supplierinfoService.list(page);	//列出Supplierinfo列表
+		List<PageData> distinctSupplyId = supplierinfoService.distinctSupplyId();
 		mv.setViewName("ehuarong/supplierinfo/supplierinfo_list");
 		mv.addObject("varList", varList);
+		mv.addObject("distinctSupplyId", distinctSupplyId);
 		mv.addObject("pd", pd);
 		mv.addObject("QX",Jurisdiction.getHC());	//按钮权限
 		return mv;

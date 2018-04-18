@@ -61,6 +61,13 @@ public class SupplierinfoService implements SupplierinfoManager{
 	public List<PageData> listAll(PageData pd)throws Exception{
 		return (List<PageData>)dao.findForList("SupplierinfoMapper.listAll", pd);
 	}
+
+	/**供应商ID
+	 * @throws Exception
+	 */
+	public List<PageData> distinctSupplyId() throws Exception{
+		return (List<PageData>)dao.findForList("SupplierinfoMapper.distinctSupplyId", null);
+	}
 	
 	/**通过id获取数据
 	 * @param pd
