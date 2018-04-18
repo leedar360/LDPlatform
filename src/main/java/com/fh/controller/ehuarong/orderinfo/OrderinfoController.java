@@ -282,7 +282,7 @@ public class OrderinfoController extends BaseController {
 			vpd.put("var1", varOList.get(i).getString("ORDERINFO_ID"));	    //1
 			vpd.put("var2", DateUtil.getDay());	    //2
 			vpd.put("var3", varOList.get(i).getString("ODER_ID"));	    //3
-			vpd.put("var4", varOList.get(i).getString("华榕在线"));	    //4
+			vpd.put("var4", "华榕在线");	    //4
 			vpd.put("var5", "13911881373");	    //5
 			vpd.put("var6", varOList.get(i).getString("RECNAME"));	    //6
 			vpd.put("var7", varOList.get(i).getString("RECPHONE"));	    //7
