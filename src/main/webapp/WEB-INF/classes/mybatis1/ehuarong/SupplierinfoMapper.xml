@@ -99,18 +99,23 @@
 		<include refid="tableName"></include>
 		where 1=1
 
-		<if test="pd.SUPPLIER_ID!= null and pd.SUPPLIER_ID != ''"><!-- 关键词检索 -->
-			and SUPPLIER_ID = #{SUPPLIER_ID}
+		<if test="pd.SUPPLY_ID!= null and pd.SUPPLY_ID != ''"><!-- 关键词检索 -->
+			and SUPPLIER_ID = #{SUPPLY_ID}
 		</if>
 		<if test="pd.keywords!= null and pd.keywords != ''"><!-- 关键词检索 -->
 			and
 				(
-				<!--	根据需求自己加检索条件
-					字段1 LIKE '%'+ #{pd.keywords}+'%'
-					 or 
-					字段2 LIKE '%'+ #{pd.keywords}+'%' 
-				-->
-				)
+				<!--	根据需求自己加检索条件-->
+					SUPPLIERNAME LIKE '%'+ #{pd.keywords}+'%'
+					 or
+					CONTACT LIKE '%'+ #{pd.keywords}+'%'
+					 or
+					PHONE LIKE '%'+ #{pd.keywords}+'%'
+					 or
+					EMAIL LIKE '%'+ #{pd.keywords}+'%'
+					 or
+					ADDRESS LIKE '%'+ #{pd.keywords}+'%'
+			)
 		</if>
 	</select>
 	
@@ -124,20 +129,18 @@
 
 	<!-- 列表(全部) -->
 	<select id="distinctSupplyId" parameterType="pd" resultType="pd">
-		select distinct SUPPLIER_ID
+		select distinct SUPPLIER_ID,SUPPLIERNAME
 		from
 		<include refid="tableName"></include>
 	</select>
-	
-	<!-- 批量删除 -->
-	<delete id="deleteAll" parameterType="String">
-		delete from
+
+	<!-- 获得最大supplyid 的值 -->
+	<select id="getMaxsupplyid" parameterType="pd" resultType="pd">
+		select max(SUPPLIER_ID) as maxSupplyid
+		from
 		<include refid="tableName"></include>
-		where 
-			SUPPLIERINFO_ID in
-		<foreach item="item" index="index" collection="array" open="(" separator="," close=")">
-                 #{item}
-		</foreach>
-	</delete>
-	
+
+	</select>
+
+
 </mapper>

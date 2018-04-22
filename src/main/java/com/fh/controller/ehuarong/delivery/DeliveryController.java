@@ -2,12 +2,10 @@ package com.fh.controller.ehuarong.delivery;
 
 import com.fh.controller.base.BaseController;
 import com.fh.entity.Page;
-import com.fh.entity.ehuarong.Goods;
 import com.fh.service.ehuarong.delivery.DeliveryManager;
 import com.fh.service.ehuarong.orderinfo.OrderinfoManager;
-import com.fh.service.ehuarong.delivery.impl.DeliveryService;
 import com.fh.service.system.fhlog.FHlogManager;
-import com.fh.util.ExcelReader;
+import com.fh.util.AppUtil;
 import com.fh.util.Jurisdiction;
 import com.fh.util.ObjectExcelRead;
 import com.fh.util.PageData;
@@ -15,9 +13,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import javax.annotation.Resource;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -26,13 +27,16 @@ import java.util.Map;
 public class DeliveryController extends BaseController {
 
     String menuUrl = "delivery/list.do"; //菜单地址(权限用)
-    @Resource(name="orderinfoService") private OrderinfoManager orderinfoService;
+    @Resource(name="deliveryService")
+    private DeliveryManager deliveryService;
 
-    @Resource(name="deliveryService") private DeliveryManager deliveryService;
+    @Resource(name="orderinfoService")
+    private OrderinfoManager orderinfoService;
 
-    @Resource(name = "fhlogService") private FHlogManager FHLOG;
+    @Resource(name = "fhlogService")
+    private FHlogManager FHLOG;
 
-    @Resource(name = "orderinfoService") private OrderinfoManager orderinfoManager;
+//    @Resource(name = "orderinfoService") private OrderinfoManager orderinfoManager;
 
     /**列表
      * @param page
@@ -40,12 +44,15 @@ public class DeliveryController extends BaseController {
      */
     @RequestMapping(value="/list")
     public ModelAndView list(Page page) throws Exception{
-        logBefore(logger, Jurisdiction.getUsername()+" delivery list ");
+        logBefore(logger, Jurisdiction.getUsername()+" 发货列表 delivery list ");
         if(!Jurisdiction.buttonJurisdiction(menuUrl, "cha")){return null;} //校验权限(无权查看时页面会有提示,如果不注释掉这句代码就无法进入列表页面,所以根据情况是否加入本句代码)
         ModelAndView mv = this.getModelAndView();
         PageData pd = new PageData();
         pd = this.getPageData();
         String keywords = pd.getString("keywords");				//关键词检索条件
+        String lastStart = pd.getString("lastStart");
+        String lastEnd = pd.getString("lastEnd");
+
         if(null != keywords && !"".equals(keywords)){
             pd.put("keywords", keywords.trim());
         }
@@ -53,8 +60,15 @@ public class DeliveryController extends BaseController {
         if(!StringUtils.isEmpty(EXTGOOD_ID)){
             pd.put("EXTGOOD_ID", EXTGOOD_ID.trim());
         }
+        if(null != lastStart && !"".equals(lastStart)){
+            pd.put("lastStart", lastStart.trim());
+        }
+        if(null != lastEnd && !"".equals(lastEnd)){
+            pd.put("lastEnd", lastEnd.trim());
+        }
+
         page.setPd(pd);
-        List<PageData> varList = orderinfoService.deliveryList(page);	//列出Orderinfo列表
+        List<PageData> varList = deliveryService.list(page);
         mv.setViewName("ehuarong/delivery/delivery_list");
         mv.addObject("varList", varList);
         mv.addObject("pd", pd);
@@ -97,7 +111,7 @@ public class DeliveryController extends BaseController {
         }
         if (null != file && !file.isEmpty()) {
             List<Object> data = ObjectExcelRead.readExcel(file.getInputStream(), 1,0,0);
-            orderinfoManager.uploadDelivery(data);
+            orderinfoService.uploadDelivery(data);
             mv.addObject("successed", data.size());
         }
 
@@ -139,4 +153,36 @@ public class DeliveryController extends BaseController {
         mv.setViewName("save_result");
         return mv;
     }
+
+
+
+    /**批量备份
+     * 把交易成功的列表 备份status 为bak，同时把这些hr_orderinfo 的记录 insert 到 hr_orderinfo_his 表中
+     * @param
+     * @throws Exception
+     */
+    @RequestMapping(value="/backupAll")
+    @ResponseBody
+    public Object bakupAll() throws Exception{
+        logBefore(logger, Jurisdiction.getUsername()+"批量备份 Orderinfo to Orderinfo_his");
+        if(!Jurisdiction.buttonJurisdiction(menuUrl, "del")){return null;} //校验权限
+        PageData pd = new PageData();
+        Map<String,Object> map = new HashMap<String,Object>();
+        pd = this.getPageData();
+        List<PageData> pdList = new ArrayList<PageData>();
+        String DATA_IDS = pd.getString("DATA_IDS");
+
+        if(null != DATA_IDS && !"".equals(DATA_IDS)){
+            String ArrayDATA_IDS[] = DATA_IDS.split(",");
+            deliveryService.backupAll(ArrayDATA_IDS);
+            pd.put("msg", "ok");
+        }else{
+            pd.put("msg", "no");
+        }
+        pdList.add(pd);
+        map.put("list", pdList);
+        return AppUtil.returnObject(pd, map);
+    }
+
+
 }

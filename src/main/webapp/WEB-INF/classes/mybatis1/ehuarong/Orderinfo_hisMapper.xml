@@ -9,8 +9,7 @@
 	
 	<!-- 字段 -->
 	<sql id="Field">
-		ORDERINFO_HIS_ID,	
-		ORDERINFO_ID,	
+		ORDERINFO_ID,
 		ODER_ID,	
 		GOODNUM,	
 		SELLNAME,	
@@ -38,7 +37,7 @@
 	
 	<!-- 字段值 -->
 	<sql id="FieldValue">
-		#{ORDERINFO_HIS_ID},	
+
 		#{ORDERINFO_ID},	
 		#{ODER_ID},	
 		#{GOODNUM},	
@@ -81,7 +80,7 @@
 		delete from
 		<include refid="tableName"></include>
 		where 
-			ORDERINFO_HIS_ID = #{ORDERINFO_HIS_ID}
+			ORDERINFO_ID = #{ORDERINFO_ID}
 	</delete>
 	
 	<!-- 修改 -->
@@ -111,9 +110,8 @@
 			STATUS = #{STATUS},
 			EXTGOODS_NAME = #{EXTGOODS_NAME},
 			SUPPLYGOOD_NAME = #{SUPPLYGOOD_NAME},
-		ORDERINFO_HIS_ID = ORDERINFO_HIS_ID
-		where 
-		ORDERINFO_HIS_ID = #{ORDERINFO_HIS_ID}
+		where
+		ORDERINFO_ID = #{ORDERINFO_ID}
 	</update>
 	
 	<!-- 通过ID获取数据 -->
@@ -123,7 +121,7 @@
 		from 
 		<include refid="tableName"></include>
 		where 
-			ORDERINFO_HIS_ID = #{ORDERINFO_HIS_ID}
+			ORDERINFO_ID = #{ORDERINFO_ID}
 	</select>
 	
 	<!-- 列表 -->
@@ -158,7 +156,7 @@
 		delete from
 		<include refid="tableName"></include>
 		where 
-			ORDERINFO_HIS_ID in
+			ORDERINFO_ID in
 		<foreach item="item" index="index" collection="array" open="(" separator="," close=")">
                  #{item}
 		</foreach>

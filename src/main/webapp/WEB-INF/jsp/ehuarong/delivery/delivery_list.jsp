@@ -50,26 +50,7 @@
 																		 value="" type="text" data-date-format="yyyy-mm-dd"
 																		 readonly="readonly" style="width:88px;"
 																		 placeholder="结束日期" title="结束日期"/></td>
-									<td style="vertical-align:top;padding-left:2px;">
-										<select class="chosen-select form-control" name="name" id="id" data-placeholder="请选择"
-												style="vertical-align:top;width: 120px;">
-											<option value=""></option>
-											<option value="">全部</option>
-											<option value="">1</option>
-											<option value="">2</option>
-										</select>
-									</td>
-									<!-- 商品编码 -->
-									<td>
-										<div class="nav-search">
-										<span class="input-icon">
-											<input type="text" placeholder="这里输入商品编码" class="nav-search-input"
-												   id="nav-EXTGOOD_ID-input" autocomplete="off" name="EXTGOOD_ID"
-												   value="${pd.EXTGOOD_ID }" placeholder="这里输入商品编码"/>
-											<i class="ace-icon fa fa-search nav-search-icon"></i>
-										</span>
-										</div>
-									</td>
+
 									<!-- 商品编码 -->
 									<c:if test="${QX.cha == 1 }">
 										<td style="vertical-align:top;padding-left:2px"><a class="btn btn-light btn-xs"
@@ -143,7 +124,7 @@
 													<td class='center'>${var.PLATFORMID}</td>
 													<td class='center' title='${var.SUPPLIER_ID}'>${var.SUPPLIERNAME}</td>
 													<td class='center'>${var.CREATETIME}</td>
-													<td class='center'><textarea readonly>${var.REMARK}</textarea></td>
+													<td class='center'>${var.REMARK}</td>
 													<td class='center'>${var.EXTGOOD_ID}</td>
 													<td class='center'><textarea readonly>${var.EXTGOODS_NAME}</textarea></td>
 													<td class="center">
@@ -156,15 +137,11 @@
 																<a class="btn btn-xs btn-success" title="发货"
 																   onclick="edit('${var.ORDERINFO_ID}');">
 																	<i class="ace-icon fa fa-pencil-square-o bigger-120"
-																	   title="发货">发货</i>
+																	   title="发货">发货&备注</i>
 																</a>
+
 															</c:if>
-															<c:if test="${QX.del == 1 }">
-																<a class="btn btn-xs btn-danger"
-																   onclick="del('${var.ORDERINFO_ID}');">
-																	<i class="ace-icon fa fa-trash-o bigger-120" title="删除"></i>
-																</a>
-															</c:if>
+
 														</div>
 														<div class="hidden-md hidden-lg">
 															<div class="inline pos-rel">
@@ -215,6 +192,11 @@
 										<td style="vertical-align:top;">
 											<c:if test="${QX.add == 1 }">
 												<a class="btn btn-mini btn-success" onclick="uploadDelivery();">上传快递数据</a>
+											</c:if>
+										</td>
+										<td style="vertical-align:top;">
+											<c:if test="${QX.add == 1 }">
+												<a class="btn btn-mini btn-success" onclick="makeAll('确定存档当前记录？');">批量存档</a>
 											</c:if>
 										</td>
 									</tr>
@@ -342,10 +324,10 @@
 
     //删除
     function del(Id) {
-        bootbox.confirm("确定要删除吗?", function (result) {
+        bootbox.confirm("确定备份该条记录吗?", function (result) {
             if (result) {
                 top.jzts();
-                var url = "<%=basePath%>orderinfo/delete.do?ORDERINFO_ID=" + Id + "&tm=" + new Date().getTime();
+                var url = "<%=basePath%>delivery/bakupAll.do?ORDERINFO_ID=" + Id ;
                 $.get(url, function (data) {
                     tosearch();
                 });
@@ -399,11 +381,11 @@
                     });
                     return;
                 } else {
-                    if (msg == '确定要删除选中的数据吗?') {
+                    if (msg == '确定存档当前记录？') {
                         top.jzts();
                         $.ajax({
                             type: "POST",
-                            url: '<%=basePath%>orderinfo/deleteAll.do?tm=' + new Date().getTime(),
+                            url: '<%=basePath%>delivery/backupAll.do?',
                             data: {DATA_IDS: str},
                             dataType: 'json',
                             //beforeSend: validateData,

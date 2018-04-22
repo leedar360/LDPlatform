@@ -165,6 +165,7 @@
 		<include refid="tableName"></include>,
 		<include refid="referenceTableName"></include>
 		where 1=1  and HR_SUPLYGOODINFO.SUPPLIER_ID = HR_SUPPLIERINFO.SUPPLIER_ID
+
 		<if test="pd.keywords!= null and pd.keywords != ''"><!-- 关键词检索 -->
 			and
 				(
@@ -179,6 +180,11 @@
 					字段2 LIKE CONCAT(CONCAT('%', #{pd.keywords}),'%') 
 				-->
 				)
+
+		</if>
+		<!-- 创建日期检索检索 -->
+		<if test="pd.lastStart!= null and pd.lastStart != '' and pd.lastEnd!= null and pd.lastEnd != ''" >
+			and (HR_SUPLYGOODINFO.CREATETIME  BETWEEN #{pd.lastStart} AND #{pd.lastEnd}  )
 		</if>
 	</select>
 

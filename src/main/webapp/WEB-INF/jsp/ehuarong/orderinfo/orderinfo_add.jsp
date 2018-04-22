@@ -39,19 +39,7 @@
 								<td style="width:75px;text-align: right;padding-top: 13px;">订单数量:</td>
 								<td><input type="text" name="GOODNUM" id="GOODNUM" value="${pd.GOODNUM}" maxlength="255" placeholder="这里输入订单数量" title="订单数量" style="width:98%;"/></td>
 							</tr>
-							<tr>
-								<td style="width:75px;text-align: right;padding-top: 13px;">采购商品描述:</td>
-								<td><input type="text" name="EXTGOODS_NAME" id="EXTGOODS_NAME" value="${pd.EXTGOODS_NAME}" maxlength="255" placeholder="这里输入快递公司" title="快递公司" style="width:98%;"/></td>
-							</tr>
-							<tr>
-								<td style="width:75px;text-align: right;padding-top: 13px;">发件人:</td>
-								<td><input type="text" name="SELLNAME" id="SELLNAME" value="${pd.SELLNAME}" maxlength="255" placeholder="这里输入发件人" title="发件人" style="width:98%;"/></td>
-							</tr>
-							<tr>
-								<td style="width:75px;text-align: right;padding-top: 13px;">发件电话:</td>
-								<td><input type="text" name="SELLPHONE" id="SELLPHONE" value="${pd.SELLPHONE}" maxlength="255" placeholder="这里输入发件电话" title="发件电话" style="width:98%;"/></td>
-							</tr>
-							<tr>
+														<tr>
 								<td style="width:75px;text-align: right;padding-top: 13px;">收件人:</td>
 								<td><input type="text" name="RECNAME" id="RECNAME" value="${pd.RECNAME}" maxlength="255" placeholder="这里输入收件人" title="收件人" style="width:98%;"/></td>
 							</tr>
@@ -64,12 +52,12 @@
 								<td><input type="text" name="RECADDRESS" id="RECADDRESS" value="${pd.RECADDRESS}" maxlength="255" placeholder="这里输入收件地址" title="收件地址" style="width:98%;"/></td>
 							</tr>
 							<tr>
-								<td style="width:75px;text-align: right;padding-top: 13px;">快递公司:</td>
-								<td><input type="text" name="EXPRESS" id="EXPRESS" value="${pd.EXPRESS}" maxlength="255" placeholder="这里输入快递公司" title="快递公司" style="width:98%;"/></td>
+								<td style="width:75px;text-align: right;padding-top: 13px;">采购商品ID:</td>
+								<td><input type="text" name="EXTGOOD_ID" id="EXTGOOD_ID" value="${pd.EXTGOOD_ID}" maxlength="255" placeholder="这里输入快递公司" title="快递公司" style="width:98%;"/></td>
 							</tr>
 							<tr>
-								<td style="width:75px;text-align: right;padding-top: 13px;">快递单号:</td>
-								<td><input type="text" name="EXPRESSNO" id="EXPRESSNO" value="${pd.EXPRESSNO}" maxlength="255" placeholder="这里输入快递单号" title="快递单号" style="width:98%;"/></td>
+								<td style="width:75px;text-align: right;padding-top: 13px;">采购商品描述:</td>
+								<td><input type="text" name="EXTGOODS_NAME" id="EXTGOODS_NAME" value="${pd.EXTGOODS_NAME}" maxlength="255" placeholder="这里输入快递公司" title="快递公司" style="width:98%;"/></td>
 							</tr>
 							<tr>
 								<td style="width:75px;text-align: right;padding-top: 13px;">商品售价单价:</td>
@@ -79,34 +67,17 @@
 								<td style="width:75px;text-align: right;padding-top: 13px;">商品售价总价:</td>
 								<td><input type="number" name="SELLTOTALPRICE" id="SELLTOTALPRICE" value="${pd.SELLTOTALPRICE}" maxlength="32" placeholder="这里输入商品售价总价" title="商品售价总价" style="width:98%;"/></td>
 							</tr>
-							<tr>
-								<td style="width:75px;text-align: right;padding-top: 13px;">商品采购单价:</td>
-								<td><input type="number" name="PURCHASEPRICE" id="PURCHASEPRICE" value="${pd.PURCHASEPRICE}" maxlength="32" placeholder="这里输入商品采购单价" title="商品采购单价" style="width:98%;"/></td>
-							</tr>
-							<tr>
-								<td style="width:75px;text-align: right;padding-top: 13px;">商品采购总价:</td>
-								<td><input type="number" name="PURCHASETOTALPRICE" id="PURCHASETOTALPRICE" value="${pd.PURCHASETOTALPRICE}" maxlength="32" placeholder="这里输入商品采购总价" title="商品采购总价" style="width:98%;"/></td>
-							</tr>
+
 							<tr>
 								<td style="width:75px;text-align: right;padding-top: 13px;">所属平台id:</td>
 								<td><input type="text" name="PLATFORMID" id="PLATFORMID" value="${pd.PLATFORMID}" maxlength="255" placeholder="这里输入所属平台id" title="所属平台id" style="width:98%;"/></td>
 							</tr>
-							<tr>
-								<td style="width:75px;text-align: right;padding-top: 13px;">供应商id :</td>
-								<td><input type="text" name="SUPPLIER_ID" id="SUPPLIER_ID" value="${pd.SUPPLIER_ID}" maxlength="255" placeholder="这里输入供应商id " title="供应商id " style="width:98%;"/></td>
-							</tr>
-							<tr>
-								<td style="width:75px;text-align: right;padding-top: 13px;">供应商email:</td>
-								<td><input type="text" name="SUPPLIER_EMAIL" id="SUPPLIER_EMAIL" value="${pd.SUPPLIER_EMAIL}" maxlength="255" placeholder="这里输入供应商email" title="供应商email" style="width:98%;"/></td>
-							</tr>
+
 							<tr>
 								<td style="width:75px;text-align: right;padding-top: 13px;">备注:</td>
 								<td><input type="text" name="REMARK" id="REMARK" value="${pd.REMARK}" maxlength="255" placeholder="这里输入备注" title="备注" style="width:98%;"/></td>
 							</tr>
-							<tr>
-								<td style="width:75px;text-align: right;padding-top: 13px;">商品编号:</td>
-								<td><input type="text" name="EXTGOOD_ID" id="REMARK" value="${pd.EXTGOOD_ID}" maxlength="255" placeholder="这里输入商品编号" title="商品编号" style="width:98%;"/></td>
-							</tr>
+
 							<tr>
 								<td style="text-align: center;" colspan="10">
 									<input type="hidden" name="status" id="status" value="1" />
@@ -163,26 +134,7 @@
 				$("#GOODNUM").focus();
 			return false;
 			}
-			if($("#SELLNAME").val()==""){
-				$("#SELLNAME").tips({
-					side:3,
-		            msg:'请输入发件人',
-		            bg:'#AE81FF',
-		            time:2
-		        });
-				$("#SELLNAME").focus();
-			return false;
-			}
-			if($("#SELLPHONE").val()==""){
-				$("#SELLPHONE").tips({
-					side:3,
-		            msg:'请输入发件电话',
-		            bg:'#AE81FF',
-		            time:2
-		        });
-				$("#SELLPHONE").focus();
-			return false;
-			}
+
 			if($("#RECNAME").val()==""){
 				$("#RECNAME").tips({
 					side:3,
@@ -213,26 +165,7 @@
 				$("#RECADDRESS").focus();
 			return false;
 			}
-			if($("#EXPRESS").val()==""){
-				$("#EXPRESS").tips({
-					side:3,
-		            msg:'请输入快递公司',
-		            bg:'#AE81FF',
-		            time:2
-		        });
-				$("#EXPRESS").focus();
-			return false;
-			}
-			if($("#EXPRESSNO").val()==""){
-				$("#EXPRESSNO").tips({
-					side:3,
-		            msg:'请输入快递单号',
-		            bg:'#AE81FF',
-		            time:2
-		        });
-				$("#EXPRESSNO").focus();
-			return false;
-			}
+
 			if($("#SELLPRICE").val()==""){
 				$("#SELLPRICE").tips({
 					side:3,
@@ -283,25 +216,26 @@
 				$("#PLATFORMID").focus();
 			return false;
 			}
-			if($("#SUPPLIER_ID").val()==""){
-				$("#SUPPLIER_ID").tips({
+
+			if($("#EXTGOOD_ID").val()==""){
+				$("#EXTGOOD_ID").tips({
 					side:3,
-		            msg:'请输入供应商id ',
+		            msg:'请输入采购商品ID',
 		            bg:'#AE81FF',
 		            time:2
 		        });
-				$("#SUPPLIER_ID").focus();
+				$("#EXTGOOD_ID").focus();
 			return false;
 			}
-			if($("#SUPPLIER_EMAIL").val()==""){
-				$("#SUPPLIER_EMAIL").tips({
+			if($("#EXTGOODS_NAME").val()==""){
+				$("#EXTGOODS_NAME").tips({
 					side:3,
-		            msg:'请输入供应商email',
-		            bg:'#AE81FF',
-		            time:2
-		        });
-				$("#SUPPLIER_EMAIL").focus();
-			return false;
+					msg:'请输入采购商品名称',
+					bg:'#AE81FF',
+					time:2
+				});
+				$("#EXTGOODS_NAME").focus();
+				return false;
 			}
 			if($("#REMARK").val()==""){
 				$("#REMARK").tips({

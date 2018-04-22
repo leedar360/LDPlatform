@@ -128,7 +128,14 @@ public class SupplierinfoController extends BaseController {
 		ModelAndView mv = this.getModelAndView();
 		PageData pd = new PageData();
 		pd = this.getPageData();
-		mv.setViewName("ehuarong/supplierinfo/supplierinfo_edit");
+
+		// 处理supplyID 自动加一  sp00N --> sp00(N+1)
+		String strSupplyid =  supplierinfoService.getMaxsupplyid();
+
+		pd.put("SUPPLIER_ID",strSupplyid);
+
+
+		mv.setViewName("ehuarong/supplierinfo/supplierinfo_add");
 		mv.addObject("msg", "save");
 		mv.addObject("pd", pd);
 		return mv;

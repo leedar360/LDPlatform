@@ -50,14 +50,12 @@
 												<i id="nav-search-icon" class="ace-icon fa fa-search bigger-110 nav-search-icon blue"></i>
 											</a>
 										</td>
-									</c:if>
 
-									<c:if test="${QX.toExcel == 1 }">
 										<td style="vertical-align:top;padding-left:2px;">
 											<input type="hidden" name="selectIds">
 											<a class="btn btn-mini btn-success" onclick="toPurchase()" title="采购">
 												按商品采购
-											</a> Note: 按照当天商品搜索结果可以对所搜索的商品进行 统一采购
+											</a>   <a color="red"> Note: 按照当天商品搜索结果可以对所搜索的商品进行 统一采购</a>
 										</td>
 									</c:if>
 								</tr>

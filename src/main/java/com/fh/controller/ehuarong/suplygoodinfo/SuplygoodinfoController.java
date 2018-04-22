@@ -9,6 +9,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import javax.annotation.Resource;
+
+import com.fh.service.ehuarong.supplierinfo.SupplierinfoManager;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.WebDataBinder;
@@ -37,7 +39,8 @@ public class SuplygoodinfoController extends BaseController {
 	String menuUrl = "suplygoodinfo/list.do"; //菜单地址(权限用)
 	@Resource(name="suplygoodinfoService")
 	private SuplygoodinfoManager suplygoodinfoService;
-	
+	@Resource(name="supplierinfoService")
+	private SupplierinfoManager supplierinfoService;
 	/**保存
 	 * @param
 	 * @throws Exception
@@ -122,7 +125,13 @@ public class SuplygoodinfoController extends BaseController {
 		ModelAndView mv = this.getModelAndView();
 		PageData pd = new PageData();
 		pd = this.getPageData();
-		mv.setViewName("ehuarong/suplygoodinfo/suplygoodinfo_edit");
+		Page page = new Page();
+		page.setPd(pd);
+		List<PageData>	varList = supplierinfoService.list(page);	//列出Supplierinfo列表
+		List<PageData> distinctSupplyId = supplierinfoService.distinctSupplyId();
+		mv.addObject("varList", varList);
+		mv.addObject("distinctSupplyId", distinctSupplyId);
+		mv.setViewName("ehuarong/suplygoodinfo/suplygoodinfo_add");
 		mv.addObject("msg", "save");
 		mv.addObject("pd", pd);
 		return mv;

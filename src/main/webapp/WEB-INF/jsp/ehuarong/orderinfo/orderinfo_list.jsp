@@ -50,15 +50,6 @@
 																		 value="" type="text" data-date-format="yyyy-mm-dd"
 																		 readonly="readonly" style="width:88px;"
 																		 placeholder="结束日期" title="结束日期"/></td>
-									<td style="vertical-align:top;padding-left:2px;">
-										<select class="chosen-select form-control" name="name" id="id" data-placeholder="请选择"
-												style="vertical-align:top;width: 120px;">
-											<option value=""></option>
-											<option value="">全部</option>
-											<option value="">1</option>
-											<option value="">2</option>
-										</select>
-									</td>
 									<!-- 商品编码 -->
 									<td>
 										<div class="nav-search">
@@ -80,7 +71,7 @@
 									<c:if test="${QX.toExcel == 1 }">
 										<td style="vertical-align:top;padding-left:2px;"><a class="btn btn-light btn-xs"
 																							onclick="toExcel();" title="导出到EXCEL"><i
-												id="nav-search-icon"
+												id="nav-search-icon2"
 												class="ace-icon fa fa-download bigger-110 nav-search-icon blue"></i></a></td>
 									</c:if>
 									<c:if test="${QX.toExcel == 1 }">
@@ -103,7 +94,7 @@
 											&nbsp;&nbsp;&nbsp;&nbsp;
 											<c:if test="${QX.del == 1 }">
 												<a class="btn btn-mini btn-danger" onclick="makeAll('确定要删除选中的数据吗?');"
-												   title="批量删除"><i class='ace-icon fa fa-trash-o bigger-120'>批量删除</i></a>
+												   title="批量删除"><i class='ace-icon fa fa-trash-o '>批量删除</i></a>
 											</c:if>
 											&nbsp;&nbsp;&nbsp;&nbsp;
 											<c:if test="${QX.del == 1 }">
@@ -382,8 +373,8 @@
         diag.Drag = true;
         diag.Title = "新增";
         diag.URL = '<%=basePath%>orderinfo/goAdd.do';
-        diag.Width = 450;
-        diag.Height = 355;
+        diag.Width = 800;
+        diag.Height = 600;
         diag.Modal = true;				//有无遮罩窗口
         diag.ShowMaxButton = true;	//最大化按钮
         diag.ShowMinButton = true;		//最小化按钮
@@ -420,8 +411,8 @@
         diag.Drag = true;
         diag.Title = "编辑";
         diag.URL = '<%=basePath%>orderinfo/goEdit.do?ORDERINFO_ID=' + Id;
-        diag.Width = 450;
-        diag.Height = 355;
+        diag.Width = 800;
+        diag.Height = 600;
         diag.Modal = true;				//有无遮罩窗口
         diag.ShowMaxButton = true;	//最大化按钮
         diag.ShowMinButton = true;		//最小化按钮

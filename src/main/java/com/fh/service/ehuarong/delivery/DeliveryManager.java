@@ -53,6 +53,22 @@ public interface DeliveryManager{
 	 * @throws Exception
 	 */
 	public void deleteAll(String[] ArrayDATA_IDS)throws Exception;
-	
+
+	/**
+	 * 发货列表
+	 *
+	 * @param page
+	 * @throws Exception
+	 */
+	public List<PageData> deliveryList(Page page) throws Exception;
+
+	/**
+	 * 批量备份
+	 *
+	 * @param ArrayDATA_IDS
+	 * @throws Exception
+	 */
+	public void backupAll(String[] ArrayDATA_IDS) throws Exception;
+
 }
 

@@ -33,11 +33,12 @@
 						<table id="table_report" class="table table-striped table-bordered table-hover">
 							<tr>
 								<td style="width:75px;text-align: right;padding-top: 13px;">供应商id:</td>
-								<td><input readonly type="text" name="SUPPLIER_ID" id="SUPPLIER_ID" value="${pd.SUPPLIER_ID}" maxlength="255" placeholder="这里输入供应商id" title="供应商id" style="width:98%;"/></td>
-							</tr>
-							<tr>
-								<td style="width:75px;text-align: right;padding-top: 13px;">供应商名称:</td>
-								<td><input readonly type="text" name="SUPPLIERNAME" id="SUPPLIERNAME" value="${pd.SUPPLIERNAME}" maxlength="255" placeholder="这里输入供应商名称" title="供应商名称" style="width:98%;"/></td>
+								<td><select class="chosen-select form-control" name="SUPPLIER_ID" id="SUPPLIER_ID" data-placeholder="请选择" style="vertical-align:top;width: 120px;">
+									<option value=""></option>
+									<c:forEach items="${distinctSupplyId}" var="var" varStatus="vs">
+										<option value="${var.SUPPLIER_ID}">${var.SUPPLIER_ID} | ${var.SUPPLIERNAME}</option>
+									</c:forEach>
+								</select></td>
 							</tr>
 							<tr>
 								<td style="width:75px;text-align: right;padding-top: 13px;">商品编号:</td>

@@ -84,6 +84,22 @@ public class SupplierinfoService implements SupplierinfoManager{
 	public void deleteAll(String[] ArrayDATA_IDS)throws Exception{
 		dao.delete("SupplierinfoMapper.deleteAll", ArrayDATA_IDS);
 	}
-	
+
+
+	public String getMaxsupplyid() throws Exception{
+		List listPage = (List<PageData>)dao.findForList("SupplierinfoMapper.getMaxsupplyid", null);
+		PageData pd = (PageData)listPage.get(0);
+		String strMaxsupplyid = (String)pd.get("maxSupplyid");
+		String strLastMaxsupplyid = strMaxsupplyid.substring(2,strMaxsupplyid.length());
+		int intLastMaxsupplyid = Integer.valueOf(strLastMaxsupplyid);
+		// 0 代表前面补充0
+		// 4 代表长度为4
+		// d 代表参数为正数型
+		String str = String.format("%03d", intLastMaxsupplyid+1);
+
+		return "SP" + str;
+	}
+
+
 }
 

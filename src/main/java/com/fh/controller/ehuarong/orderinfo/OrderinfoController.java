@@ -136,7 +136,7 @@ public class OrderinfoController extends BaseController {
 		ModelAndView mv = this.getModelAndView();
 		PageData pd = new PageData();
 		pd = this.getPageData();
-		mv.setViewName("ehuarong/orderinfo/orderinfo_edit");
+		mv.setViewName("ehuarong/orderinfo/orderinfo_add");
 		mv.addObject("msg", "save");
 		mv.addObject("pd", pd);
 		return mv;
@@ -183,11 +183,12 @@ public class OrderinfoController extends BaseController {
 		map.put("list", pdList);
 		return AppUtil.returnObject(pd, map);
 	}
-	
-	 /**导出到excel
-	 * @param
-	 * @throws Exception
-	 */
+
+
+		/**导出到excel
+        * @param
+        * @throws Exception
+        */
 	@RequestMapping(value="/excel")
 	public ModelAndView exportExcel() throws Exception{
 		logBefore(logger, Jurisdiction.getUsername()+"导出Orderinfo到excel");
@@ -252,7 +253,7 @@ public class OrderinfoController extends BaseController {
 	 */
 	@RequestMapping(value="/purchasedExcel")
 	public ModelAndView purchasedExcel() throws Exception{
-		logBefore(logger, Jurisdiction.getUsername()+"导出Orderinfo到excel");
+		logBefore(logger, Jurisdiction.getUsername()+"导出 系统  到 excel，供发货使用");
 		if(!Jurisdiction.buttonJurisdiction(menuUrl, "cha")){return null;}
 		ModelAndView mv = new ModelAndView();
 		PageData pd = new PageData();

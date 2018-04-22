@@ -44,23 +44,15 @@
 								<td style="padding-left:2px;"><input class="span10 date-picker" name="lastStart" id="lastStart"  value="" type="text" data-date-format="yyyy-mm-dd" readonly="readonly" style="width:88px;" placeholder="开始日期" title="开始日期"/></td>
 								<td style="padding-left:2px;"><input class="span10 date-picker" name="lastEnd" name="lastEnd"  value="" type="text" data-date-format="yyyy-mm-dd" readonly="readonly" style="width:88px;" placeholder="结束日期" title="结束日期"/></td>
 								<td style="vertical-align:top;padding-left:2px;">
-								 	<select class="chosen-select form-control" name="name" id="id" data-placeholder="请选择" style="vertical-align:top;width: 120px;">
-									<option value=""></option>
-									<option value="">全部</option>
-									<option value="">1</option>
-									<option value="">2</option>
-								  	</select>
-								</td>
-								<td style="vertical-align:top;padding-left:2px;">
-									<select class="chosen-select form-control" name="SUPPLIER_ID" id="SUPPLIER_ID" data-placeholder="请选择" style="vertical-align:top;width: 120px;">
+									<select class="chosen-select form-control" name="SUPPLY_ID" id="SUPPLY_ID" data-placeholder="请选择供应商ID" style="vertical-align:top;width: 180px;">
 										<option value=""></option>
 										<c:forEach items="${distinctSupplyId}" var="var" varStatus="vs">
-											<option value="${var.SUPPLIER_ID}">${var.SUPPLIER_ID}</option>
+											<option value="${var.SUPPLIER_ID}">${var.SUPPLIER_ID} | ${var.SUPPLIERNAME}</option>
 										</c:forEach>
 									</select>
 								</td>
 								<c:if test="${QX.cha == 1 }">
-								<td style="vertical-align:top;padding-left:2px"><a class="btn btn-light btn-xs" onclick="tosearch();"  title="检索"><i id="nav-search-icon" class="ace-icon fa fa-search bigger-110 nav-search-icon blue"></i></a></td>
+								<td style="vertical-align:top;padding-left:2px"><a class="btn btn-light btn-xs" onclick="tosearch();"  title="检索"><i id="nav-search-icon1" class="ace-icon fa fa-search bigger-110 nav-search-icon blue"></i></a></td>
 								</c:if>
 								<c:if test="${QX.toExcel == 1 }"><td style="vertical-align:top;padding-left:2px;"><a class="btn btn-light btn-xs" onclick="toExcel();" title="导出到EXCEL"><i id="nav-search-icon" class="ace-icon fa fa-download bigger-110 nav-search-icon blue"></i></a></td></c:if>
 							</tr>
@@ -285,8 +277,8 @@
 			 diag.Drag=true;
 			 diag.Title ="新增";
 			 diag.URL = '<%=basePath%>supplierinfo/goAdd.do';
-			 diag.Width = 450;
-			 diag.Height = 355;
+			 diag.Width = 800;
+			 diag.Height = 600;
 			 diag.Modal = true;				//有无遮罩窗口
 			 diag. ShowMaxButton = true;	//最大化按钮
 		     diag.ShowMinButton = true;		//最小化按钮
@@ -323,8 +315,8 @@
 			 diag.Drag=true;
 			 diag.Title ="编辑";
 			 diag.URL = '<%=basePath%>supplierinfo/goEdit.do?SUPPLIERINFO_ID='+Id;
-			 diag.Width = 450;
-			 diag.Height = 355;
+			 diag.Width = 800;
+			 diag.Height = 600;
 			 diag.Modal = true;				//有无遮罩窗口
 			 diag. ShowMaxButton = true;	//最大化按钮
 		     diag.ShowMinButton = true;		//最小化按钮 

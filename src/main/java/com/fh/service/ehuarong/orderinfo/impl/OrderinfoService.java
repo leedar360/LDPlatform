@@ -59,6 +59,8 @@ import java.util.Map;
 		List<Goods> existList = new ArrayList<>();
 		List<Goods> successList = new ArrayList<>();
 		List<Goods> failureList = new ArrayList<>();
+		String strBatchNo = UuidUtil.get20UUID();
+
 		for(Goods goods : goodList){
 			PageData pd = new PageData();
 			pd.put("ODER_ID", goods.getOrderNumber()); //订单编号
@@ -89,6 +91,7 @@ import java.util.Map;
 			pd.put("REMARK", goods.getRemark());
 			pd.put("ORDERINFO_ID", UuidUtil.get32UUID());
 			pd.put("STATUS", TO_PURCHASE);
+			pd.put("BATCHNO", strBatchNo);
 
 			PageData searchPd = new PageData();
 			searchPd.put("ODER_ID", pd.get("ODER_ID"));
@@ -151,15 +154,6 @@ import java.util.Map;
 		return (List<PageData>) dao.findForList("OrderinfoMapper.purchaseDatalistPage", page);
 	}
 
-	/**
-	 * 发货列表
-	 *
-	 * @param page
-	 * @throws Exception
-	 */
-	public List<PageData> deliveryList(Page page) throws Exception{
-		return (List<PageData>) dao.findForList("OrderinfoMapper.deliveryList", page);
-	}
 
 	/**
 	 * 列表
@@ -270,11 +264,12 @@ import java.util.Map;
 
     @Override public void uploadDelivery(List<Object> data) throws Exception{
 
-
 		for(int i=0;i<data.size();i++){
 			PageData varpd = (PageData)data.get(i);
 			PageData orderPD = new PageData();
 			String tmpStrexpressno = varpd.getString("var9");
+
+
 			//如果快递单号不为空
 			if(!StringUtils.isEmpty(tmpStrexpressno)) {
 				orderPD.put("ORDERINFO_ID", varpd.getString("var0"));

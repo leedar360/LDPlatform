@@ -58,6 +58,13 @@ public interface SupplierinfoManager{
 	 * @throws Exception
 	 */
 	public void deleteAll(String[] ArrayDATA_IDS)throws Exception;
+
+
+	/**通获得最大的supplyid
+	 * @throws Exception
+	 */
+	public String getMaxsupplyid()throws Exception;
+
 	
 }
 
