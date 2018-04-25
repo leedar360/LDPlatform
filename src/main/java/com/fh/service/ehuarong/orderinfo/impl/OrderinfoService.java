@@ -6,10 +6,7 @@ import com.fh.entity.ehuarong.Goods;
 import com.fh.service.ehuarong.orderinfo.OrderinfoManager;
 import com.fh.service.ehuarong.suplygoodinfo.SuplygoodinfoManager;
 import com.fh.service.ehuarong.supplierinfo.SupplierinfoManager;
-import com.fh.util.Jurisdiction;
-import com.fh.util.Logger;
-import com.fh.util.PageData;
-import com.fh.util.UuidUtil;
+import com.fh.util.*;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
@@ -24,12 +21,14 @@ import java.util.Map;
  * 创建人：FH Q313596790
  * 创建时间：2018-03-29
  */
-@Service("orderinfoService") public class OrderinfoService implements OrderinfoManager {
+@Service("orderinfoService")
+public class OrderinfoService implements OrderinfoManager {
 
 	protected Logger logger = Logger.getLogger(this.getClass());
 
 
-	@Resource(name = "daoSupport") private DaoSupport dao;
+	@Resource(name = "daoSupport")
+	private DaoSupport dao;
 	@Resource(name="suplygoodinfoService")
 	private SuplygoodinfoManager suplygoodinfoService;
 
@@ -84,8 +83,8 @@ import java.util.Map;
 			pd.put("PLATFORMID", goods.getPltSource()); //平台
 			pd.put("SUPPLIER_ID", "");
 			pd.put("SUPPLIER_EMAIL", "");
-			pd.put("CREATETIME", goods.getOrderDate());
-
+//			pd.put("CREATETIME", goods.getOrderDate());//记录创建日期
+			pd.put("CREATETIME", DateUtil.getSdfTime());
 			//pd.put("ORDERINFO_ID", goods.getOrderNumber());
 			pd.put("EXTGOOD_ID", goods.getGoodsNumber()); //第三方的 商品id
 			pd.put("REMARK", goods.getRemark());
@@ -280,5 +279,17 @@ import java.util.Map;
 			dao.update("OrderinfoMapper.delivery", orderPD);
 		}
     }
+
+
+	/**
+	 * 批量备份
+	 *
+	 * @param ArrayDATA_IDS
+	 * @throws Exception
+	 */
+	public void backupAll(String[] ArrayDATA_IDS) throws Exception {
+		dao.update("OrderinfoMapper.backupAll", ArrayDATA_IDS);
+		dao.save("OrderinfoMapper.back2his", ArrayDATA_IDS);
+	}
 }
 

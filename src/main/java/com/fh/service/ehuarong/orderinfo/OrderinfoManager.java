@@ -119,5 +119,14 @@ public interface OrderinfoManager {
 	public void consignment(List<PageData> varOList) throws Exception;
 
 	public void uploadDelivery(List<Object> data) throws Exception;
+
+
+	/**
+	 * 批量备份
+	 *
+	 * @param ArrayDATA_IDS
+	 * @throws Exception
+	 */
+	public void backupAll(String[] ArrayDATA_IDS) throws Exception;
 }
 

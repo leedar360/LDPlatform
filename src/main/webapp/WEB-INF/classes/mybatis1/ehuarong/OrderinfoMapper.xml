@@ -205,6 +205,8 @@
 		<if test="pd.keywords!= null and pd.keywords != ''"><!-- 关键词检索 -->
 			and
 			(
+			ODER_ID  LIKE CONCAT(CONCAT('%', #{pd.keywords}),'%')
+			OR
 			EXTGOODS_NAME LIKE CONCAT(CONCAT('%', #{pd.keywords}),'%')
 			OR
 			EXTGOOD_ID LIKE CONCAT(CONCAT('%', #{pd.keywords}),'%')
@@ -344,8 +346,8 @@
 
 	<!-- 批量备份 status 改成 'bak' 新增到 his 表中 -->
 	<insert id="back2his" parameterType="pd">
-		insert into hr_orderinfo_his
-		( select * from hr_orderinfo
+		insert into HR_ORDERINFO_HIS
+		( select * from HR_ORDERINFO
 		where
 		ORDERINFO_ID in
 		<foreach item="item" index="index" collection="array" open="(" separator="," close=")">

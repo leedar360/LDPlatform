@@ -36,8 +36,6 @@ public class DeliveryController extends BaseController {
     @Resource(name = "fhlogService")
     private FHlogManager FHLOG;
 
-//    @Resource(name = "orderinfoService") private OrderinfoManager orderinfoManager;
-
     /**列表
      * @param page
      * @throws Exception
@@ -68,7 +66,9 @@ public class DeliveryController extends BaseController {
         }
 
         page.setPd(pd);
-        List<PageData> varList = deliveryService.list(page);
+
+        List<PageData> varList = orderinfoService.list(page);
+//        goodsService.list(page);
         mv.setViewName("ehuarong/delivery/delivery_list");
         mv.addObject("varList", varList);
         mv.addObject("pd", pd);
@@ -165,7 +165,7 @@ public class DeliveryController extends BaseController {
     @ResponseBody
     public Object bakupAll() throws Exception{
         logBefore(logger, Jurisdiction.getUsername()+"批量备份 Orderinfo to Orderinfo_his");
-        if(!Jurisdiction.buttonJurisdiction(menuUrl, "del")){return null;} //校验权限
+        if(!Jurisdiction.buttonJurisdiction(menuUrl, "cha")){return null;} //校验权限
         PageData pd = new PageData();
         Map<String,Object> map = new HashMap<String,Object>();
         pd = this.getPageData();
@@ -174,7 +174,7 @@ public class DeliveryController extends BaseController {
 
         if(null != DATA_IDS && !"".equals(DATA_IDS)){
             String ArrayDATA_IDS[] = DATA_IDS.split(",");
-            deliveryService.backupAll(ArrayDATA_IDS);
+            orderinfoService.backupAll(ArrayDATA_IDS);
             pd.put("msg", "ok");
         }else{
             pd.put("msg", "no");

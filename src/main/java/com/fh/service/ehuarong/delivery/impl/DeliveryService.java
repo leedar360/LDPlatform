@@ -89,16 +89,7 @@ public class DeliveryService implements DeliveryManager{
 		return (List<PageData>)dao.findForList("OrderinfoMapper.deliveryList", page);
 	}
 
-	/**
-	 * 批量备份
-	 *
-	 * @param ArrayDATA_IDS
-	 * @throws Exception
-	 */
-	public void backupAll(String[] ArrayDATA_IDS) throws Exception {
-		dao.update("OrderinfoMapper.backupAll", ArrayDATA_IDS);
-		dao.save("OrderinfoMapper.back2his", ArrayDATA_IDS);
-	}
+
 
 }
 

@@ -27,7 +27,16 @@ public class DateUtil {
 	public static String getSdfTimes() {
 		return sdfTimes.format(new Date());
 	}
-	
+
+	/**
+	 * 获取YYYY格式
+	 * @return
+	 */
+	public static String getSdfTime() {
+		return sdfTime.format(new Date());
+	}
+
+
 	/**
 	 * 获取YYYY格式
 	 * @return

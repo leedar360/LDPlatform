@@ -71,6 +71,18 @@
 											</a>
 										</td>
 									</c:if>
+									<c:if test="${QX.add == 1 }">
+										<td style="vertical-align:top;padding-left:2px;">
+											<a class="btn btn-light btn-xs" onclick="uploadDelivery();">上传快递数据</a>
+										</td>
+									</c:if>
+
+									<c:if test="${QX.add == 1 }">
+										<td style="vertical-align:top;padding-left:2px;">
+											<a class="btn btn-light btn-xs" onclick="makeAll('确定存档当前记录？');">批量存档</a>
+										</td>
+									</c:if>
+
 								</tr>
 							</table>
 							<!-- 检索  -->
@@ -187,20 +199,6 @@
 								</tbody>
 							</table>
 							<div class="page-header position-relative">
-								<table style="width:100%;">
-									<tr>
-										<td style="vertical-align:top;">
-											<c:if test="${QX.add == 1 }">
-												<a class="btn btn-mini btn-success" onclick="uploadDelivery();">上传快递数据</a>
-											</c:if>
-										</td>
-										<td style="vertical-align:top;">
-											<c:if test="${QX.add == 1 }">
-												<a class="btn btn-mini btn-success" onclick="makeAll('确定存档当前记录？');">批量存档</a>
-											</c:if>
-										</td>
-									</tr>
-								</table>
 								<table style="width:100%;">
 									<tr>
 										<td style="vertical-align:top;">
