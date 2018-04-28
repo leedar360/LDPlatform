@@ -44,15 +44,15 @@
 									</td>
 
 									<c:if test="${QX.cha == 1 }">
-									<td style="vertical-align:top;padding-left:2px">
+									<td style="vertical-align:middle;padding-left:2px">
 										<a class="btn btn-light btn-xs" onclick="tosearch();"  title="检索">
 											<i id="nav-search-icon" class="ace-icon fa fa-search bigger-110 nav-search-icon blue">检索</i>
 										</a>
 									</td>
 
 
-									<td style="vertical-align:top;padding-left:2px">
-										<a class="btn btn-light btn-mini；" onclick="makeAll('确定对选中的商品供应商采购吗?');" title="采购" >确定采购
+									<td style="vertical-align:middle;padding-left:2px">
+										<a class="btn btn-mini btn-success" onclick="makeAll('确定对选中的商品供应商采购吗?');" title="采购" >确定采购
 										</a>
 									</td>
 									</c:if>

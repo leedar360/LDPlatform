@@ -43,14 +43,7 @@
 								</td>
 								<td style="padding-left:2px;"><input class="span10 date-picker" name="lastStart" id="lastStart"  value="" type="text" data-date-format="yyyy-mm-dd" readonly="readonly" style="width:88px;" placeholder="开始日期" title="开始日期"/></td>
 								<td style="padding-left:2px;"><input class="span10 date-picker" name="lastEnd" name="lastEnd"  value="" type="text" data-date-format="yyyy-mm-dd" readonly="readonly" style="width:88px;" placeholder="结束日期" title="结束日期"/></td>
-								<td style="vertical-align:top;padding-left:2px;">
-									<select class="chosen-select form-control" name="SUPPLY_ID" id="SUPPLY_ID" data-placeholder="请选择供应商ID" style="vertical-align:top;width: 180px;">
-										<option value=""></option>
-										<c:forEach items="${distinctSupplyId}" var="var" varStatus="vs">
-											<option value="${var.SUPPLIER_ID}">${var.SUPPLIER_ID} | ${var.SUPPLIERNAME}</option>
-										</c:forEach>
-									</select>
-								</td>
+
 								<c:if test="${QX.cha == 1 }">
 								<td style="vertical-align:top;padding-left:2px"><a class="btn btn-light btn-xs" onclick="tosearch();"  title="检索"><i id="nav-search-icon1" class="ace-icon fa fa-search bigger-110 nav-search-icon blue"></i></a></td>
 								</c:if>

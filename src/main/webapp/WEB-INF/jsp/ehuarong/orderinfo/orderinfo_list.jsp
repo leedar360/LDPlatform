@@ -87,7 +87,7 @@
 							<div class="page-header position-relative">
 								<table style="width:100%;">
 									<tr>
-										<td style="vertical-align:top;">
+										<td style="vertical-align:middle;">
 											<c:if test="${QX.add == 1 }">
 												<a class="btn btn-mini btn-success" onclick="add();">新增订单</a>
 											</c:if>
@@ -103,7 +103,7 @@
 											</c:if>
 
 										</td>
-										<td style="vertical-align:top;">
+										<td style="vertical-align:middle;">
 											<div class="pagination" style="float: right;padding-top: 0px;margin-top: 0px;">${page.pageStr}</div>
 										</td>
 									</tr>
@@ -119,19 +119,20 @@
 									<th class="center" style="width:50px;">序号</th>
 									<th class="center">订单编号</th>
 									<th class="center">商品编码</th>
-									<th class="center">平台商品描述</th>
+									<th class="center">平台商品</th>
 									<th class="center">收件信息</th>
+									<th class="center">供应商产品</th>
 									<th class="center">快递信息</th>
 									<th class="center">数量</th>
 									<th class="center">售价单价</th>
 									<th class="center">售价总价</th>
 									<th class="center">采购单价</th>
 									<th class="center">采购总价</th>
-									<th class="center">平台id</th>
-									<th class="center">供应商id</th>
-									<th class="center">供应商邮件</th>
+									<th class="center">平台ID</th>
+									<th class="center">供应商</th>
 									<th class="center">创建时间</th>
 									<th class="center">备注</th>
+									<th class="center">状态</th>
 									<th class="center">操作</th>
 								</tr>
 								</thead>
@@ -161,6 +162,7 @@
 电话：${var.RECPHONE}
 地址：${var.RECADDRESS}</textarea>
 													</td>
+													<td class='center'><textarea readonly>${var.SUPPLYGOOD_NAME}</textarea></td>
 													<td class='center'>
 														<textarea readonly>快递：${var.EXPRESS}
 单号：${var.EXPRESSNO}</textarea>
@@ -171,11 +173,13 @@
 													<td class='center'>${var.PURCHASEPRICE}</td>
 													<td class='center'>${var.PURCHASETOTALPRICE}</td>
 													<td class='center'>${var.PLATFORMID}</td>
-													<td class='center' title="${var.SUPPLIERNAME}">${var.SUPPLIER_ID}</td>
-													<td class='center'>${var.SUPPLIER_EMAIL}</td>
+													<td class='center'>
+														<textarea readonly>供应商：${var.SUPPLIERNAME}
+ID：${var.SUPPLIER_ID}
+邮件：${var.SUPPLIER_EMAIL}</textarea></td>
 													<td class='center'>${var.CREATETIME}</td>
-													<td class='center'>${var.REMARK}
-													</td>
+													<td class='center'>${var.REMARK}</td>
+													<td class='center'>${var.STATUS}</td>
 													<td class="center">
 														<c:if test="${QX.edit != 1 && QX.del != 1 }">
                                                             <span class="label label-large label-grey arrowed-in-right arrowed-in"><i

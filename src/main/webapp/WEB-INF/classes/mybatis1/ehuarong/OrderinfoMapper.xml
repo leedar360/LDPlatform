@@ -33,7 +33,8 @@
 		EXTGOODS_NAME,
 		ORDERINFO_ID,
 		STATUS,
-		BATCHNO
+		BATCHNO,
+		SYSTIME
 	</sql>
 
 	<!-- 字段值 -->
@@ -62,7 +63,8 @@
 		#{EXTGOODS_NAME},
 		#{ORDERINFO_ID},
 		#{STATUS},
-		#{BATCHNO}
+		#{BATCHNO},
+		#{SYSTIME}
 	</sql>
 
 	<!-- 新增-->
@@ -223,6 +225,8 @@
 
 			)
 		</if>
+
+		order by SYSTIME,CREATETIME desc
 	</select>
 
 	<!-- 采购列表 -->
@@ -276,7 +280,8 @@
 			RECADDRESS  LIKE CONCAT(CONCAT('%', #{pd.keywords}),'%')
 			OR
 			EXPRESSNO   LIKE CONCAT(CONCAT('%', #{pd.keywords}),'%')
-
+			OR
+			REMARK   LIKE CONCAT(CONCAT('%', #{pd.keywords}),'%')
 			)
 		</if>
 	</select>

@@ -49,6 +49,7 @@ public class OrderinfoController extends BaseController {
 		pd = this.getPageData();
 		pd.put("ORDERINFO_ID", this.get32UUID());	//主键
 		pd.put("CREATETIME", Tools.date2Str(new Date()));	//创建时间
+		pd.put("SYSTIME", Tools.date2Str(new Date()));	//创建时间
 		orderinfoService.save(pd);
 		mv.addObject("msg","success");
 		mv.setViewName("save_result");

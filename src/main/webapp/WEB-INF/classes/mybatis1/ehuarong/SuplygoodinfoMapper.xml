@@ -186,6 +186,8 @@
 		<if test="pd.lastStart!= null and pd.lastStart != '' and pd.lastEnd!= null and pd.lastEnd != ''" >
 			and (HR_SUPLYGOODINFO.CREATETIME  BETWEEN #{pd.lastStart} AND #{pd.lastEnd}  )
 		</if>
+		order by CREATETIME DESC
+
 	</select>
 
 	<!-- 列表 -->

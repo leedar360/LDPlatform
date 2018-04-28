@@ -83,8 +83,8 @@ public class OrderinfoService implements OrderinfoManager {
 			pd.put("PLATFORMID", goods.getPltSource()); //平台
 			pd.put("SUPPLIER_ID", "");
 			pd.put("SUPPLIER_EMAIL", "");
-//			pd.put("CREATETIME", goods.getOrderDate());//记录创建日期
-			pd.put("CREATETIME", DateUtil.getSdfTime());
+			pd.put("CREATETIME", goods.getOrderDate());//记录创建日期
+			pd.put("SYSTIME", DateUtil.getSdfTime());
 			//pd.put("ORDERINFO_ID", goods.getOrderNumber());
 			pd.put("EXTGOOD_ID", goods.getGoodsNumber()); //第三方的 商品id
 			pd.put("REMARK", goods.getRemark());

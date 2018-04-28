@@ -99,24 +99,26 @@
 		<include refid="tableName"></include>
 		where 1=1
 
-		<if test="pd.SUPPLY_ID!= null and pd.SUPPLY_ID != ''"><!-- 关键词检索 -->
-			and SUPPLIER_ID = #{SUPPLY_ID}
-		</if>
+
 		<if test="pd.keywords!= null and pd.keywords != ''"><!-- 关键词检索 -->
 			and
 				(
 				<!--	根据需求自己加检索条件-->
-					SUPPLIERNAME LIKE '%'+ #{pd.keywords}+'%'
-					 or
-					CONTACT LIKE '%'+ #{pd.keywords}+'%'
-					 or
-					PHONE LIKE '%'+ #{pd.keywords}+'%'
-					 or
-					EMAIL LIKE '%'+ #{pd.keywords}+'%'
-					 or
-					ADDRESS LIKE '%'+ #{pd.keywords}+'%'
+					SUPPLIER_ID LIKE CONCAT(CONCAT('%', #{pd.keywords}),'%')
+					OR
+					SUPPLIERNAME LIKE CONCAT(CONCAT('%', #{pd.keywords}),'%')
+					 OR
+					CONTACT LIKE CONCAT(CONCAT('%', #{pd.keywords}),'%')
+					 OR
+					PHONE LIKE CONCAT(CONCAT('%', #{pd.keywords}),'%')
+					 OR
+					EMAIL LIKE CONCAT(CONCAT('%', #{pd.keywords}),'%')
+					 OR
+					ADDRESS LIKE CONCAT(CONCAT('%', #{pd.keywords}),'%')
 			)
 		</if>
+		ORDER BY CREATETIME DESC
+
 	</select>
 	
 	<!-- 列表(全部) -->
@@ -132,6 +134,7 @@
 		select distinct SUPPLIER_ID,SUPPLIERNAME
 		from
 		<include refid="tableName"></include>
+
 	</select>
 
 	<!-- 获得最大supplyid 的值 -->

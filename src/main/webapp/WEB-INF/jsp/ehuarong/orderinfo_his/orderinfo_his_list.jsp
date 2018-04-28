@@ -43,16 +43,9 @@
 								</td>
 								<td style="padding-left:2px;"><input class="span10 date-picker" name="lastStart" id="lastStart"  value="" type="text" data-date-format="yyyy-mm-dd" readonly="readonly" style="width:88px;" placeholder="开始日期" title="开始日期"/></td>
 								<td style="padding-left:2px;"><input class="span10 date-picker" name="lastEnd" name="lastEnd"  value="" type="text" data-date-format="yyyy-mm-dd" readonly="readonly" style="width:88px;" placeholder="结束日期" title="结束日期"/></td>
-								<td style="vertical-align:top;padding-left:2px;">
-								 	<select class="chosen-select form-control" name="name" id="id" data-placeholder="请选择" style="vertical-align:top;width: 120px;">
-									<option value=""></option>
-									<option value="">全部</option>
-									<option value="">1</option>
-									<option value="">2</option>
-								  	</select>
-								</td>
+
 								<c:if test="${QX.cha == 1 }">
-								<td style="vertical-align:top;padding-left:2px"><a class="btn btn-light btn-xs" onclick="tosearch();"  title="检索"><i id="nav-search-icon" class="ace-icon fa fa-search bigger-110 nav-search-icon blue"></i></a></td>
+								<td style="vertical-align:top;padding-left:2px"><a class="btn btn-light btn-xs" onclick="tosearch();"  title="检索"><i id="nav-search-icon" class="ace-icon fa fa-search bigger-110 nav-search-icon blue">检索</i></a></td>
 								</c:if>
 								<c:if test="${QX.toExcel == 1 }"><td style="vertical-align:top;padding-left:2px;"><a class="btn btn-light btn-xs" onclick="toExcel();" title="导出到EXCEL"><i id="nav-search-icon" class="ace-icon fa fa-download bigger-110 nav-search-icon blue"></i></a></td></c:if>
 							</tr>
@@ -66,29 +59,20 @@
 									<label class="pos-rel"><input type="checkbox" class="ace" id="zcheckbox" /><span class="lbl"></span></label>
 									</th>
 									<th class="center" style="width:50px;">序号</th>
-									<th class="center">主表id用于关联</th>
 									<th class="center">订单编号</th>
-									<th class="center">订单数量</th>
-									<th class="center">发件人</th>
-									<th class="center">发件电话</th>
-									<th class="center">收件人</th>
-									<th class="center">收件电话</th>
-									<th class="center">收件地址</th>
-									<th class="center">快递公司</th>
-									<th class="center">快递单号</th>
-									<th class="center">商品售价单价</th>
-									<th class="center">商品售价总价</th>
-									<th class="center">商品采购单价</th>
-									<th class="center">商品采购总价</th>
-									<th class="center">所属平台id</th>
-									<th class="center">供应商id</th>
-									<th class="center">供应商名称</th>
-									<th class="center">供应商email</th>
-									<th class="center">备注20</th>
-									<th class="center">备注21</th>
-									<th class="center">第三方商品编号</th>
-									<th class="center">状态，导入，采购，发货等标识位</th>
-									<th class="center">第三方平台商品描述</th>
+									<th class="center">商品编号</th>
+									<th class="center">数量</th>
+									<th class="center">收件信息</th>
+									<th class="center">快递信息</th>
+									<th class="center">售价单价</th>
+									<th class="center">售价总价</th>
+									<th class="center">采购单价</th>
+									<th class="center">采购总价</th>
+									<th class="center">平台ID</th>
+									<th class="center">供应商</th>
+									<th class="center">创建时间</th>
+									<th class="center">备注</th>
+									<th class="center">三方商品描述</th>
 									<th class="center">供应商产品名称</th>
 									<th class="center">操作</th>
 								</tr>
@@ -105,30 +89,27 @@
 												<label class="pos-rel"><input type='checkbox' name='ids' value="${var.ORDERINFO_HIS_ID}" class="ace" /><span class="lbl"></span></label>
 											</td>
 											<td class='center' style="width: 30px;">${vs.index+1}</td>
-											<td class='center'>${var.ORDERINFO_ID}</td>
 											<td class='center'>${var.ODER_ID}</td>
+											<td class='center'>${var.EXTGOOD_ID}</td>
 											<td class='center'>${var.GOODNUM}</td>
-											<td class='center'>${var.SELLNAME}</td>
-											<td class='center'>${var.SELLPHONE}</td>
-											<td class='center'>${var.RECNAME}</td>
-											<td class='center'>${var.RECPHONE}</td>
-											<td class='center'>${var.RECADDRESS}</td>
-											<td class='center'>${var.EXPRESS}</td>
-											<td class='center'>${var.EXPRESSNO}</td>
+											<td class='center'><textarea readonly>姓名：${var.RECNAME}
+电话：${var.RECPHONE}
+地址：${var.RECADDRESS}</textarea></td>
+											<td class='center'><textarea readonly>快递：${var.EXPRESS}
+单号：${var.EXPRESSNO}</textarea></td>
 											<td class='center'>${var.SELLPRICE}</td>
 											<td class='center'>${var.SELLTOTALPRICE}</td>
 											<td class='center'>${var.PURCHASEPRICE}</td>
 											<td class='center'>${var.PURCHASETOTALPRICE}</td>
 											<td class='center'>${var.PLATFORMID}</td>
-											<td class='center'>${var.SUPPLIER_ID}</td>
-											<td class='center'>${var.SUPPLIERNAME}</td>
-											<td class='center'>${var.SUPPLIER_EMAIL}</td>
+											<td class='center'>
+														<textarea readonly>供应商：${var.SUPPLIERNAME}
+ID：${var.SUPPLIER_ID}
+邮件：${var.SUPPLIER_EMAIL}</textarea></td>
 											<td class='center'>${var.CREATETIME}</td>
 											<td class='center'>${var.REMARK}</td>
-											<td class='center'>${var.EXTGOOD_ID}</td>
-											<td class='center'>${var.STATUS}</td>
-											<td class='center'>${var.EXTGOODS_NAME}</td>
-											<td class='center'>${var.SUPPLYGOOD_NAME}</td>
+											<td class='center'><textarea readonly>${var.EXTGOODS_NAME}</textarea></td>
+											<td class='center'><textarea readonly>${var.SUPPLYGOOD_NAME}</textarea></td>
 											<td class="center">
 												<c:if test="${QX.edit != 1 && QX.del != 1 }">
 												<span class="label label-large label-grey arrowed-in-right arrowed-in"><i class="ace-icon fa fa-lock" title="无权限"></i></span>
