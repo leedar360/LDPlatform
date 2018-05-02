@@ -143,6 +143,7 @@ public class OrderinfoService implements OrderinfoManager {
 		return (List<PageData>) dao.findForList("OrderinfoMapper.datalistPage", page);
 	}
 
+
 	/**
 	 * 列表
 	 *
@@ -254,7 +255,7 @@ public class OrderinfoService implements OrderinfoManager {
 		for(int i=0;i<varOList.size();i++){
 			PageData orderPD = new PageData();
 			orderPD.put("ORDERINFO_ID", varOList.get(i).getString("ORDERINFO_ID"));
-			orderPD.put("STATUS", TO_CONSIGNMENT);
+			orderPD.put("STATUS", FINISHED);
 			dao.update("OrderinfoMapper.consignment", orderPD);
 		}
 
@@ -274,7 +275,7 @@ public class OrderinfoService implements OrderinfoManager {
 				orderPD.put("ORDERINFO_ID", varpd.getString("var0"));
 				orderPD.put("EXPRESS", varpd.getString("var10"));
 				orderPD.put("EXPRESSNO", varpd.getString("var9"));
-//				orderPD.put("STATUS", FINISHED);
+				orderPD.put("STATUS", FINISHED);
 			}
 			dao.update("OrderinfoMapper.delivery", orderPD);
 		}

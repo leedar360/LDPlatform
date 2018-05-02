@@ -54,6 +54,7 @@ public class PurchaseController  extends BaseController {
             pd.put("EXTGOOD_ID", EXTGOOD_ID.trim());
         }
         page.setPd(pd);
+        System.out.println("翻页开始 ");
         List<PageData> varList = orderinfoService.purchaseList(page);	//列出Orderinfo列表
         mv.setViewName("ehuarong/purchase/purchase_list");
         mv.addObject("varList", varList);

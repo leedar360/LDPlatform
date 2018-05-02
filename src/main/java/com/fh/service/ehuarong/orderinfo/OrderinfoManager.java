@@ -19,8 +19,8 @@ public interface OrderinfoManager {
 	String EXIST= "exist";
 	int TO_PURCHASE = 1; //待采购
 	int TO_DELIVERY = 2; //已采购
-	int TO_CONSIGNMENT = 3; //待发货
-	int FINISHED = 4; //已发货
+	int FINISHED = 3; //待发货
+	int TO_BACKUP = 4; //已发货
 
 	/**
 	 * 新增
@@ -61,6 +61,8 @@ public interface OrderinfoManager {
 	 * @throws Exception
 	 */
 	public List<PageData> list(Page page) throws Exception;
+
+
 
 	/**
 	 * 列表

@@ -110,7 +110,8 @@
 		SUPPLYGOOD_NAME = #{SUPPLYGOOD_NAME},
 		REMARK = #{REMARK},
 		EXTGOOD_ID = #{EXTGOOD_ID},
-		EXTGOODS_NAME = #{EXTGOODS_NAME}
+		EXTGOODS_NAME = #{EXTGOODS_NAME},
+		STATUS=#{STATUS}
 		where
 		ORDERINFO_ID = #{ORDERINFO_ID}
 	</update>
@@ -226,7 +227,7 @@
 			)
 		</if>
 
-		order by SYSTIME,CREATETIME desc
+		ORDER BY CREATETIME DESC
 	</select>
 
 	<!-- 采购列表 -->
@@ -236,13 +237,13 @@
 		from
 		<include refid="tableName"></include>
 		where 1=1 and STATUS = '1'
-		<if test="pd.EXTGOOD_ID!= null and pd.EXTGOOD_ID != ''"><!-- 关键词检索 -->
-			and EXTGOOD_ID = #{pd.EXTGOOD_ID}
-		</if>
 
 		<if test="pd.keywords!= null and pd.keywords != ''"><!-- 关键词检索 -->
-			and
+			AND
 			(
+			ODER_ID  LIKE CONCAT(CONCAT('%', #{pd.keywords}),'%')
+			OR
+			EXTGOOD_ID  LIKE CONCAT(CONCAT('%', #{pd.keywords}),'%')
 			<!--	根据需求自己加检索条件
                 字段1 LIKE CONCAT(CONCAT('%', #{pd.keywords}),'%')
                  or
@@ -250,23 +251,28 @@
             -->
 			)
 		</if>
+
+		ORDER BY SYSTIME DESC
+
 	</select>
 
 	<!-- 发货列表 -->
-	<select id="deliveryList" parameterType="page" resultType="pd">
+	<select id="deliverylistPage" parameterType="page" resultType="pd">
 		select
 		<include refid="Field"></include>
 		from
 		<include refid="tableName"></include>
-		where 1=1 and STATUS = '3' and status != 'bak'
+		where 1=1 and STATUS = '3'
 
 		<if test="pd.lastStart!= null and pd.lastStart != '' and pd.lastEnd!= null and pd.lastEnd != ''" >
 			and (CREATETIME  BETWEEN #{pd.lastStart} AND #{pd.lastEnd}  )
 		</if>
 
 		<if test="pd.keywords!= null and pd.keywords != ''"><!-- 关键词检索 -->
-			and
+			AND
 			(
+			ODER_ID  = #{pd.keywords}
+			OR
 			EXTGOODS_NAME LIKE CONCAT(CONCAT('%', #{pd.keywords}),'%')
 			OR
 			EXTGOOD_ID LIKE CONCAT(CONCAT('%', #{pd.keywords}),'%')
@@ -284,6 +290,44 @@
 			REMARK   LIKE CONCAT(CONCAT('%', #{pd.keywords}),'%')
 			)
 		</if>
+
+		ORDER BY SYSTIME DESC
+	</select>
+
+
+	<!-- 列表 -->
+	<select id="undeliverylistPage" parameterType="page" resultType="pd">
+		select
+		<include refid="Field"></include>
+		from
+		<include refid="tableName"></include>
+		where 1=1 and EXPRESSNO = '' AND STATUS != 'bak'
+		<if test="pd.lastStart!= null and pd.lastStart != '' and pd.lastEnd!= null and pd.lastEnd != ''" >
+			and (CREATETIME  BETWEEN #{pd.lastStart} AND #{pd.lastEnd}  )
+		</if>
+
+		<if test="pd.keywords!= null and pd.keywords != ''"><!-- 关键词检索 -->
+			and
+			(
+			ODER_ID  = #{pd.keywords}
+			OR
+			EXTGOODS_NAME LIKE CONCAT(CONCAT('%', #{pd.keywords}),'%')
+			OR
+			EXTGOOD_ID LIKE CONCAT(CONCAT('%', #{pd.keywords}),'%')
+			OR
+			SUPPLYGOOD_NAME LIKE CONCAT(CONCAT('%', #{pd.keywords}),'%')
+			OR
+			RECNAME  LIKE CONCAT(CONCAT('%', #{pd.keywords}),'%')
+			OR
+			RECPHONE   LIKE CONCAT(CONCAT('%', #{pd.keywords}),'%')
+			OR
+			RECADDRESS  LIKE CONCAT(CONCAT('%', #{pd.keywords}),'%')
+			OR
+			REMARK   LIKE CONCAT(CONCAT('%', #{pd.keywords}),'%')
+			)
+		</if>
+
+		ORDER BY SYSTIME DESC
 	</select>
 
 	<!-- 列表(全部) -->
@@ -330,7 +374,8 @@
 		set
 		EXPRESS = #{EXPRESS},
 		EXPRESSNO = #{EXPRESSNO},
-		REMARK = #{REMARK}
+		REMARK = #{REMARK},
+		STATUS = #{STATUS}
 		where
 		ORDERINFO_ID = #{ORDERINFO_ID}
 	</update>

@@ -64,6 +64,15 @@ public interface DeliveryManager{
 	public List<PageData> deliveryList(Page page) throws Exception;
 
 
+	/**
+	 * 未发货列表
+	 *
+	 * @param page
+	 * @throws Exception
+	 */
+	public List<PageData> undeliverylist(Page page) throws Exception;
+
+
 
 }
 

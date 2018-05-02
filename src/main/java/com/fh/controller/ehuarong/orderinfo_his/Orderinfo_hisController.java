@@ -44,7 +44,7 @@ public class Orderinfo_hisController extends BaseController {
 	 */
 	@RequestMapping(value="/save")
 	public ModelAndView save() throws Exception{
-		logBefore(logger, Jurisdiction.getUsername()+"新增Orderinfo_his");
+		logBefore(logger, Jurisdiction.getUsername()+" 新增 Orderinfo_his");
 		if(!Jurisdiction.buttonJurisdiction(menuUrl, "add")){return null;} //校验权限
 		ModelAndView mv = this.getModelAndView();
 		PageData pd = new PageData();

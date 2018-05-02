@@ -37,7 +37,7 @@
 							</tr>
 							<tr>
 								<td style="width:75px;text-align: right;padding-top: 13px;">商品编号:</td>
-								<td><input type="text" name="EXTGOOD_ID" id="REMARK" value="${pd.EXTGOOD_ID}" maxlength="255" placeholder="这里输入商品编号" title="商品编号" style="width:98%;"/></td>
+								<td><input type="text" name="EXTGOOD_ID" id="EXTGOOD_ID" value="${pd.EXTGOOD_ID}" maxlength="255" placeholder="这里输入商品编号" title="商品编号" style="width:98%;"/></td>
 							</tr>
 							<tr>
 								<td style="width:75px;text-align: right;padding-top: 13px;">商品状态:</td>
@@ -48,7 +48,7 @@
 								<td><input type="text" name="GOODNUM" id="GOODNUM" value="${pd.GOODNUM}" maxlength="255" placeholder="这里输入订单数量" title="订单数量" style="width:98%;"/></td>
 							</tr>
 							<tr>
-								<td style="width:75px;text-align: right;padding-top: 13px;">采购商品描述:</td>
+								<td style="width:75px;text-align: right;padding-top: 13px;">商品描述:</td>
 								<td><input type="text" name="EXTGOODS_NAME" id="EXTGOODS_NAME" value="${pd.EXTGOODS_NAME}" maxlength="255" placeholder="这里输入快递公司" title="快递公司" style="width:98%;"/></td>
 							</tr>
 							<tr>

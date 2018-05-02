@@ -149,7 +149,7 @@
 																<a class="btn btn-xs btn-success" title="发货"
 																   onclick="edit('${var.ORDERINFO_ID}');">
 																	<i class="ace-icon fa fa-pencil-square-o bigger-120"
-																	   title="发货">发货&备注</i>
+																	   title="发货">修改&备注</i>
 																</a>
 
 															</c:if>

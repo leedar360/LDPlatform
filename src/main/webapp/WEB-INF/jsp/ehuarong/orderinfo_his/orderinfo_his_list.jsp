@@ -116,7 +116,7 @@ ID：${var.SUPPLIER_ID}
 												</c:if>
 												<div class="hidden-sm hidden-xs btn-group">
 													<c:if test="${QX.edit == 1 }">
-													<a class="btn btn-xs btn-success" title="编辑" onclick="edit('${var.ORDERINFO_HIS_ID}');">
+													<a class="btn btn-xs btn-success" title="编辑" onclick="edit('${var.ORDERINFO_ID}');">
 														<i class="ace-icon fa fa-pencil-square-o bigger-120" title="编辑"></i>
 													</a>
 													</c:if>
@@ -135,7 +135,7 @@ ID：${var.SUPPLIER_ID}
 														<ul class="dropdown-menu dropdown-only-icon dropdown-yellow dropdown-menu-right dropdown-caret dropdown-close">
 															<c:if test="${QX.edit == 1 }">
 															<li>
-																<a style="cursor:pointer;" onclick="edit('${var.ORDERINFO_HIS_ID}');" class="tooltip-success" data-rel="tooltip" title="修改">
+																<a style="cursor:pointer;" onclick="edit('${var.ORDERINFO_ID}');" class="tooltip-success" data-rel="tooltip" title="修改">
 																	<span class="green">
 																		<i class="ace-icon fa fa-pencil-square-o bigger-120"></i>
 																	</span>
@@ -178,7 +178,7 @@ ID：${var.SUPPLIER_ID}
 							<tr>
 								<td style="vertical-align:top;">
 									<c:if test="${QX.add == 1 }">
-									<a class="btn btn-mini btn-success" onclick="add();">新增</a>
+									<!-- <a class="btn btn-mini btn-success" onclick="add();">新增</a> -->
 									</c:if>
 									<c:if test="${QX.del == 1 }">
 									<a class="btn btn-mini btn-danger" onclick="makeAll('确定要删除选中的数据吗?');" title="批量删除" ><i class='ace-icon fa fa-trash-o bigger-120'></i></a>
@@ -305,7 +305,7 @@ ID：${var.SUPPLIER_ID}
 			bootbox.confirm("确定要删除吗?", function(result) {
 				if(result) {
 					top.jzts();
-					var url = "<%=basePath%>orderinfo_his/delete.do?ORDERINFO_HIS_ID="+Id+"&tm="+new Date().getTime();
+					var url = "<%=basePath%>orderinfo_his/delete.do?ORDERINFO_ID="+Id+"&tm="+new Date().getTime();
 					$.get(url,function(data){
 						tosearch();
 					});
@@ -319,9 +319,9 @@ ID：${var.SUPPLIER_ID}
 			 var diag = new top.Dialog();
 			 diag.Drag=true;
 			 diag.Title ="编辑";
-			 diag.URL = '<%=basePath%>orderinfo_his/goEdit.do?ORDERINFO_HIS_ID='+Id;
-			 diag.Width = 450;
-			 diag.Height = 355;
+			 diag.URL = '<%=basePath%>orderinfo_his/goEdit.do?ORDERINFO_ID='+Id;
+			 diag.Width = 800;
+			 diag.Height = 600;
 			 diag.Modal = true;				//有无遮罩窗口
 			 diag. ShowMaxButton = true;	//最大化按钮
 		     diag.ShowMinButton = true;		//最小化按钮 

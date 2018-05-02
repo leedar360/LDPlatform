@@ -28,36 +28,49 @@
 					<div class="col-xs-12">
 
 						<!-- 检索  -->
-						<form action="purchase/list.do" method="post" name="Form" id="Form">
+						<form action="delivery/undeliverylist.do" method="post" name="Form" id="Form">
 							<table style="margin-top:5px;">
 								<tr>
-
-									<!-- 商品编码 -->
 									<td>
 										<div class="nav-search">
 										<span class="input-icon">
-											<input type="text" placeholder="这里输入商品编码" class="nav-search-input"
+											<input type="text" placeholder="这里输入关键词" class="nav-search-input"
 												   id="nav-search-input" autocomplete="off" name="keywords"
-												   value="${pd.keywords }" placeholder="这里输入商品编码，订单编号"/>
+												   value="${pd.keywords }" placeholder="这里输入关键词"/>
 											<i class="ace-icon fa fa-search nav-search-icon"></i>
 										</span>
 										</div>
 									</td>
-									<!-- 商品编码  -->
-									<c:if test="${QX.cha == 1 }">
-										<td style="vertical-align: middle;padding-left:2px">
-											<a class="btn btn-light btn-xs" onclick="tosearch();" title="检索">
-												<i id="nav-search-icon" class="ace-icon fa fa-search bigger-110 nav-search-icon blue">检索</i>
-											</a>
-										</td>
+									<td style="padding-left:2px;"><input class="span10 date-picker" name="lastStart"
+																		 id="lastStart" value="" type="text"
+																		 data-date-format="yyyy-mm-dd" readonly="readonly"
+																		 style="width:88px;" placeholder="开始日期" title="开始日期"/>
+									</td>
+									<td style="padding-left:2px;"><input class="span10 date-picker" name="lastEnd" name="lastEnd"
+																		 value="" type="text" data-date-format="yyyy-mm-dd"
+																		 readonly="readonly" style="width:88px;"
+																		 placeholder="结束日期" title="结束日期"/></td>
 
-										<td style="vertical-align:middle;padding-left:2px;">
-											<input type="hidden" name="selectIds">
-											<a class="btn btn-mini btn-success" onclick="toPurchase()" title="采购">
-												按商品采购
-											</a>   <FONT color="red"> Note: 按照 订单编号 或者 平台商品编号 搜索结果统一采购</FONT>
+									<!-- 商品编码 -->
+									<c:if test="${QX.cha == 1 }">
+										<td style="vertical-align:top;padding-left:2px"><a class="btn btn-light btn-xs"
+																						   onclick="tosearch();" title="检索"><i
+												id="nav-search-icon"
+												class="ace-icon fa fa-search bigger-110 nav-search-icon blue"></i></a></td>
+									</c:if>
+									<c:if test="${QX.toExcel == 1 }">
+										<td style="vertical-align:top;padding-left:2px;"><a class="btn btn-light btn-xs"
+																							onclick="toExcel();" title="导出到EXCEL"><i
+												id="nav-search-icon2"
+												class="ace-icon fa fa-download bigger-110 nav-search-icon blue"></i></a></td>
+									</c:if>
+
+									<c:if test="${QX.add == 1 }">
+										<td style="vertical-align:top;padding-left:2px;">
+											<a class="btn btn-light btn-xs" onclick="uploadDelivery();">上传快递数据</a>
 										</td>
 									</c:if>
+
 								</tr>
 							</table>
 							<!-- 检索  -->
@@ -73,9 +86,13 @@
 									<th class="center" style="width:50px;">序号</th>
 									<th class="center">订单编号</th>
 									<th class="center">订单数量</th>
+									<th class="center">发件信息</th>
 									<th class="center">收件信息</th>
-									<th class="center">商品售价单价</th>
-									<th class="center">所属平台id</th>
+									<th class="center">快递信息</th>
+									<th class="center">所属平台</th>
+									<th class="center">供应商</th>
+									<th class="center">创建时间</th>
+									<th class="center">备注</th>
 									<th class="center">平台商品编号</th>
 									<th class="center">平台商品描述</th>
 									<th class="center">操作</th>
@@ -98,43 +115,55 @@
 													<td class='center' style="width: 30px;">${vs.index+1}</td>
 													<td class='center'>${var.ODER_ID}</td>
 													<td class='center'>${var.GOODNUM}</td>
+													<td class='center'><textarea readonly>姓名：${var.SELLNAME}
+电话：${var.SELLPHONE}</textarea></td>
 													<td class='center'><textarea readonly>收件人：${var.RECNAME}
 电话：${var.RECPHONE}
 地址：${var.RECADDRESS}</textarea></td>
-													<td class='center'>${var.SELLPRICE}</td>
+													<td class='left'>单号：${var.EXPRESSNO}<br>快递：${var.EXPRESS}</td>
 													<td class='center'>${var.PLATFORMID}</td>
+													<td class='center' title='${var.SUPPLIER_ID}'>${var.SUPPLIERNAME}</td>
+													<td class='center'>${var.CREATETIME}</td>
+													<td class='center'>${var.REMARK}</td>
 													<td class='center'>${var.EXTGOOD_ID}</td>
 													<td class='center'><textarea readonly>${var.EXTGOODS_NAME}</textarea></td>
 													<td class="center">
 														<c:if test="${QX.edit != 1 && QX.del != 1 }">
-															<span class="label label-large label-grey arrowed-in-right arrowed-in"><i class="ace-icon fa fa-lock" title="无权限"></i></span>
+                                                            <span class="label label-large label-grey arrowed-in-right arrowed-in"><i
+																	class="ace-icon fa fa-lock" title="无权限"></i></span>
 														</c:if>
 														<div class="hidden-sm hidden-xs btn-group">
 															<c:if test="${QX.edit == 1 }">
-																<a class="btn btn-xs btn-success" title="向供应商采购" onclick="toOrderItemPurchase('${var.ORDERINFO_ID}');">
-																	采购该单
-																</a>&nbsp;
-																<a class="btn btn-xs btn-danger" title="临采" onclick="purchase_other_edit('${var.ORDERINFO_ID}');">
-																	临采该单
+																<a class="btn btn-xs btn-success" title="发货"
+																   onclick="edit('${var.ORDERINFO_ID}');">
+																	<i class="ace-icon fa fa-pencil-square-o bigger-120"
+																	   title="发货">发货&备注</i>
 																</a>
+
 															</c:if>
+
 														</div>
 														<div class="hidden-md hidden-lg">
 															<div class="inline pos-rel">
-																<button class="btn btn-minier btn-primary dropdown-toggle" data-toggle="dropdown" data-position="auto">
+																<button class="btn btn-minier btn-primary dropdown-toggle"
+																		data-toggle="dropdown" data-position="auto">
 																	<i class="ace-icon fa fa-cog icon-only bigger-110"></i>
 																</button>
 
 																<ul class="dropdown-menu dropdown-only-icon dropdown-yellow dropdown-menu-right dropdown-caret dropdown-close">
 																	<c:if test="${QX.edit == 1 }">
 																		<li>
-																			<a style="cursor:pointer;" onclick="toOrderItemPurchase('${var.ORDERINFO_ID}');" class="tooltip-success" data-rel="tooltip" title="采购">
+																			<a style="cursor:pointer;"
+																			   onclick="edit('${var.ORDERINFO_ID}');"
+																			   class="tooltip-success" data-rel="tooltip"
+																			   title="修改">
 																	<span class="green">
 																		<i class="ace-icon fa fa-pencil-square-o bigger-120"></i>
 																	</span>
 																			</a>
 																		</li>
 																	</c:if>
+
 																</ul>
 															</div>
 														</div>
@@ -161,8 +190,7 @@
 								<table style="width:100%;">
 									<tr>
 										<td style="vertical-align:top;">
-											<div class="pagination"
-												 style="float: right;padding-top: 0px;margin-top: 0px;">${page.pageStr}</div>
+											<div class="pagination" style="float: right;padding-top: 0px;margin-top: 0px;">${page.pageStr}</div>
 										</td>
 									</tr>
 								</table>
@@ -183,6 +211,7 @@
 	<a href="#" id="btn-scroll-up" class="btn-scroll-up btn btn-sm btn-inverse">
 		<i class="ace-icon fa fa-angle-double-up icon-only bigger-110"></i>
 	</a>
+
 </div>
 <!-- /.main-container -->
 
@@ -254,15 +283,15 @@
         });
     });
 
-    //单个订单采购
-    function toOrderItemPurchase(Id) {
+    //新增
+    function uploadDelivery() {
         top.jzts();
         var diag = new top.Dialog();
         diag.Drag = true;
-        diag.Title = "采购";
-        diag.URL = '<%=basePath%>purchase/toPurchase.do?selectIds='+Id;
-        diag.Width = 800;
-        diag.Height = 600;
+        diag.Title = "新增";
+        diag.URL = '<%=basePath%>delivery/goUploadDelivery.do';
+        diag.Width = 450;
+        diag.Height = 355;
         diag.Modal = true;				//有无遮罩窗口
         diag.ShowMaxButton = true;	//最大化按钮
         diag.ShowMinButton = true;		//最小化按钮
@@ -273,6 +302,40 @@
                 } else {
                     tosearch();
                 }
+            }
+            diag.close();
+        };
+        diag.show();
+    }
+
+    //删除
+    function del(Id) {
+        bootbox.confirm("确定备份该条记录吗?", function (result) {
+            if (result) {
+                top.jzts();
+                var url = "<%=basePath%>delivery/bakupAll.do?ORDERINFO_ID=" + Id ;
+                $.get(url, function (data) {
+                    tosearch();
+                });
+            }
+        });
+    }
+
+    //修改
+    function edit(Id) {
+        top.jzts();
+        var diag = new top.Dialog();
+        diag.Drag = true;
+        diag.Title = "编辑";
+        diag.URL = '<%=basePath%>delivery/goDelevery.do?ORDERINFO_ID=' + Id;
+        diag.Width = 800;
+        diag.Height = 600;
+        diag.Modal = true;				//有无遮罩窗口
+        diag.ShowMaxButton = true;	//最大化按钮
+        diag.ShowMinButton = true;		//最小化按钮
+        diag.CancelEvent = function () { //关闭事件
+            if (diag.innerFrame.contentWindow.document.getElementById('zhongxin').style.display == 'none') {
+                tosearch();
             }
             diag.close();
         };
@@ -304,11 +367,11 @@
                     });
                     return;
                 } else {
-                    if (msg == '确定要删除选中的数据吗?') {
+                    if (msg == '确定存档当前记录？') {
                         top.jzts();
                         $.ajax({
                             type: "POST",
-                            url: '<%=basePath%>orderinfo/deleteAll.do?tm=' + new Date().getTime(),
+                            url: '<%=basePath%>delivery/backupAll.do?',
                             data: {DATA_IDS: str},
                             dataType: 'json',
                             //beforeSend: validateData,
@@ -330,80 +393,8 @@
         window.location.href = '<%=basePath%>orderinfo/excel.do';
     }
 
-
-    //其他平台采购修改
-    function purchase_other_edit(Id){
-        top.jzts();
-        var diag = new top.Dialog();
-        diag.Drag=true;
-        diag.Title ="编辑";
-        diag.URL = '<%=basePath%>purchase/goPurchase_other.do?ORDERINFO_ID='+Id;
-        diag.Width = 800;
-        diag.Height = 600;
-        diag.Modal = true;				//有无遮罩窗口
-        diag. ShowMaxButton = true;	//最大化按钮
-        diag.ShowMinButton = true;		//最小化按钮
-        diag.CancelEvent = function(){ //关闭事件
-            if(diag.innerFrame.contentWindow.document.getElementById('zhongxin').style.display == 'none'){
-                tosearch();
-            }
-            diag.close();
-        };
-        diag.show();
-    }
-
-
-    //采购
-	function toPurchase() {
-        var str = '';
-        for (var i = 0; i < document.getElementsByName('ids').length; i++) {
-            if (document.getElementsByName('ids')[i].checked) {
-                if (str == '') str += document.getElementsByName('ids')[i].value;
-                else str += ',' + document.getElementsByName('ids')[i].value;
-            }
-        }
-        if (str == '') {
-            bootbox.dialog({
-                message: "<span class='bigger-110'>您没有选择任何内容!</span>",
-                buttons:
-                    {"button": {"label": "确定", "className": "btn-sm btn-success"}}
-            });
-            $("#zcheckbox").tips({
-                side: 1,
-                msg: '点这里全选',
-                bg: '#AE81FF',
-                time: 8
-            });
-            return;
-        } else {
-
-            top.jzts();
-            var diag = new top.Dialog();
-            diag.Drag = true;
-            diag.Title = "采购";
-            diag.URL = '<%=basePath%>purchase/toPurchase.do?selectIds='+str;
-            diag.Width = 800;
-            diag.Height = 600;
-            diag.Modal = true;				//有无遮罩窗口
-            diag.ShowMaxButton = true;	//最大化按钮
-            diag.ShowMinButton = true;		//最小化按钮
-            diag.CancelEvent = function () { //关闭事件
-                if (diag.innerFrame.contentWindow.document.getElementById('zhongxin').style.display == 'none') {
-                    if ('${page.currentPage}' == '0') {
-                        tosearch();
-                    } else {
-                        tosearch();
-                    }
-                }
-                diag.close();
-            };
-            diag.show();
-
-            //top.jzts();
-            //$('#selectIds').val(str);
-            //$("#Form").attr('action',"purchase/toPurchase.do");
-            //$("#Form").submit();
-        }
+    function toPurchasedExcel(){
+        window.location.href = '<%=basePath%>orderinfo/purchasedExcel.do';
 	}
 </script>
 

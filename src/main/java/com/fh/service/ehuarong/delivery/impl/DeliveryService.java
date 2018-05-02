@@ -50,7 +50,7 @@ public class DeliveryService implements DeliveryManager{
 	 */
 	@SuppressWarnings("unchecked")
 	public List<PageData> list(Page page)throws Exception{
-		return (List<PageData>)dao.findForList("OrderinfoMapper.deliveryList", page);
+		return (List<PageData>)dao.findForList("OrderinfoMapper.undeliverylistPage", page);
 	}
 	
 	/**列表(全部)
@@ -86,10 +86,18 @@ public class DeliveryService implements DeliveryManager{
 	 * @throws Exception
 	 */
 	public List<PageData> deliveryList(Page page) throws Exception{
-		return (List<PageData>)dao.findForList("OrderinfoMapper.deliveryList", page);
+		return (List<PageData>)dao.findForList("OrderinfoMapper.deliverylistPage", page);
 	}
 
-
+	/**
+	 * 未发货列表
+	 *
+	 * @param page
+	 * @throws Exception
+	 */
+	public List<PageData> undeliverylist(Page page) throws Exception {
+		return (List<PageData>) dao.findForList("OrderinfoMapper.undeliverylistPage", page);
+	}
 
 }
 

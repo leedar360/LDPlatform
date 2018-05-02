@@ -37,7 +37,7 @@
 									<td>
 										<div class="nav-search">
 											<span class="input-icon">
-												<input type="text" placeholder="这里输入商品名称搜索 支持模糊搜索" class="nav-search-input" id="nav-search-input" autocomplete="off" name="goodName" value="${pd.goodName}" placeholder="这里输入商品名称搜索"/>
+												<input type="text" placeholder="这里输入商品名称搜索 支持模糊搜索" class="nav-search-input" id="nav-search-input" autocomplete="off" name="goodName" value="${pd.goodName}" />
 												<i class="ace-icon fa fa-search nav-search-icon"></i>
 											</span>
 										</div>

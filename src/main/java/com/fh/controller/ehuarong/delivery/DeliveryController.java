@@ -4,6 +4,7 @@ import com.fh.controller.base.BaseController;
 import com.fh.entity.Page;
 import com.fh.service.ehuarong.delivery.DeliveryManager;
 import com.fh.service.ehuarong.orderinfo.OrderinfoManager;
+
 import com.fh.service.system.fhlog.FHlogManager;
 import com.fh.util.AppUtil;
 import com.fh.util.Jurisdiction;
@@ -22,16 +23,20 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+
+
+
+
 @Controller
 @RequestMapping(value="/delivery")
 public class DeliveryController extends BaseController {
 
     String menuUrl = "delivery/list.do"; //菜单地址(权限用)
-    @Resource(name="deliveryService")
-    private DeliveryManager deliveryService;
-
     @Resource(name="orderinfoService")
     private OrderinfoManager orderinfoService;
+
+    @Resource(name="deliveryService")
+    private DeliveryManager deliveryService;
 
     @Resource(name = "fhlogService")
     private FHlogManager FHLOG;
@@ -67,7 +72,7 @@ public class DeliveryController extends BaseController {
 
         page.setPd(pd);
 
-        List<PageData> varList = orderinfoService.list(page);
+        List<PageData> varList = deliveryService.deliveryList(page);
 //        goodsService.list(page);
         mv.setViewName("ehuarong/delivery/delivery_list");
         mv.addObject("varList", varList);
@@ -75,6 +80,46 @@ public class DeliveryController extends BaseController {
         mv.addObject("QX",Jurisdiction.getHC());	//按钮权限
         return mv;
     }
+
+    /**未发货列表
+     * @param page
+     * @throws Exception
+     */
+    @RequestMapping(value="/undeliverylist")
+    public ModelAndView undeliverylist(Page page) throws Exception{
+        logBefore(logger, Jurisdiction.getUsername()+" 未发货列表 undelivery list ");
+        if(!Jurisdiction.buttonJurisdiction(menuUrl, "cha")){return null;} //校验权限(无权查看时页面会有提示,如果不注释掉这句代码就无法进入列表页面,所以根据情况是否加入本句代码)
+        ModelAndView mv = this.getModelAndView();
+        PageData pd = new PageData();
+        pd = this.getPageData();
+        String keywords = pd.getString("keywords");				//关键词检索条件
+        String lastStart = pd.getString("lastStart");
+        String lastEnd = pd.getString("lastEnd");
+
+        if(null != keywords && !"".equals(keywords)){
+            pd.put("keywords", keywords.trim());
+        }
+        String EXTGOOD_ID = pd.getString("EXTGOOD_ID");
+        if(!StringUtils.isEmpty(EXTGOOD_ID)){
+            pd.put("EXTGOOD_ID", EXTGOOD_ID.trim());
+        }
+        if(null != lastStart && !"".equals(lastStart)){
+            pd.put("lastStart", lastStart.trim());
+        }
+        if(null != lastEnd && !"".equals(lastEnd)){
+            pd.put("lastEnd", lastEnd.trim());
+        }
+
+        page.setPd(pd);
+        List<PageData> varList = deliveryService.undeliverylist(page);
+        //        goodsService.list(page);
+        mv.setViewName("ehuarong/delivery/undelivery_list");
+        mv.addObject("varList", varList);
+        mv.addObject("pd", pd);
+        mv.addObject("QX",Jurisdiction.getHC());	//按钮权限
+        return mv;
+    }
+
 
     /**
      * 保存
@@ -137,6 +182,9 @@ public class DeliveryController extends BaseController {
         return mv;
     }
 
+
+
+
     /**修改
      * @param
      * @throws Exception
@@ -155,6 +203,41 @@ public class DeliveryController extends BaseController {
     }
 
 
+
+    /**去发货页面
+     * @param
+     * @throws Exception
+     */
+    @RequestMapping(value="/goDelevery")
+    public ModelAndView goDelevery()throws Exception{
+        ModelAndView mv = this.getModelAndView();
+        PageData pd = new PageData();
+        pd = this.getPageData();
+        pd = orderinfoService.findById(pd);	//根据ID读取
+        mv.setViewName("ehuarong/delivery/delivery_edit");
+        mv.addObject("msg", "doDelivery");
+        mv.addObject("pd", pd);
+        return mv;
+    }
+
+
+    /**发货
+     * @param
+     * @throws Exception
+     */
+    @RequestMapping(value="/doDelivery")
+    public ModelAndView doDelivery() throws Exception{
+        logBefore(logger, Jurisdiction.getUsername()+" 修改 delivery");
+        if(!Jurisdiction.buttonJurisdiction(menuUrl, "edit")){return null;} //校验权限
+        ModelAndView mv = this.getModelAndView();
+        PageData pd = new PageData();
+        pd = this.getPageData();
+        pd.put("STATUS","3"); // 3: 快递发货成功
+        deliveryService.edit(pd);
+        mv.addObject("msg","success");
+        mv.setViewName("save_result");
+        return mv;
+    }
 
     /**批量备份
      * 把交易成功的列表 备份status 为bak，同时把这些hr_orderinfo 的记录 insert 到 hr_orderinfo_his 表中
