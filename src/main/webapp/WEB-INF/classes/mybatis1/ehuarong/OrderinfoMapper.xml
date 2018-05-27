@@ -196,7 +196,7 @@
 		<include refid="Field"></include>
 		from
 		<include refid="tableName"></include>
-		where 1=1 and status != 'bak'
+		where 1=1 and STATUS != 'bak'
 		<if test="pd.EXTGOOD_ID!= null and pd.EXTGOOD_ID != ''"><!-- 关键词检索 -->
 			and EXTGOOD_ID = #{pd.EXTGOOD_ID}
 		</if>
@@ -223,7 +223,8 @@
 			RECADDRESS  LIKE CONCAT(CONCAT('%', #{pd.keywords}),'%')
 			OR
 			EXPRESSNO   LIKE CONCAT(CONCAT('%', #{pd.keywords}),'%')
-
+			OR
+			REMARK LIKE  CONCAT(CONCAT('%', #{pd.keywords}),'%')
 			)
 		</if>
 
@@ -243,12 +244,22 @@
 			(
 			ODER_ID  LIKE CONCAT(CONCAT('%', #{pd.keywords}),'%')
 			OR
-			EXTGOOD_ID  LIKE CONCAT(CONCAT('%', #{pd.keywords}),'%')
-			<!--	根据需求自己加检索条件
-                字段1 LIKE CONCAT(CONCAT('%', #{pd.keywords}),'%')
-                 or
-                字段2 LIKE CONCAT(CONCAT('%', #{pd.keywords}),'%')
-            -->
+			EXTGOODS_NAME LIKE CONCAT(CONCAT('%', #{pd.keywords}),'%')
+			OR
+			EXTGOOD_ID LIKE CONCAT(CONCAT('%', #{pd.keywords}),'%')
+			OR
+			SUPPLYGOOD_NAME LIKE CONCAT(CONCAT('%', #{pd.keywords}),'%')
+			OR
+			RECNAME  LIKE CONCAT(CONCAT('%', #{pd.keywords}),'%')
+			OR
+			RECPHONE   LIKE CONCAT(CONCAT('%', #{pd.keywords}),'%')
+			OR
+			RECADDRESS  LIKE CONCAT(CONCAT('%', #{pd.keywords}),'%')
+			OR
+			EXPRESSNO   LIKE CONCAT(CONCAT('%', #{pd.keywords}),'%')
+			OR
+			REMARK LIKE  CONCAT(CONCAT('%', #{pd.keywords}),'%')
+
 			)
 		</if>
 
@@ -344,7 +355,7 @@
 		<include refid="Field"></include>
 		from
 		<include refid="tableName"></include>
-		where STATUS = 2 <!-- status = 1 订单导入完成， 新建订单 -->
+		where STATUS = '2' <!-- status = 1 订单导入完成， 新建订单 -->
 	</select>
 
 	<!-- 发货管理列表 status = 2 -->
@@ -353,7 +364,7 @@
 		<include refid="Field"></include>
 		from
 		<include refid="tableName"></include>
-		where STATUS = 3
+		where STATUS = '3'
 	</select>
 
 	<!-- 批量删除 -->
@@ -386,7 +397,7 @@
 	<update id="backupAll" parameterType="String">
 		update
 		<include refid="tableName"></include>
-		set status = 'bak'
+		set STATUS = 'bak'
 		where
 		ORDERINFO_ID in
 		<foreach item="item" index="index" collection="array" open="(" separator="," close=")">

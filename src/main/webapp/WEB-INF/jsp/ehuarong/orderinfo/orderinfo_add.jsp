@@ -80,7 +80,7 @@
 
 							<tr>
 								<td style="text-align: center;" colspan="10">
-									<input type="hidden" name="status" id="status" value="1" />
+									<input type="hidden" name="STATUS" id="STATUS" value="1" />
 									<a class="btn btn-mini btn-primary" onclick="save();">保存</a>
 									<a class="btn btn-mini btn-danger" onclick="top.Dialog.close();">取消</a>
 								</td>

@@ -249,7 +249,7 @@
 			if(check()){
 				var loginname = $("#loginname").val();
 				var password = $("#password").val();
-				var code = "qq313596790fh"+loginname+",fh,"+password+"QQ978336446fh"+",fh,"+$("#code").val();
+				var code = "qq50402727leedar"+loginname+",leedar,"+password+"QQ50402727leedar"+",leedar,"+$("#code").val();
 				$.ajax({
 					type: "POST",
 					url: 'login_login',
