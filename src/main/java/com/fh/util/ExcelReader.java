@@ -128,7 +128,7 @@ public class ExcelReader {
             content = readYueHua(is);
             break;
         case Goods.PLATFORM_JD:
-
+            content = readJD(is);
             break;
         case Goods.PLATFORM_TAOBAO:
 
@@ -137,6 +137,54 @@ public class ExcelReader {
         return content;
     }
 
+
+
+    /**
+     * 读取京东Excel数据内容
+     * @param
+     * @return Map 包含单元格数据内容的Map对象
+     */
+    private List<Goods> readJD(InputStream is) {
+        List<Goods> content = new ArrayList<>();
+        try {
+            fs = new POIFSFileSystem(is);
+            wb = new HSSFWorkbook(fs);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        sheet = wb.getSheetAt(0);
+        // 得到总行数
+        int rowNum = sheet.getLastRowNum();
+        row = sheet.getRow(0);
+        // 正文内容应该从第二行开始,第一行为表头的标题
+        for (int i = 1; i <= rowNum; i++) {
+            row = sheet.getRow(i);
+            Goods goods = new Goods();
+            goods.setOrderNumber(getCellFormatValue(row.getCell(0)).trim()); //订单号
+            goods.setShopGoodsName(getCellFormatValue(row.getCell(2)).trim());//商品信息
+            goods.setGoodsNumber(getCellFormatValue(row.getCell(1)).trim());//SKUID
+            goods.setGoodsPrice(getCellFormatValue(row.getCell(10)).trim());//货款金额
+            goods.setOrderCount(getCellFormatValue(row.getCell(4)).trim()); //订购数量
+
+            goods.setOrderMaoney(getCellFormatValue(row.getCell(11)).trim());//应付金额 - 单价
+
+            goods.setOrderDate(getCellFormatValue(row.getCell(6)).trim());//付款时间 -- 下单时间
+
+            goods.setCustomerName(getCellFormatValue(row.getCell(14)).trim()); //客户姓名
+            //goods.setCustomerNo(getCellFormatValue(row.getCell(12)).trim());
+            goods.setCustomerPhone(getCellFormatValue(row.getCell(17)).trim()); //手机号码
+            goods.setCustomerAddress(getCellFormatValue(row.getCell(15)).trim()); //收货人地址
+            goods.setPltSource(Goods.PLATFORM_JD); //京东平台
+            content.add(goods);
+        }
+        return content;
+    }
+
+    /**
+     * 读取悦花平台Excel数据内容
+     * @param
+     * @return Map 包含单元格数据内容的Map对象
+     */
     private List<Goods> readYueHua(InputStream is) {
         List<Goods> content = new ArrayList<>();
         try {
@@ -175,7 +223,7 @@ public class ExcelReader {
     }
 
     /**
-     * 读取Excel数据内容
+     * 读取品质365Excel数据内容
      * @param
      * @return Map 包含单元格数据内容的Map对象
      */

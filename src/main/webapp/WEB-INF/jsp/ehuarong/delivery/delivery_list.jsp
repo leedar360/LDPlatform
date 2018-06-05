@@ -53,10 +53,10 @@
 
 									<!-- 商品编码 -->
 									<c:if test="${QX.cha == 1 }">
-										<td style="vertical-align:top;padding-left:2px"><a class="btn btn-light btn-xs"
+										<td style="vertical-align:top;padding-left:2px"><a class="btn btn-mini btn-primary"
 																						   onclick="tosearch();" title="检索"><i
 												id="nav-search-icon"
-												class="ace-icon fa fa-search bigger-110 nav-search-icon blue"></i></a></td>
+												class="ace-icon fa fa-search bigger-110 nav-search-icon blue"></i></a>检索</td>
 									</c:if>
 									<c:if test="${QX.toExcel == 1 }">
 										<td style="vertical-align:top;padding-left:2px;"><a class="btn btn-light btn-xs"
