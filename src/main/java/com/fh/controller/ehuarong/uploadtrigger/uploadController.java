@@ -3,6 +3,7 @@ package com.fh.controller.ehuarong.uploadtrigger;
 import com.fh.controller.base.BaseController;
 import com.fh.entity.ehuarong.Goods;
 import com.fh.service.ehuarong.orderinfo.OrderinfoManager;
+import com.fh.service.ehuarong.platformmanage.PlatformManageManager;
 import com.fh.service.system.fhlog.FHlogManager;
 import com.fh.util.*;
 import org.springframework.stereotype.Controller;
@@ -24,6 +25,9 @@ import java.util.Map;
 
     String menuUrl = "uploadtrigger/gopload.do"; //菜单地址(权限用)
 
+    @Resource(name="platformmanageService")
+    private PlatformManageManager platformmanageService;
+
     @Resource(name = "fhlogService") private FHlogManager FHLOG;
 
     @Resource(name = "orderinfoService") private OrderinfoManager orderinfoManager;
@@ -39,8 +43,12 @@ import java.util.Map;
         if (!Jurisdiction.buttonJurisdiction(menuUrl, "goupload")) {
             return null;
         } //校验权限
+
+        List<PageData> distinctPlatformId = platformmanageService.getdistinctPlatformId(); //所有平台list
+
         ModelAndView mv = this.getModelAndView();
         PageData pd = new PageData();
+        mv.addObject("listPlatformId", distinctPlatformId);
         mv.addObject("msg", "upload");
         mv.setViewName("ehuarong/uploadtrigger/uploadtrigger");
         return mv;

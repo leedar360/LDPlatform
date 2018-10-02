@@ -1,16 +1,16 @@
-package com.fh.service.ehuarong.purchase;
+package com.fh.service.ehuarong.platformmanage;
 
 import java.util.List;
 import com.fh.entity.Page;
 import com.fh.util.PageData;
 
 /** 
- * 说明： 华榕商品表接口
+ * 说明： 售卖平台录入管理接口
  * 创建人：FH Q313596790
- * 创建时间：2018-03-26
+ * 创建时间：2018-10-01
  * @version
  */
-public interface PurchaseManager{
+public interface PlatformManageManager{
 
 	/**新增
 	 * @param pd
@@ -29,26 +29,19 @@ public interface PurchaseManager{
 	 * @throws Exception
 	 */
 	public void edit(PageData pd)throws Exception;
-
-	/**临采 For 京东 淘宝等平台采购
-	 * @param pd
-	 * @throws Exception
-	 */
-	public void purchase_other_edit(PageData pd)throws Exception;
-
-	/**转不采购状态
-	 * @param pd
-	 * @throws Exception
-	 */
-	public void no_purchase_action(PageData pd)throws Exception;
-
-
+	
 	/**列表
 	 * @param page
 	 * @throws Exception
 	 */
 	public List<PageData> list(Page page)throws Exception;
-	
+
+	/**得到平台code 和 name(全部)
+	 * @throws Exception
+	 */
+	public List<PageData> getdistinctPlatformId()throws Exception;
+
+
 	/**列表(全部)
 	 * @param pd
 	 * @throws Exception

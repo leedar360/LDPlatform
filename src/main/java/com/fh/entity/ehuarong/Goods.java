@@ -251,4 +251,16 @@ public class Goods implements Comparable<Goods>{
             return -1;
         }
     }
+
+    //set 转 list 是否同一个对象
+    public boolean equals(Object o){
+        Goods obj = (Goods)o;
+        return this.getOrderNumber() == obj.getOrderNumber() && this.getGoodsNumber() == ((Goods) o).getGoodsNumber();
+    }
+
+
+    public int hashCode(){
+        return this.getGoodsNumber().hashCode() * 17 + this.getOrderNumber().hashCode() * 17;
+    }
+
 }

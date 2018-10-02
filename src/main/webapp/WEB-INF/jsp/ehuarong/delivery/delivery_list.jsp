@@ -53,10 +53,10 @@
 
 									<!-- 商品编码 -->
 									<c:if test="${QX.cha == 1 }">
-										<td style="vertical-align:top;padding-left:2px"><a class="btn btn-mini btn-primary"
+										<td style="vertical-align:top;padding-left:2px">&nbsp;&nbsp;<a class="btn btn-light btn-xs"
 																						   onclick="tosearch();" title="检索"><i
 												id="nav-search-icon"
-												class="ace-icon fa fa-search bigger-110 nav-search-icon blue"></i></a>检索</td>
+												class="ace-icon fa fa-search bigger-110 nav-search-icon blue">检索</i></a>&nbsp;&nbsp;</td>
 									</c:if>
 									<c:if test="${QX.toExcel == 1 }">
 										<td style="vertical-align:top;padding-left:2px;"><a class="btn btn-light btn-xs"
@@ -98,8 +98,7 @@
 									<th class="center" style="width:50px;">序号</th>
 									<th class="center">订单编号</th>
 									<th class="center">订单数量</th>
-									<th class="center">发件信息</th>
-									<th class="center">收件信息</th>
+									<th class="center" colspan="2">收件信息</th>
 									<th class="center">快递信息</th>
 									<th class="center">所属平台</th>
 									<th class="center">供应商</th>
@@ -127,11 +126,9 @@
 													<td class='center' style="width: 30px;">${vs.index+1}</td>
 													<td class='center'>${var.ODER_ID}</td>
 													<td class='center'>${var.GOODNUM}</td>
-													<td class='center'><textarea readonly>姓名：${var.SELLNAME}
-电话：${var.SELLPHONE}</textarea></td>
 													<td class='center'><textarea readonly>收件人：${var.RECNAME}
-电话：${var.RECPHONE}
-地址：${var.RECADDRESS}</textarea></td>
+电话：${var.RECPHONE}</textarea></td>
+													<td class='center'><textarea readonly>地址：${var.RECADDRESS}</textarea></td>
 													<td class='left'>单号：${var.EXPRESSNO}<br>快递：${var.EXPRESS}</td>
 													<td class='center'>${var.PLATFORMID}</td>
 													<td class='center' title='${var.SUPPLIER_ID}'>${var.SUPPLIERNAME}</td>

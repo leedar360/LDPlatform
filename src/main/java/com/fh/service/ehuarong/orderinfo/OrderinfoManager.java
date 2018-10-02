@@ -54,6 +54,18 @@ public interface OrderinfoManager {
 	 */
 	public void edit(PageData pd) throws Exception;
 
+
+
+	/**
+	 * 重新采购 重置状态为1
+	 *
+	 * @param pd
+	 * @throws Exception
+	 */
+	public void rePurchaseupdate(PageData pd) throws Exception;
+
+
+
 	/**
 	 * 列表
 	 *

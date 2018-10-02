@@ -70,7 +70,23 @@ public class OrderinfoController extends BaseController {
 		out.write("success");
 		out.close();
 	}
-	
+
+	/**重新采购 状态重置
+	 * @param out
+	 * @throws Exception
+	 */
+	@RequestMapping(value="/rePurchaseupdate")
+	public void rePurchaseupdate(PrintWriter out) throws Exception{
+		logBefore(logger, Jurisdiction.getUsername()+" 重新采购 状态重置 Orderinfo");
+		if(!Jurisdiction.buttonJurisdiction(menuUrl, "edit")){return;} //校验权限
+		PageData pd = new PageData();
+		pd = this.getPageData();
+		orderinfoService.rePurchaseupdate(pd);
+		out.write("success");
+		out.close();
+	}
+
+
 	/**修改
 	 * @param
 	 * @throws Exception
@@ -219,16 +235,18 @@ public class OrderinfoController extends BaseController {
 		titles.add("备注");	//18
 		dataMap.put("titles", titles);
 		List<PageData> varOList = orderinfoService.listAll(pd);
+		//        pd.put("EXPORTTIME", DateUtil.getSdfTime());
+
 		List<PageData> varList = new ArrayList<PageData>();
 		for(int i=0;i<varOList.size();i++){
 			PageData vpd = new PageData();
 			vpd.put("var1", varOList.get(i).getString("ODER_ID"));	    //1
 			vpd.put("var2", varOList.get(i).getString("GOODNUM"));	    //2
 			vpd.put("var3", varOList.get(i).getString("SELLNAME"));	    //3
-			vpd.put("var4", varOList.get(i).getString("SELLPHONE"));	    //4
+			vpd.put("var4", varOList.get(i).getString("SELLPHONE"));	//4
 			vpd.put("var5", varOList.get(i).getString("RECNAME"));	    //5
 			vpd.put("var6", varOList.get(i).getString("RECPHONE"));	    //6
-			vpd.put("var7", varOList.get(i).getString("RECADDRESS"));	    //7
+			vpd.put("var7", varOList.get(i).getString("RECADDRESS"));	//7
 			vpd.put("var8", varOList.get(i).getString("EXPRESS"));	    //8
 			vpd.put("var9", varOList.get(i).getString("EXPRESSNO"));	    //9
 			vpd.put("var10", String.valueOf(varOList.get(i).get("SELLPRICE")));    //10

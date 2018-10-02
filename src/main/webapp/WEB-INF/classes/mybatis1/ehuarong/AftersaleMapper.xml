@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="OrderinfoMapper">
+<mapper namespace="AftersaleMapper">
 
 	<!--表名 -->
 	<sql id="tableName">
@@ -195,18 +195,15 @@
 	</select>
 
 	<!-- 列表 -->
-	<select id="datalistPage" parameterType="page" resultType="pd">
+	<select id="listPage" parameterType="page" resultType="pd">
 		select
 		<include refid="Field"></include>
 		from
 		<include refid="tableName"></include>
-		where 1=1 and STATUS != 'bak'
-		<if test="pd.EXTGOOD_ID!= null and pd.EXTGOOD_ID != ''"><!-- 关键词检索 -->
-			and EXTGOOD_ID = #{pd.EXTGOOD_ID}
-		</if>
+		where 1=1 and STATUS in ('AFS')
 
 		<if test="pd.lastStart!= null and pd.lastStart != '' and pd.lastEnd!= null and pd.lastEnd != ''" >
-			and (CREATETIME  BETWEEN #{pd.lastStart} AND #{pd.lastEnd}  )
+			and (EXPORTTIME  BETWEEN #{pd.lastStart} AND #{pd.lastEnd}  )
 		</if>
 
 		<if test="pd.keywords!= null and pd.keywords != ''"><!-- 关键词检索 -->
@@ -234,40 +231,7 @@
 			)
 		</if>
 
-		ORDER BY CREATETIME DESC
-	</select>
-
-	<!-- 采购列表 -->
-	<select id="purchaseDatalistPage" parameterType="page" resultType="pd">
-		select
-		<include refid="Field"></include>
-		from
-		<include refid="tableName"></include>
-		where 1=1 and STATUS = '1'
-
-		<if test="pd.keywords!= null and pd.keywords != ''"><!-- 关键词检索 -->
-			AND
-			(
-			ODER_ID  LIKE CONCAT(CONCAT('%', #{pd.keywords}),'%')
-			OR
-			EXTGOODS_NAME LIKE CONCAT(CONCAT('%', #{pd.keywords}),'%')
-			OR
-			EXTGOOD_ID LIKE CONCAT(CONCAT('%', #{pd.keywords}),'%')
-			OR
-			SUPPLYGOOD_NAME LIKE CONCAT(CONCAT('%', #{pd.keywords}),'%')
-			OR
-			RECNAME  LIKE CONCAT(CONCAT('%', #{pd.keywords}),'%')
-			OR
-			RECPHONE   LIKE CONCAT(CONCAT('%', #{pd.keywords}),'%')
-			OR
-			RECADDRESS  LIKE CONCAT(CONCAT('%', #{pd.keywords}),'%')
-			OR
-			REMARK LIKE  CONCAT(CONCAT('%', #{pd.keywords}),'%')
-			)
-		</if>
-
-		ORDER BY SYSTIME DESC
-
+		ORDER BY EXPORTTIME DESC
 	</select>
 
 	<!-- 发货列表 -->
@@ -398,32 +362,6 @@
 		ORDERINFO_ID = #{ORDERINFO_ID}
 	</update>
 
-	<!-- 重新采购 状态重置为1 同事清除供应商信息 -->
-	<update id="rePurchaseupdate" parameterType="pd">
-		update
-		<include refid="tableName"></include>
-		set
-		EXPRESS = '',
-		EXPRESSNO = '',
-		SUPPLIER_ID = '',
-		SUPPLIER_EMAIL ='',
-		SUPPLIERNAME = '',
-		STATUS = '1'
-		where
-		ORDERINFO_ID = #{ORDERINFO_ID}
-	</update>
-
-
-
-	<!-- 转不发货，设置状态为  NOEXP -->
-	<update id="no_purchase_action" parameterType="pd">
-		update
-		<include refid="tableName"></include>
-		set
-		STATUS = 'NOEXP'
-		where
-		ORDERINFO_ID = #{ORDERINFO_ID}
-	</update>
 
 
 	<!-- 批量备份 status 改成 'bak' -->

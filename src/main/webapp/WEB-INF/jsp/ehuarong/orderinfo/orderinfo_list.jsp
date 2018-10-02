@@ -29,7 +29,7 @@
 
 						<!-- 检索  -->
 						<form action="orderinfo/list.do" method="post" name="Form" id="Form">
-							<table style="margin-top:5px;">
+							<table style="margin-top:5px;" >
 								<tr>
 									<td>
 										<div class="nav-search">
@@ -50,65 +50,33 @@
 																		 value="" type="text" data-date-format="yyyy-mm-dd"
 																		 readonly="readonly" style="width:88px;"
 																		 placeholder="结束日期" title="结束日期"/></td>
-									<!-- 商品编码 -->
-									<td>
-										<div class="nav-search">
-										<span class="input-icon">
-											<input type="text" placeholder="这里输入商品编码" class="nav-search-input"
-												   id="nav-EXTGOOD_ID-input" autocomplete="off" name="EXTGOOD_ID"
-												   value="${pd.EXTGOOD_ID }" placeholder="这里输入商品编码"/>
-											<i class="ace-icon fa fa-search nav-search-icon"></i>
-										</span>
-										</div>
-									</td>
-									<!-- 商品编码 -->
+
 									<c:if test="${QX.cha == 1 }">
-										<td style="vertical-align:top;padding-left:2px"><a class="btn btn-light btn-xs"
+										<td style="vertical-align:top;padding-left:2px">&nbsp;&nbsp;<a class="btn btn-light btn-xs"
 																						   onclick="tosearch();" title="检索"><i
 												id="nav-search-icon"
-												class="ace-icon fa fa-search bigger-110 nav-search-icon blue"></i></a></td>
+												class="ace-icon fa fa-search bigger-110 nav-search-icon blue">检索</i></a>&nbsp;&nbsp;</td>
 									</c:if>
-									<c:if test="${QX.toExcel == 1 }">
+									<c:if test="${QX.toExcel == HAHA }">
 										<td style="vertical-align:top;padding-left:2px;"><a class="btn btn-light btn-xs"
 																							onclick="toExcel();" title="导出到EXCEL"><i
 												id="nav-search-icon2"
 												class="ace-icon fa fa-download bigger-110 nav-search-icon blue"></i></a></td>
 									</c:if>
+
 									<c:if test="${QX.toExcel == 1 }">
-										<td style="vertical-align:top;padding-left:2px;">
-											<a class="btn btn-light btn-xs" onclick="toPurchasedExcel();" title="导出采购商品到EXCEL">
-												导出采购商品到EXCEL
-											</a>
-										</td>
+
+												<td style="vertical-align:top; align: right ;padding-left:2px;" width="50%">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+													<a class="btn btn-light btn-xs" onclick="toPurchasedExcel();" title="导出采购商品到EXCEL">
+														<red>导出采购商品到EXCEL</red>
+													</a>
+												</td>
 									</c:if>
 								</tr>
 							</table>
-							<!-- 检索  -->
-							<div class="page-header position-relative">
-								<table style="width:100%;">
-									<tr>
-										<td style="vertical-align:middle;">
-											<c:if test="${QX.add == 1 }">
-												<a class="btn btn-mini btn-success" onclick="add();">新增订单</a>
-											</c:if>
-											&nbsp;&nbsp;&nbsp;&nbsp;
-											<c:if test="${QX.del == 1 }">
-												<a class="btn btn-mini btn-danger" onclick="makeAll('确定要删除选中的数据吗?');"
-												   title="批量删除"><i class='ace-icon fa fa-trash-o '>批量删除</i></a>
-											</c:if>
-											&nbsp;&nbsp;&nbsp;&nbsp;
-											<c:if test="${QX.del == 1 }">
-												<a class="btn btn-mini btn-success" onclick="makebackup('确定要存档选中的数据吗?');"
-												   title="批量存档">批量存档</a>
-											</c:if>
 
-										</td>
-										<td style="vertical-align:middle;">
-											<div class="pagination" style="float: right;padding-top: 0px;margin-top: 0px;">${page.pageStr}</div>
-										</td>
-									</tr>
-								</table>
-							</div>
+							<!-- 检索  -->
+
 							<table id="simple-table" class="table table-striped table-bordered table-hover" style="margin-top:5px;">
 								<thead>
 								<tr>
@@ -190,51 +158,24 @@ ID：${var.SUPPLIER_ID}
 																<a class="btn btn-xs btn-success" title="编辑"
 																   onclick="edit('${var.ORDERINFO_ID}');">
 																	<i class="ace-icon fa fa-pencil-square-o bigger-120"
-																	   title="编辑"></i>
+																	   title="编辑">修改订单</i>
 																</a>
 															</c:if>
 															<c:if test="${QX.del == 1 }">
 																<a class="btn btn-xs btn-danger"
 																   onclick="del('${var.ORDERINFO_ID}');">
-																	<i class="ace-icon fa fa-trash-o bigger-120" title="删除"></i>
+																	<i class="ace-icon fa fa-trash-o bigger-120" title="删除">删除订单</i>
+																</a>
+															</c:if>
+															<c:if test="${QX.edit == 1 }">
+																<a class="btn btn-xs btn-success" title="重新采购"
+																   onclick="rePurchaseupdate('${var.ORDERINFO_ID}');">
+																	<i class="ace-icon fa fa-pencil-square-o bigger-120"
+																	   title="重新采购">重新采购</i>
 																</a>
 															</c:if>
 														</div>
-														<div class="hidden-md hidden-lg">
-															<div class="inline pos-rel">
-																<button class="btn btn-minier btn-primary dropdown-toggle"
-																		data-toggle="dropdown" data-position="auto">
-																	<i class="ace-icon fa fa-cog icon-only bigger-110"></i>
-																</button>
 
-																<ul class="dropdown-menu dropdown-only-icon dropdown-yellow dropdown-menu-right dropdown-caret dropdown-close">
-																	<c:if test="${QX.edit == 1 }">
-																		<li>
-																			<a style="cursor:pointer;"
-																			   onclick="edit('${var.ORDERINFO_ID}');"
-																			   class="tooltip-success" data-rel="tooltip"
-																			   title="修改">
-																	<span class="green">
-																		<i class="ace-icon fa fa-pencil-square-o bigger-120"></i>
-																	</span>
-																			</a>
-																		</li>
-																	</c:if>
-																	<c:if test="${QX.del == 1 }">
-																		<li>
-																			<a style="cursor:pointer;"
-																			   onclick="del('${var.ORDERINFO_ID}');"
-																			   class="tooltip-error" data-rel="tooltip"
-																			   title="删除">
-																	<span class="red">
-																		<i class="ace-icon fa fa-trash-o bigger-120"></i>
-																	</span>
-																			</a>
-																		</li>
-																	</c:if>
-																</ul>
-															</div>
-														</div>
 													</td>
 												</tr>
 
@@ -405,6 +346,19 @@ ID：${var.SUPPLIER_ID}
             }
         });
     }
+
+	//重新采购
+	function rePurchaseupdate(Id) {
+		bootbox.confirm("确定要重新采购吗? 确定后将在 采购管理 重新采购该单", function (result) {
+			if (result) {
+				top.jzts();
+				var url = "<%=basePath%>orderinfo/rePurchaseupdate.do?ORDERINFO_ID=" + Id + "&tm=" + new Date().getTime();
+				$.get(url, function (data) {
+					tosearch();
+				});
+			}
+		});
+	}
 
     //修改
     function edit(Id) {

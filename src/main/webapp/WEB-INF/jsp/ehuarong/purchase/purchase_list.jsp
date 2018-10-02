@@ -45,10 +45,10 @@
 									</td>
 									<!-- 商品编码  -->
 									<c:if test="${QX.cha == 1 }">
-										<td style="vertical-align: middle;padding-left:2px">
+										<td style="vertical-align: middle;padding-left:2px">&nbsp;&nbsp;
 											<a class="btn btn-light btn-xs" onclick="tosearch();" title="检索">
 												<i id="nav-search-icon" class="ace-icon fa fa-search bigger-110 nav-search-icon blue">检索</i>
-											</a>
+											</a>&nbsp;&nbsp;
 										</td>
 
 										<td style="vertical-align:middle;padding-left:2px;">
@@ -73,9 +73,9 @@
 									<th class="center" style="width:50px;">序号</th>
 									<th class="center">订单编号</th>
 									<th class="center">订单数量</th>
-									<th class="center">收件信息</th>
+									<th class="center" colspan="2">收件信息</th>
 									<th class="center">商品售价单价</th>
-									<th class="center">所属平台id</th>
+									<th class="center">所属平台</th>
 									<th class="center">平台商品编号</th>
 									<th class="center">平台商品描述</th>
 									<th class="center">操作</th>
@@ -99,8 +99,8 @@
 													<td class='center'>${var.ODER_ID}</td>
 													<td class='center'>${var.GOODNUM}</td>
 													<td class='center'><textarea readonly>收件人：${var.RECNAME}
-电话：${var.RECPHONE}
-地址：${var.RECADDRESS}</textarea></td>
+电话：${var.RECPHONE}</textarea></td>
+                                                    <td class='center'><textarea readonly>地址：${var.RECADDRESS}</textarea></td>
 													<td class='center'>${var.SELLPRICE}</td>
 													<td class='center'>${var.PLATFORMID}</td>
 													<td class='center'>${var.EXTGOOD_ID}</td>
@@ -114,9 +114,12 @@
 																<a class="btn btn-xs btn-success" title="向供应商采购" onclick="toOrderItemPurchase('${var.ORDERINFO_ID}');">
 																	采购该单
 																</a>&nbsp;
-																<a class="btn btn-xs btn-danger" title="临采" onclick="purchase_other_edit('${var.ORDERINFO_ID}');">
+																<a class="btn btn-xs btn-success" title="向第三方平台临时采购（淘宝、京东等）" onclick="purchase_other_edit('${var.ORDERINFO_ID}');">
 																	临采该单
-																</a>
+																</a><br>
+                                                                <a class="btn btn-xs btn-danger" title="转不发货" onclick="no_purchase_action('${var.ORDERINFO_ID}', '${var.ODER_ID}');">
+                                                                    转不发货
+                                                                </a>
 															</c:if>
 														</div>
 														<div class="hidden-md hidden-lg">
@@ -352,6 +355,21 @@
         diag.show();
     }
 
+
+    //转不发货
+    function no_purchase_action(Id,orderID){
+
+        bootbox.confirm("确定对 "+orderID+" 转不发货处理吗? 确定后将在《订单信息管理》管理该订单", function (result) {
+            if (result) {
+                top.jzts();
+                var url = "<%=basePath%>purchase/goNo_purchase_action.do?ORDERINFO_ID=" + Id + "&tm=" + new Date().getTime();;
+                $.get(url, function (data) {
+                    tosearch();
+                });
+            }
+        });
+
+    }
 
     //采购
 	function toPurchase() {

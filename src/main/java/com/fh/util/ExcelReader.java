@@ -144,6 +144,8 @@ public class ExcelReader {
      * @param
      * @return Map 包含单元格数据内容的Map对象
      */
+
+    /** bakup
     private List<Goods> readJD(InputStream is) {
         List<Goods> content = new ArrayList<>();
         try {
@@ -178,7 +180,51 @@ public class ExcelReader {
             content.add(goods);
         }
         return content;
-    }
+    }*/
+
+
+    /**
+     * 读取京东Excel数据内容
+     * @param
+     * @return Map 包含单元格数据内容的Map对象
+     */
+
+     private List<Goods> readJD(InputStream is) {
+     List<Goods> content = new ArrayList<>();
+     try {
+     fs = new POIFSFileSystem(is);
+     wb = new HSSFWorkbook(fs);
+     } catch (IOException e) {
+     e.printStackTrace();
+     }
+     sheet = wb.getSheetAt(0);
+     // 得到总行数
+     int rowNum = sheet.getLastRowNum();
+     row = sheet.getRow(0);
+     // 正文内容应该从第二行开始,第一行为表头的标题
+     for (int i = 1; i <= rowNum; i++) {
+         row = sheet.getRow(i);
+            if(!getCellFormatValue(row.getCell(3)).trim().equals("29468751727")) { // 排除 坏果包赔 签收以后拍照24小时内联系客服
+                Goods goods = new Goods();
+
+                goods.setOrderNumber(getCellFormatValue(row.getCell(0)).trim()); //订单号
+                goods.setShopGoodsName(getCellFormatValue(row.getCell(2)).trim());//商品信息
+                goods.setGoodsNumber(getCellFormatValue(row.getCell(3)).trim());//SKUID
+                goods.setGoodsPrice(getCellFormatValue(row.getCell(7)).trim());//货款金额 商品实付
+                goods.setOrderCount(getCellFormatValue(row.getCell(4)).trim()); //订购数量
+//                double totalMoney = getCellFormatValue(row.getCell(6)).trim().
+//                goods.setOrderMaoney(getCellFormatValue(row.getCell(11)).trim());//应付金额 - 单价  ？？？？？？？？？？
+                goods.setOrderDate(getCellFormatValue(row.getCell(1)).trim());//付款时间 -- 下单时间
+                goods.setCustomerName(getCellFormatValue(row.getCell(14)).trim()); //客户姓名
+                goods.setCustomerPhone(getCellFormatValue(row.getCell(15)).trim()); //手机号码
+                goods.setCustomerAddress(getCellFormatValue(row.getCell(16)).trim()); //收货人地址
+                goods.setPltSource(Goods.PLATFORM_JD); //京东平台
+                content.add(goods);
+            }
+     }
+     return content;
+     }
+
 
     /**
      * 读取悦花平台Excel数据内容
@@ -229,6 +275,7 @@ public class ExcelReader {
      */
     private List<Goods> readPingZhi(InputStream is) {
         List<Goods> content = new ArrayList<>();
+        Set<Goods> contentSet = new HashSet<>();
         try {
             fs = new POIFSFileSystem(is);
             wb = new HSSFWorkbook(fs);
@@ -267,9 +314,10 @@ public class ExcelReader {
             if(goods.getOwnNumber().equals("")){
                 getHasRowValue(goods, sheet, i);
             }
-            content.add(goods);
+            contentSet.add(goods);
         }
-        return content;
+//        set --> content(list)
+        return new ArrayList<Goods>(contentSet);
     }
 
     private void getHasRowValue(Goods goods, HSSFSheet sheet, int i){

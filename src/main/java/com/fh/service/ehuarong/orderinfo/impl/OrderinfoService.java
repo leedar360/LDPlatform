@@ -95,6 +95,7 @@ public class OrderinfoService implements OrderinfoManager {
 			PageData searchPd = new PageData();
 			searchPd.put("ODER_ID", pd.get("ODER_ID"));
 			searchPd.put("EXTGOOD_ID", pd.get("EXTGOOD_ID"));
+			//判断是否重复订单 订单号+商品编号
 			List<PageData> list = this.findByOrderIdAndGoodId(searchPd);
 			if(!list.isEmpty()){
 				existList.add(goods);
@@ -132,6 +133,17 @@ public class OrderinfoService implements OrderinfoManager {
 	public void edit(PageData pd) throws Exception {
 		dao.update("OrderinfoMapper.edit", pd);
 	}
+
+	/**
+	 * 重新采购 把订单状态重置为1 并且清除原有的供应商信息
+	 *
+	 * @param pd
+	 * @throws Exception
+	 */
+	public void rePurchaseupdate(PageData pd) throws Exception {
+		dao.update("OrderinfoMapper.rePurchaseupdate", pd);
+	}
+
 
 	/**
 	 * 列表
@@ -252,10 +264,12 @@ public class OrderinfoService implements OrderinfoManager {
 	 * @return
 	 */
 	public void consignment(List<PageData> varOList) throws Exception{
+		String strExporttime = DateUtil.getSdfTime();
 		for(int i=0;i<varOList.size();i++){
 			PageData orderPD = new PageData();
 			orderPD.put("ORDERINFO_ID", varOList.get(i).getString("ORDERINFO_ID"));
 			orderPD.put("STATUS", FINISHED);
+			orderPD.put("EXPORTTIME",strExporttime);
 			dao.update("OrderinfoMapper.consignment", orderPD);
 		}
 
@@ -292,5 +306,9 @@ public class OrderinfoService implements OrderinfoManager {
 		dao.update("OrderinfoMapper.backupAll", ArrayDATA_IDS);
 		dao.save("OrderinfoMapper.back2his", ArrayDATA_IDS);
 	}
+
+
+
+
 }
 

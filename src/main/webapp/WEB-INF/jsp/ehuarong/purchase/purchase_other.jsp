@@ -78,6 +78,7 @@
 									<input type="text" name="SUPPLIERNAME" id="SUPPLIERNAME" value="" maxlength="255" placeholder="这里输入供应商名称" title="供应商" style="width:98%;"/>
 									<input type="hidden" name="SUPPLIER_ID" id="SUPPLIER_ID" value="other"/>
 									<input type="hidden" name="SUPPLIER_EMAIL" id="SUPPLIER_EMAIL" value="otheremail"/>
+									<input type="hidden" name="GOODNUM" id="GOODNUM" value="${pd.GOODNUM}"/>
 								</td>
 							</tr>
 							<tr>

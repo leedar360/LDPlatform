@@ -6,6 +6,7 @@ import com.fh.service.ehuarong.orderinfo.OrderinfoManager;
 import com.fh.service.ehuarong.purchase.PurchaseManager;
 import com.fh.service.ehuarong.suplygoodinfo.SuplygoodinfoManager;
 import com.fh.util.AppUtil;
+import com.fh.util.DateUtil;
 import com.fh.util.Jurisdiction;
 import com.fh.util.PageData;
 import org.springframework.stereotype.Controller;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Resource;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -160,6 +162,23 @@ public class PurchaseController  extends BaseController {
         return mv;
     }
 
+    /**转不采购状态
+     * @param
+     * @throws Exception
+     */
+    @RequestMapping(value="/goNo_purchase_action")
+    public void no_purchase_action(PrintWriter out)throws Exception{
+        logBefore(logger, Jurisdiction.getUsername()+" 转不发货");
+        if(!Jurisdiction.buttonJurisdiction(menuUrl, "edit")){return;} //校验权限
+        PageData pd = new PageData();
+        pd = this.getPageData();
+        purchaseService.no_purchase_action(pd);	//根据ID读取
+        out.write("success");
+        out.close();
+    }
+
+
+
 
     /**修改
      * @param
@@ -172,6 +191,9 @@ public class PurchaseController  extends BaseController {
         ModelAndView mv = this.getModelAndView();
         PageData pd = new PageData();
         pd = this.getPageData();
+        System.out.println(" goodnum is " + pd.get("GOODNUM"));
+        pd.put("PURCHASETOTALPRICE", Double.parseDouble((String)pd.get("PURCHASEPRICE")) * Double.parseDouble((String) pd.get("GOODNUM"))  );
+        pd.put("EXPORTTIME", DateUtil.getSdfTime());
         purchaseService.purchase_other_edit(pd);
         mv.addObject("msg","success");
         mv.setViewName("save_result");

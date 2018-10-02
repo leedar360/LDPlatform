@@ -46,18 +46,19 @@
                   <tr>
                     <td style="width:75px;text-align: right;padding-top: 13px;">数据来源:</td>
                     <td>
-                      <select name="pltsource" style="width:98%;">
-                        <option value="pinzhi365" selected>品质365平台</option>
-                        <option value="yuehua">悦花平台</option>
-                        <option value="jd">京东</option>
-                        <option value="taobao">淘宝</option>
-                      </select>
+                        <select class="chosen-select form-control" name="pltsource" id="PLATFORMID" data-placeholder="请选择" style="vertical-align:top;">
+                            <c:forEach items="${listPlatformId}" var="var" varStatus="vs">
+                                <option value="${var.PLATFORMID}">${var.PLATFORMID} | ${var.PLATFORMNAME}</option>
+                            </c:forEach>
+                        </select>
                     </td>
                   </tr>
                   <tr>
                     <td style="text-align: center;" colspan="10">
-                      <a class="btn btn-mini btn-primary" onclick="save();">导入</a>
-                      <a class="btn btn-mini btn-danger" onclick="top.Dialog.close();">取消</a>
+                      <a class="btn btn-mini btn-primary" onclick="save();" id="inputcommandbutton">导入</a>
+                      <br><br>
+                      Warning!!! <font color="red">请注意导入文件只能点击一次，请勿多次点击</font>
+                      <br>Warning!!! <font color="red">重新导入请点击左侧菜单</font>
                     </td>
                   </tr>
                 </table>
@@ -134,9 +135,17 @@
             });
             return false;
         }
-        $("#Form").submit();
-        $("#zhongxin").hide();
-        $("#zhongxin2").show();
+
+        var confirmR = confirm("请确定导入的文件正确性！确定要导入吗?")
+        {
+            if(confirmR) {
+                $("#Form").submit();
+                $("#zhongxin").hide();
+                $("#zhongxin2").show();
+            }
+        }
+
+        $("inputcommandbutton").disable();
     }
 
     function fileType(obj) {

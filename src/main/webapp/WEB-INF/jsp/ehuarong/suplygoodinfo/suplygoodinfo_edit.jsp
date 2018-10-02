@@ -80,6 +80,24 @@
 								<td><input class="span10 date-picker" name="ENDTIME" id="ENDTIME" value="${pd.ENDTIME}" type="text" data-date-format="yyyy-mm-dd" readonly="readonly" placeholder="有效时间end" title="有效时间end" style="width:98%;"/></td>
 							</tr>
 							<tr>
+								<td style="width:75px;text-align: right;padding-top: 13px;">当前状态：${pd.SELLSTATUS}  </td>
+								<td>
+									<div class="form-group draggable">
+										<div class="col-sm-9">
+											<label style="float:left;padding-left: 8px;padding-top:7px;">
+												<input name="SELLSTATUS" type="radio" class="ace" value="on"  id="form-field-radio1" />
+												<span class="lbl">上架</span>
+											</label>
+											&nbsp;&nbsp;
+											<label style="float:left;padding-left: 5px;padding-top:7px;">
+												<input name="SELLSTATUS" type="radio" class="ace" value="off"  id="form-field-radio2" />
+												<span class="lbl">下架</span>
+											</label>
+										</div>
+									</div>
+								</td>
+							</tr>
+							<tr>
 								<td style="text-align: center;" colspan="10">
 									<a class="btn btn-mini btn-primary" onclick="save();">保存</a>
 									<a class="btn btn-mini btn-danger" onclick="top.Dialog.close();">取消</a>
