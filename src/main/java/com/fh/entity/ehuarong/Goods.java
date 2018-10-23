@@ -12,6 +12,9 @@ public class Goods implements Comparable<Goods>{
     public static final String PLATFORM_YUEHUA="yuehua";
     public static final String PLATFORM_JD="jd";
     public static final String PLATFORM_TAOBAO="taobao";
+    public static final String PLATFORM_ZCG="zcg"; //招财狗 无双科技
+    public static final String PLATFORM_HR="HR"; //招财狗 无双科技
+
 
     private String ownNumber;//自有编号
     private String orderDate;//订单日期

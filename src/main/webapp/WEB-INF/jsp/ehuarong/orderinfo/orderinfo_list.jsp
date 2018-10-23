@@ -66,9 +66,9 @@
 
 									<c:if test="${QX.toExcel == 1 }">
 
-												<td style="vertical-align:top; align: right ;padding-left:2px;" width="50%">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-													<a class="btn btn-light btn-xs" onclick="toPurchasedExcel();" title="导出采购商品到EXCEL">
-														<red>导出采购商品到EXCEL</red>
+												<td style="vertical-align:top; align: right ;padding-left:2px;" width="50%">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+													<a class="btn btn-xs btn-danger" onclick="toPurchasedExcel();" title="导出采购商品到EXCEL(必须下载到硬盘，请耐心等待下载完成)">
+														导出采购商品到EXCEL【请耐心等待下载完成】
 													</a>
 												</td>
 									</c:if>

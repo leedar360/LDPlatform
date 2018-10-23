@@ -58,7 +58,7 @@
                       <a class="btn btn-mini btn-primary" onclick="save();" id="inputcommandbutton">导入</a>
                       <br><br>
                       Warning!!! <font color="red">请注意导入文件只能点击一次，请勿多次点击</font>
-                      <br>Warning!!! <font color="red">重新导入请点击左侧菜单</font>
+                      <br>Warning!!! <font color="red">重新导入请点击左侧菜单《订单上传》</font>
                     </td>
                   </tr>
                 </table>
