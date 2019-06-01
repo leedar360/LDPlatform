@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="AftersalepicMapper">
+
+    <!--表名 -->
+    <sql id="tableName">
+        HR_AFTERSALEPIC
+    </sql>
+
+    <!-- 字段 -->
+    <sql id="Field">
+        AFTERSALEPIC_ID,
+        ORDERINFO_ID,
+        AFSTITLE,
+        AFSNAME,
+        AFSNOTE,
+        AFSPATH,
+        CREATETIME,
+        REMARK
+    </sql>
+
+    <!-- 字段值 -->
+    <sql id="FieldValue">
+        #{AFTERSALEPIC_ID},
+        #{ORDERINFO_ID},
+        #{AFSTITLE},
+        #{AFSNAME},
+        #{AFSNOTE},
+        #{AFSPATH},
+        #{CREATETIME},
+        #{REMARK}
+    </sql>
+
+    <!--表名 -->
+    <sql id="orderinfoTableName">
+        HR_ORDERINFO
+    </sql>
+
+
+    <!-- 列表 -->
+    <select id="listAfpicPage" parameterType="pd" resultType="pd">
+        select
+        b.AFSPATH,
+        a.ODER_ID,
+        a.RECNAME,
+        a.RECPHONE,
+        a.EXTGOODS_NAME,
+        a.EXPRESS,
+        a.EXPRESSNO,
+        a.AFSALEPRICE,
+        a.AFSALEREMARK,
+        a.SUPPLIERNAME
+        from <include refid="tableName"></include> b, <include refid="orderinfoTableName"></include> a
+        where 1 = 1 AND a.ORDERINFO_ID = b.ORDERINFO_ID
+        AND a.EXPRESSNO &lt;&gt; ''
+        AND a.STATUS = 'AFS'
+        AND a.SUPPLIER_ID = #{keywords}
+        AND a.EXPORTTIME &gt;= #{lastStart}
+        AND a.EXPORTTIME &lt;= #{lastEnd}
+        ORDER BY a.ODER_ID,a.EXPORTTIME DESC
+    </select>
+
+
+
+    <!-- 通过ID获取数据 -->
+    <select id="openpiclist" parameterType="pd" resultType="pd">
+        select
+        <include refid="Field"></include>
+        from
+        <include refid="tableName"></include>
+        where
+        ORDERINFO_ID = #{ORDERINFO_ID}
+    </select>
+
+    <!-- 新增-->
+    <insert id="save" parameterType="pd">
+        insert into
+        <include refid="tableName"></include>
+        (
+        <include refid="Field"></include>
+        ) values (
+        <include refid="FieldValue"></include>
+        )
+    </insert>
+
+
+    <!-- 修改 -->
+    <update id="edit" parameterType="pd">
+        update  <include refid="tableName"></include>
+        set
+        TITLE = #{TITLE},
+        PATH = #{PATH},
+        <if test="NAME != null and NAME != ''">
+            NAME = #{NAME},
+        </if>
+        MASTER_ID = #{MASTER_ID},
+        BZ = #{BZ},
+        PICTURES_ID = PICTURES_ID
+        where
+        PICTURES_ID = #{PICTURES_ID}
+    </update>
+
+    <!-- 通过ID获取数据 -->
+    <select id="findById" parameterType="pd" resultType="pd">
+        select
+        <include refid="Field"></include>
+        from
+        <include refid="tableName"></include>
+        where
+        PICTURES_ID = #{PICTURES_ID}
+    </select>
+
+
+    <!-- 批量获取 -->
+    <select id="getAllById" parameterType="String" resultType="pd">
+        select PATH from <include refid="tableName"></include>
+        where
+        PICTURES_ID in
+        <foreach item="item" index="index" collection="array" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </select>
+
+    <!-- 删除图片 -->
+    <update id="delTp" parameterType="pd">
+        update  <include refid="tableName"></include>
+        set
+        PATH			= ''
+        where
+        PICTURES_ID = #{PICTURES_ID}
+    </update>
+
+</mapper>

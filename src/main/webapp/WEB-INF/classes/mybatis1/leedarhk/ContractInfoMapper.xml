@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ContractInfoMapper">
+	
+	<!--表名 -->
+	<sql id="tableName">
+		LDHK_CONTRACTINFO
+	</sql>
+	
+	<!-- 字段 -->
+	<sql id="Field">
+		PROJECTCODE,	
+		PONUMBER,	
+		HKD,	
+		CNY,	
+		USD,	
+		OTHERCURRENCY,	
+		CUSTOMERID,	
+		CONTACT1,	
+		CONTACT2,	
+		PHONE1,	
+		PHONE2,	
+		COMPANYNAME,	
+		COMPANYNAME_ABBRE,	
+		BANKNAME,	
+		BANKACCOUNT,	
+		BANKADDRESS1,	
+		BANKADDRESS2,	
+		BANKADDRESS3,	
+		SWIFTCODE,	
+		CREATETIME,	
+		PLANTIME,	
+		REMARK,	
+		CUSTOMERADDRESS1,	
+		CUSTOMERADDRESS2,	
+		CUSTOMERADDRESS3,
+		ORDERSTATUS,
+		CONTRACTINFO_ID
+	</sql>
+	
+	<!-- 字段值 -->
+	<sql id="FieldValue">
+		#{PROJECTCODE},	
+		#{PONUMBER},	
+		#{HKD},	
+		#{CNY},	
+		#{USD},	
+		#{OTHERCURRENCY},	
+		#{CUSTOMERID},	
+		#{CONTACT1},	
+		#{CONTACT2},	
+		#{PHONE1},	
+		#{PHONE2},	
+		#{COMPANYNAME},	
+		#{COMPANYNAME_ABBRE},	
+		#{BANKNAME},	
+		#{BANKACCOUNT},	
+		#{BANKADDRESS1},	
+		#{BANKADDRESS2},	
+		#{BANKADDRESS3},	
+		#{SWIFTCODE},	
+		#{CREATETIME},	
+		#{PLANTIME},	
+		#{REMARK},	
+		#{CUSTOMERADDRESS1},	
+		#{CUSTOMERADDRESS2},	
+		#{CUSTOMERADDRESS3},
+		#{ORDERSTATUS},
+		#{CONTRACTINFO_ID}
+	</sql>
+	
+	<!-- 新增-->
+	<insert id="save" parameterType="pd">
+		insert into 
+	<include refid="tableName"></include>
+		(
+	<include refid="Field"></include>
+		) values (
+	<include refid="FieldValue"></include>
+		)
+	</insert>
+	
+	<!-- 删除-->
+	<delete id="delete" parameterType="pd">
+		delete from
+		<include refid="tableName"></include>
+		where 
+			CONTRACTINFO_ID = #{CONTRACTINFO_ID}
+	</delete>
+	
+	<!-- 修改 -->
+	<update id="edit" parameterType="pd">
+		update
+		<include refid="tableName"></include>
+		set 
+			PROJECTCODE = #{PROJECTCODE},
+			PONUMBER = #{PONUMBER},
+			HKD = #{HKD},
+			CNY = #{CNY},
+			USD = #{USD},
+			OTHERCURRENCY = #{OTHERCURRENCY},
+			CUSTOMERID = #{CUSTOMERID},
+			CONTACT1 = #{CONTACT1},
+			CONTACT2 = #{CONTACT2},
+			PHONE1 = #{PHONE1},
+			PHONE2 = #{PHONE2},
+			COMPANYNAME = #{COMPANYNAME},
+			COMPANYNAME_ABBRE = #{COMPANYNAME_ABBRE},
+			BANKNAME = #{BANKNAME},
+			BANKACCOUNT = #{BANKACCOUNT},
+			BANKADDRESS1 = #{BANKADDRESS1},
+			BANKADDRESS2 = #{BANKADDRESS2},
+			BANKADDRESS3 = #{BANKADDRESS3},
+			SWIFTCODE = #{SWIFTCODE},
+			CREATETIME = #{CREATETIME},
+			PLANTIME = #{PLANTIME},
+			REMARK = #{REMARK},
+			CUSTOMERADDRESS1 = #{CUSTOMERADDRESS1},
+			CUSTOMERADDRESS2 = #{CUSTOMERADDRESS2},
+			CUSTOMERADDRESS3 = #{CUSTOMERADDRESS3},
+		CONTRACTINFO_ID = CONTRACTINFO_ID
+		where 
+		CONTRACTINFO_ID = #{CONTRACTINFO_ID}
+	</update>
+	
+	<!-- 通过ID获取数据 -->
+	<select id="findById" parameterType="pd" resultType="pd">
+		select 
+		<include refid="Field"></include>
+		from 
+		<include refid="tableName"></include>
+		where 
+			CONTRACTINFO_ID = #{CONTRACTINFO_ID}
+	</select>
+
+	<!-- 通过ID获取数据 -->
+	<select id="findByPOnumber" parameterType="pd" resultType="pd">
+		select
+		<include refid="Field"></include>
+		from
+		<include refid="tableName"></include>
+		where
+		PONUMBER = #{PONUMBER}
+	</select>
+
+
+	<!-- 列表 -->
+	<select id="datalistPage" parameterType="page" resultType="pd">
+		select
+		<include refid="Field"></include>
+		from 
+		<include refid="tableName"></include>
+		where 1=1
+		<if test="pd.keywords!= null and pd.keywords != ''"><!-- 关键词检索 -->
+			and
+				(
+				<!--	根据需求自己加检索条件
+					字段1 LIKE CONCAT(CONCAT('%', #{pd.keywords}),'%')
+					 or 
+					字段2 LIKE CONCAT(CONCAT('%', #{pd.keywords}),'%') 
+				-->
+				)
+		</if>
+
+		order by CREATETIME DESC
+	</select>
+	
+	<!-- 列表(全部) -->
+	<select id="listAll" parameterType="pd" resultType="pd">
+		select
+		<include refid="Field"></include>
+		from 
+		<include refid="tableName"></include>
+	</select>
+
+
+	<!-- 列表(for 采购) -->
+	<select id="listForPurchase" parameterType="pd" resultType="pd">
+		select
+		<include refid="Field"></include>
+		from
+		<include refid="tableName"></include>
+		WHERE  1=1 and ORDERSTATUS = 'topur'
+	</select>
+	
+	<!-- 批量删除 -->
+	<delete id="deleteAll" parameterType="String">
+		delete from
+		<include refid="tableName"></include>
+		where 
+			CONTRACTINFO_ID in
+		<foreach item="item" index="index" collection="array" open="(" separator="," close=")">
+                 #{item}
+		</foreach>
+	</delete>
+	
+	<!-- fh313596790qq(青苔) -->
+
+
+
+
+
+
+
+
+	<!-- for purchaseinfoService  start -->
+
+	<!-- 采购 -->
+	<select id="purchasedatalistPage" parameterType="page" resultType="pd">
+		select
+		<include refid="Field"></include>
+		from
+		<include refid="tableName"></include>
+		where 1=1
+		<if test="pd.keywords!= null and pd.keywords != ''"><!-- 关键词检索 -->
+			and
+			(
+			<!--	根据需求自己加检索条件
+                字段1 LIKE CONCAT(CONCAT('%', #{pd.keywords}),'%')
+                 or
+                字段2 LIKE CONCAT(CONCAT('%', #{pd.keywords}),'%')
+            -->
+			)
+		</if>
+		and
+		order by CREATETIME DESC
+	</select>
+
+	<!-- for purchaseinfoService   end  -->
+
+</mapper>
