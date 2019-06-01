@@ -90,7 +90,10 @@
 		where 
 			SUPPLIERINFO_ID = #{SUPPLIERINFO_ID}
 	</select>
-	
+
+
+
+
 	<!-- 列表 -->
 	<select id="datalistPage" parameterType="page" resultType="pd">
 		select
@@ -99,7 +102,12 @@
 		<include refid="tableName"></include>
 		where 1=1
 
-
+		<if test="pd.lastStart!=null and pd.lastStart!=''"><!-- 开始时间检索 -->
+			and CREATETIME &gt;= #{pd.lastStart}
+		</if>
+		<if test="pd.lastEnd!=null and pd.lastEnd!=''"><!-- 结束时间检索 -->
+			and CREATETIME &lt;= #{pd.lastEnd}
+		</if>
 		<if test="pd.keywords!= null and pd.keywords != ''"><!-- 关键词检索 -->
 			and
 				(
@@ -129,12 +137,11 @@
 		<include refid="tableName"></include>
 	</select>
 
-	<!-- 列表(全部) -->
+	<!-- 得到供应商ID -->
 	<select id="distinctSupplyId" parameterType="pd" resultType="pd">
 		select distinct SUPPLIER_ID,SUPPLIERNAME
 		from
 		<include refid="tableName"></include>
-
 	</select>
 
 	<!-- 获得最大supplyid 的值 -->

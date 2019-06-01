@@ -48,6 +48,17 @@ public class AftersaleService implements AftersaleManager {
     }
 
     /**
+     * 当前订单下的图片列表
+     *
+     * @param pd
+     * @throws Exception
+     */
+    public List<PageData> openpiclist(PageData pd) throws Exception{
+        return (List<PageData>) dao.findForList("AftersalepicMapper.openpiclist", pd);
+    }
+
+
+    /**
      * 通过id获取数据
      *
      * @param pd
@@ -56,4 +67,15 @@ public class AftersaleService implements AftersaleManager {
     public PageData findById(PageData pd) throws Exception{
         return (PageData) dao.findForObject("AftersaleMapper.findById", pd);
     }
+
+    /**
+     * 新增
+     *
+     * @param pd
+     * @throws Exception
+     */
+    public void savepic(PageData pd) throws Exception {
+        dao.save("AftersalepicMapper.save", pd);
+    }
+
 }

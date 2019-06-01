@@ -32,11 +32,13 @@ public class ObjectExcelView extends AbstractExcelView{
 		Date date = new Date();
 		String filename = Tools.date2Str(date, "yyyyMMddHHmmss");
 		HSSFSheet sheet;
+		HSSFSheet sheet2;
 		HSSFCell cell;
 		response.setContentType("application/octet-stream");
 		response.setHeader("Content-Disposition", "attachment;filename="+filename+".xls");
 		sheet = workbook.createSheet("sheet1");
-		
+//		sheet2=  workbook.createSheet("aftersalepic sheet");
+
 		List<String> titles = (List<String>) model.get("titles");
 		int len = titles.size();
 		HSSFCellStyle headerStyle = workbook.createCellStyle(); //标题样式

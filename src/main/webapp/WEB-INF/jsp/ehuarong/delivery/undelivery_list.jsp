@@ -58,16 +58,11 @@
 												id="nav-search-icon"
 												class="ace-icon fa fa-search bigger-110 nav-search-icon blue">检索</i></a>&nbsp;&nbsp;</td>
 									</c:if>
-									<c:if test="${QX.toExcel == 1 }">
-										<td style="vertical-align:top;padding-left:2px;"><a class="btn btn-light btn-xs"
-																							onclick="toExcel();" title="导出到EXCEL"><i
-												id="nav-search-icon2"
-												class="ace-icon fa fa-download bigger-110 nav-search-icon blue"></i></a></td>
-									</c:if>
+
 
 									<c:if test="${QX.add == 1 }">
 										<td style="vertical-align:top;padding-left:2px;">
-											<a class="btn btn-light btn-xs" onclick="uploadDelivery();">上传快递数据</a>
+											&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a class="btn btn-light btn-xs" onclick="uploadDelivery();">上传快递数据</a>
 										</td>
 									</c:if>
 
@@ -90,7 +85,7 @@
 									<th class="center">快递信息</th>
 									<th class="center">所属平台</th>
 									<th class="center">供应商</th>
-									<th class="center">创建时间</th>
+									<th class="center">下单时间</th>
 									<th class="center">备注</th>
 									<th class="center">平台商品编号</th>
 									<th class="center">平台商品描述</th>
@@ -120,7 +115,7 @@
 													<td class='left'>单号：${var.EXPRESSNO}<br>快递：${var.EXPRESS}</td>
 													<td class='center'>${var.PLATFORMID}</td>
 													<td class='center' title='${var.SUPPLIER_ID}'>${var.SUPPLIERNAME}</td>
-													<td class='center'>${var.CREATETIME}</td>
+													<td class='center'>${var.EXPORTTIME}</td>
 													<td class='center'>${var.REMARK}</td>
 													<td class='center'>${var.EXTGOOD_ID}</td>
 													<td class='center'><textarea readonly>${var.EXTGOODS_NAME}</textarea></td>

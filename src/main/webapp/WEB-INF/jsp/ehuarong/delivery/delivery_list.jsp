@@ -42,12 +42,12 @@
 										</div>
 									</td>
 									<td style="padding-left:2px;"><input class="span10 date-picker" name="lastStart"
-																		 id="lastStart" value="" type="text"
+																		 id="lastStart" value="${pd.lastStart }" type="text"
 																		 data-date-format="yyyy-mm-dd" readonly="readonly"
 																		 style="width:88px;" placeholder="开始日期" title="开始日期"/>
 									</td>
 									<td style="padding-left:2px;"><input class="span10 date-picker" name="lastEnd" name="lastEnd"
-																		 value="" type="text" data-date-format="yyyy-mm-dd"
+																		 id="lastEnd" value="${pd.lastEnd }" type="text" data-date-format="yyyy-mm-dd"
 																		 readonly="readonly" style="width:88px;"
 																		 placeholder="结束日期" title="结束日期"/></td>
 
@@ -60,11 +60,11 @@
 									</c:if>
 									<c:if test="${QX.toExcel == 1 }">
 										<td style="vertical-align:top;padding-left:2px;"><a class="btn btn-light btn-xs"
-																							onclick="toExcel();" title="导出到EXCEL"><i
+																							onclick="toDeliveredExcel();" title="导出已发货商品到EXCEL，<br>根据时间搜索得到"><i
 												id="nav-search-icon2"
-												class="ace-icon fa fa-download bigger-110 nav-search-icon blue"></i></a></td>
+												class="ace-icon fa fa-download bigger-110 nav-search-icon blue"></i>导出已发货商品到EXCEL</a></td>
 									</c:if>
-									<c:if test="${QX.toExcel == 1 }">
+									<c:if test="${QX.toExcel == HAHA }"><!-- 当日采购下载  -->
 										<td style="vertical-align:top;padding-left:2px;">
 											<a class="btn btn-light btn-xs" onclick="toPurchasedExcel();" title="导出采购商品到EXCEL">
 												导出采购商品到EXCEL
@@ -76,13 +76,6 @@
 											<a class="btn btn-light btn-xs" onclick="uploadDelivery();">上传快递数据</a>
 										</td>
 									</c:if>
-
-									<c:if test="${QX.add == 1 }">
-										<td style="vertical-align:top;padding-left:2px;">
-											<a class="btn btn-light btn-xs" onclick="makeAll('确定存档当前记录？');">批量存档</a>
-										</td>
-									</c:if>
-
 								</tr>
 							</table>
 							<!-- 检索  -->
@@ -102,10 +95,11 @@
 									<th class="center">快递信息</th>
 									<th class="center">所属平台</th>
 									<th class="center">供应商</th>
-									<th class="center">创建时间</th>
+									<th class="center">下单时间</th>
 									<th class="center">备注</th>
 									<th class="center">平台商品编号</th>
 									<th class="center">平台商品描述</th>
+									<th class="center">状态</th>
 									<th class="center">操作</th>
 								</tr>
 								</thead>
@@ -132,10 +126,11 @@
 													<td class='left'>单号：${var.EXPRESSNO}<br>快递：${var.EXPRESS}</td>
 													<td class='center'>${var.PLATFORMID}</td>
 													<td class='center' title='${var.SUPPLIER_ID}'>${var.SUPPLIERNAME}</td>
-													<td class='center'>${var.CREATETIME}</td>
+													<td class='center'>${var.EXPORTTIME}</td>
 													<td class='center'>${var.REMARK}</td>
 													<td class='center'>${var.EXTGOOD_ID}</td>
 													<td class='center'><textarea readonly>${var.EXTGOODS_NAME}</textarea></td>
+													<td class='center'>${var.STATUS}</td>
 													<td class="center">
 														<c:if test="${QX.edit != 1 && QX.del != 1 }">
                                                             <span class="label label-large label-grey arrowed-in-right arrowed-in"><i
@@ -147,8 +142,12 @@
 																   onclick="edit('${var.ORDERINFO_ID}');">
 																	<i class="ace-icon fa fa-pencil-square-o bigger-120"
 																	   title="发货">修改&备注</i>
+																</a><br><br>
+																<a class="btn btn-xs btn-success" title="售后"
+																   onclick="toafsale('${var.ORDERINFO_ID}');">
+																	<i class="ace-icon fa fa-pencil-square-o bigger-120"
+																	   title="售后">标记售后</i>
 																</a>
-
 															</c:if>
 
 														</div>
@@ -330,6 +329,22 @@
         });
     }
 
+
+
+	//标记售后
+	function toafsale(Id) {
+		bootbox.confirm("确定标记该条记录为售后吗?", function (result) {
+			if (result) {
+				top.jzts();
+				var url = "<%=basePath%>delivery/toafsale.do?ORDERINFO_ID=" + Id + "&STATUS=AFS" ;
+				$.get(url,function(data){
+					nextPage(${page.currentPage});
+				});
+			}
+		});
+	}
+
+
     //修改
     function edit(Id) {
         top.jzts();
@@ -401,6 +416,22 @@
     function toExcel() {
         window.location.href = '<%=basePath%>orderinfo/excel.do';
     }
+
+	//导出excel
+	function toDeliveredExcel() {
+		var strlastStart = document.getElementById('lastStart').value;
+		var strlastEnd   = document.getElementById('lastEnd').value;
+
+		if (strlastStart == ''){
+			alert ("输入起始时间！");
+			return;
+		}
+		if (strlastEnd == ''){
+			alert ("输入截止时间！");
+			return;
+		}
+		window.location.href = '<%=basePath%>orderinfo/deliveredExcel.do?lastStart='+ strlastStart + '&lastEnd='+ strlastEnd ;
+	}
 
     function toPurchasedExcel(){
         window.location.href = '<%=basePath%>orderinfo/purchasedExcel.do';

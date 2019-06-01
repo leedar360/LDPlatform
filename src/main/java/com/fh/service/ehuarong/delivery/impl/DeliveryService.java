@@ -43,7 +43,15 @@ public class DeliveryService implements DeliveryManager{
 	public void edit(PageData pd)throws Exception{
 		dao.update("OrderinfoMapper.deliveryedit", pd);
 	}
-	
+
+
+	/** 标记为售后 AFS
+	 * @param pd
+	 * @throws Exception
+	 */
+	public void toaftersale(PageData pd)throws Exception{
+		dao.update("OrderinfoMapper.toaftersale", pd);
+	}
 	/**列表
 	 * @param page
 	 * @throws Exception

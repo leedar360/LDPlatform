@@ -41,7 +41,7 @@ public class DeliveryController extends BaseController {
     @Resource(name = "fhlogService")
     private FHlogManager FHLOG;
 
-    /**列表
+    /** 列表
      * @param page
      * @throws Exception
      */
@@ -81,7 +81,7 @@ public class DeliveryController extends BaseController {
         return mv;
     }
 
-    /**未发货列表
+    /** 未发货列表
      * @param page
      * @throws Exception
      */
@@ -166,7 +166,7 @@ public class DeliveryController extends BaseController {
     }
 
 
-    /**去修改页面
+    /** 去修改页面
      * @param
      * @throws Exception
      */
@@ -185,7 +185,7 @@ public class DeliveryController extends BaseController {
 
 
 
-    /**修改
+    /** 修改
      * @param
      * @throws Exception
      */
@@ -204,7 +204,7 @@ public class DeliveryController extends BaseController {
 
 
 
-    /**去发货页面
+    /** 去发货页面
      * @param
      * @throws Exception
      */
@@ -221,7 +221,7 @@ public class DeliveryController extends BaseController {
     }
 
 
-    /**发货
+    /** 发货
      * @param
      * @throws Exception
      */
@@ -239,7 +239,7 @@ public class DeliveryController extends BaseController {
         return mv;
     }
 
-    /**批量备份
+    /** 批量备份
      * 把交易成功的列表 备份status 为bak，同时把这些hr_orderinfo 的记录 insert 到 hr_orderinfo_his 表中
      * @param
      * @throws Exception
@@ -265,6 +265,21 @@ public class DeliveryController extends BaseController {
         pdList.add(pd);
         map.put("list", pdList);
         return AppUtil.returnObject(pd, map);
+    }
+
+    /**
+     * @return
+     */
+    @RequestMapping(value="/toafsale")
+    public ModelAndView toafsale() throws Exception{
+        ModelAndView mv = this.getModelAndView();
+        PageData pd = new PageData();
+        pd = this.getPageData();
+        pd.put("STATUS", "AFS");
+        deliveryService.toaftersale(pd);	//根据ID更新状态为售后
+        mv.setViewName("ehuarong/delivery/delivery_list");
+        mv.addObject("pd", pd);
+        return mv;
     }
 
 

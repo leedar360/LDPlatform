@@ -111,7 +111,7 @@ public class OrderinfoController extends BaseController {
 	@RequestMapping(value="/list")
 	public ModelAndView list(Page page) throws Exception{
 		logBefore(logger, Jurisdiction.getUsername()+"列表Orderinfo");
-		//if(!Jurisdiction.buttonJurisdiction(menuUrl, "cha")){return null;} //校验权限(无权查看时页面会有提示,如果不注释掉这句代码就无法进入列表页面,所以根据情况是否加入本句代码)
+		if(!Jurisdiction.buttonJurisdiction(menuUrl, "cha")){return null;} //校验权限(无权查看时页面会有提示,如果不注释掉这句代码就无法进入列表页面,所以根据情况是否加入本句代码)
 		ModelAndView mv = this.getModelAndView();
 		PageData pd = new PageData();
 		pd = this.getPageData();
@@ -266,7 +266,55 @@ public class OrderinfoController extends BaseController {
 		return mv;
 	}
 
-	/**导出到excel
+	/**导出已发货订单到deliveredExcel
+	 * @param
+	 * @throws Exception
+	 */
+	@RequestMapping(value="/deliveredExcel")
+
+	public ModelAndView deliveredExcel() throws Exception{
+		logBefore(logger, Jurisdiction.getUsername()+"导出 已发货订单快递单号到 excel，供发货使用");
+		if(!Jurisdiction.buttonJurisdiction(menuUrl, "cha")){return null;}
+		ModelAndView mv = new ModelAndView();
+		PageData pd = new PageData();
+		pd = this.getPageData();
+		pd.put("lastStart", pd.get("lastStart"));
+		pd.put("lastEnd", pd.get("lastEnd"));
+
+		Map<String,Object> dataMap = new HashMap<String,Object>();
+		List<String> titles = new ArrayList<String>();
+		titles.add("订单ID");	//0
+		titles.add("快递单号");	//1
+		titles.add("快递公司");	//2
+		titles.add("订单数量");	//3
+		titles.add("平台ID");	//4
+		dataMap.put("titles", titles);
+
+		List<PageData> varOList = orderinfoService.listToDeliveredExcel(pd);
+		List<PageData> deliveredGoodsList = new ArrayList<PageData>();
+
+		for(int i=0;i<varOList.size();i++){
+			PageData vpd = new PageData();
+			vpd.put("var1", varOList.get(i).getString("ODER_ID"));	    //1
+			vpd.put("var2", varOList.get(i).getString("EXPRESSNO"));	    //6
+			vpd.put("var3", varOList.get(i).getString("EXPRESS"));	    //7
+			vpd.put("var4", varOList.get(i).getString("GOODNUM"));	    //8
+			vpd.put("var5", varOList.get(i).getString("PLATFORMID"));	    //9
+			deliveredGoodsList.add(vpd);
+		}
+
+		dataMap.put("varList", deliveredGoodsList);
+		ObjectExcelView erv = new ObjectExcelView();
+		mv = new ModelAndView(erv,dataMap);
+		return mv;
+	}
+
+
+
+
+
+
+	/**导出到purchasedExcel
 	 * @param
 	 * @throws Exception
 	 */

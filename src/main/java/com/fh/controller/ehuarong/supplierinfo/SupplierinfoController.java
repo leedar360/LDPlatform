@@ -9,6 +9,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import javax.annotation.Resource;
+
+import com.fh.util.*;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.WebDataBinder;
@@ -18,11 +20,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import com.fh.controller.base.BaseController;
 import com.fh.entity.Page;
-import com.fh.util.AppUtil;
-import com.fh.util.ObjectExcelView;
-import com.fh.util.PageData;
-import com.fh.util.Jurisdiction;
-import com.fh.util.Tools;
 import com.fh.service.ehuarong.supplierinfo.SupplierinfoManager;
 
 /** 
@@ -229,6 +226,106 @@ public class SupplierinfoController extends BaseController {
 		}
 		dataMap.put("varList", varList);
 		ObjectExcelView erv = new ObjectExcelView();
+		mv = new ModelAndView(erv,dataMap);
+		return mv;
+	}
+
+
+
+	/**导出账单到excel
+	 * @param
+	 * @throws Exception
+	 */
+	@RequestMapping(value="/accountexcel")
+	public ModelAndView exportAccountExcel() throws Exception{
+		logBefore(logger, Jurisdiction.getUsername()+"导出 账单到 excel");
+		if(!Jurisdiction.buttonJurisdiction(menuUrl, "cha")){return null;}
+		ModelAndView mv = new ModelAndView();
+
+		PageData pd = new PageData();
+		pd = this.getPageData();
+		//	get 日期
+		String lastStart = pd.getString("lastStart");
+		String lastEnd = pd.getString("lastEnd");
+		String supplyid = pd.getString("supplyid");
+
+		if(null != lastStart && !"".equals(lastStart)){
+			pd.put("lastStart", lastStart.trim());
+		}
+		if(null != lastEnd && !"".equals(lastEnd)){
+			pd.put("lastEnd", lastEnd.trim());
+		}
+		if(null != supplyid && !"".equals(supplyid)){
+			pd.put("keywords", supplyid.trim());
+		}
+		//
+		Map<String,Object> TotaldataMap = new HashMap<String,Object>(); // 1 dataMap; 2 picMap
+
+
+		Map<String,Object> dataMap = new HashMap<String,Object>();
+		List<String> titles = new ArrayList<String>();
+		titles.add("订单编号");	//1
+		titles.add("联系人");	//3
+		titles.add("联系电话");	//4
+		titles.add("快递公司");	//5
+		titles.add("快递编号");	//6
+		titles.add("商品名称");	//SUPPLYGOOD_NAME
+		titles.add("数量");	//2
+		titles.add("采购单价");	//7
+		titles.add("采购总价");	//8
+		titles.add("供应商名称");	//8
+		titles.add("下单时间");	//9
+		titles.add("售后金额");	//10
+		titles.add("售后说明");	//11
+		titles.add("备注");	    //13
+		dataMap.put("titles", titles);
+		List<PageData> varOList = supplierinfoService.listAccountExcel(pd);
+		List<PageData> varList = new ArrayList<PageData>();
+		for(int i=0;i<varOList.size();i++){
+			PageData vpd = new PageData();
+			vpd.put("var1", varOList.get(i).getString("ODER_ID"));
+			vpd.put("var2", varOList.get(i).getString("RECNAME"));
+			vpd.put("var3", varOList.get(i).getString("RECPHONE"));
+			vpd.put("var4", varOList.get(i).getString("EXPRESS"));
+			vpd.put("var5", varOList.get(i).getString("EXPRESSNO"));
+			vpd.put("var6", varOList.get(i).getString("SUPPLYGOOD_NAME"));
+			vpd.put("var7", varOList.get(i).getString("GOODNUM"));
+			vpd.put("var8", String.valueOf(varOList.get(i).get("PURCHASEPRICE")));
+			vpd.put("var9", String.valueOf(varOList.get(i).get("PURCHASETOTALPRICE")));
+			vpd.put("var10", varOList.get(i).getString("SUPPLIERNAME"));
+			vpd.put("var11", varOList.get(i).getString("EXPORTTIME"));
+			vpd.put("var12", String.valueOf(varOList.get(i).get("AFSALEPRICE")));
+			vpd.put("var13", varOList.get(i).getString("AFSALEREMARK"));
+			vpd.put("var14", varOList.get(i).getString("REMARK"));
+			varList.add(vpd);
+		}
+		dataMap.put("varList", varList);
+
+
+		// get 售后中带图片的 数据
+
+		List<PageData> varPicList = supplierinfoService.listAFPicExcel(pd);
+		List<PageData> varPList = new ArrayList<PageData>();
+		for(int i=0;i<varPicList.size();i++){
+			PageData vpd = new PageData();
+			vpd.put("afpicvar1", varPicList.get(i).getString("AFSPATH"));	    //1
+			vpd.put("afpicvar2", varPicList.get(i).getString("ODER_ID"));	    //1
+			vpd.put("afpicvar3", varPicList.get(i).getString("RECNAME"));
+			vpd.put("afpicvar4", varPicList.get(i).getString("RECPHONE"));
+			vpd.put("afpicvar5", varPicList.get(i).getString("EXPRESS"));
+			vpd.put("afpicvar6", varPicList.get(i).getString("EXPRESSNO"));
+			vpd.put("afpicvar7", varPicList.get(i).getString("SUPPLIERNAME"));
+			varPList.add(vpd);
+		}
+		dataMap.put("varAFPicList",varPList);
+
+
+
+
+
+
+		ObjectDoubSheetExcelView erv = new ObjectDoubSheetExcelView();
+
 		mv = new ModelAndView(erv,dataMap);
 		return mv;
 	}

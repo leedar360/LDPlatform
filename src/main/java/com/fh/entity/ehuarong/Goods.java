@@ -11,9 +11,15 @@ public class Goods implements Comparable<Goods>{
     public static final String PLATFORM_PINGZHI="pinzhi365";
     public static final String PLATFORM_YUEHUA="yuehua";
     public static final String PLATFORM_JD="jd";
-    public static final String PLATFORM_TAOBAO="taobao";
+    public static final String PLATFORM_TAOBAO="TAOBAO";
     public static final String PLATFORM_ZCG="zcg"; //招财狗 无双科技
-    public static final String PLATFORM_HR="HR"; //招财狗 无双科技
+    public static final String PLATFORM_HR="HR"; //华榕
+    public static final String PLATFORM_LINJIA="LINJIA"; //邻挑邻里
+    public static final String PLATFORM_WANKA="WANKA"; //聚优惠
+    public static final String PLATFORM_KEYIYOU="KEYIYOU"; //这个可以有 360
+    public static final String PLATFORM_SHUIXIANG="SHUIXIANG"; //水象优品
+    public static final String PLATFORM_JIABAO="JIABAO"; //生活家
+
 
 
     private String ownNumber;//自有编号

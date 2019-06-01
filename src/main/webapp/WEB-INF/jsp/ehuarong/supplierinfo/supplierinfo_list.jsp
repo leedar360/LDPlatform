@@ -42,12 +42,12 @@
 									</div>
 								</td>
 								<td style="padding-left:2px;"><input class="span10 date-picker" name="lastStart" id="lastStart"  value="" type="text" data-date-format="yyyy-mm-dd" readonly="readonly" style="width:88px;" placeholder="开始日期" title="开始日期"/></td>
-								<td style="padding-left:2px;"><input class="span10 date-picker" name="lastEnd" name="lastEnd"  value="" type="text" data-date-format="yyyy-mm-dd" readonly="readonly" style="width:88px;" placeholder="结束日期" title="结束日期"/></td>
+								<td style="padding-left:2px;"><input class="span10 date-picker" name="lastEnd" id="lastEnd"  value="" type="text" data-date-format="yyyy-mm-dd" readonly="readonly" style="width:88px;" placeholder="结束日期" title="结束日期"/></td>
 
 								<c:if test="${QX.cha == 1 }">
 								<td style="vertical-align:top;padding-left:2px"><a class="btn btn-light btn-xs" onclick="tosearch();"  title="检索"><i id="nav-search-icon1" class="ace-icon fa fa-search bigger-110 nav-search-icon blue"></i></a></td>
 								</c:if>
-								<c:if test="${QX.toExcel == 1 }"><td style="vertical-align:top;padding-left:2px;"><a class="btn btn-light btn-xs" onclick="toExcel();" title="导出到EXCEL"><i id="nav-search-icon" class="ace-icon fa fa-download bigger-110 nav-search-icon blue"></i></a></td></c:if>
+								<c:if test="${QX.toExcel == 1 }"><td style="vertical-align:top;padding-left:2px;"><a class="btn btn-light btn-xs" onclick="toAccountExcel();" title="供应商账单导出EXCEL"><i id="nav-search-icon" class="ace-icon fa fa-download bigger-110 nav-search-icon blue"></i>供应商账单导出EXCEL</a></td></c:if>
 							</tr>
 						</table>
 						<!-- 检索  -->
@@ -369,8 +369,25 @@
 		};
 		
 		//导出excel
-		function toExcel(){
-			window.location.href='<%=basePath%>supplierinfo/excel.do';
+		function toAccountExcel(){
+
+			var strlastStart = document.getElementById('lastStart').value;
+			var strlastEnd   = document.getElementById('lastEnd').value;
+			var supplyid = document.getElementById('nav-search-input').value;
+
+			if (strlastStart == ''){
+				alert ("输入起始时间！");
+				return;
+			}
+			if (strlastEnd == ''){
+				alert ("输入截止时间！");
+				return;
+			}
+			if (supplyid == ''){
+				alert ("请输入供应商ID！");
+				return;
+			}
+			window.location.href='<%=basePath%>supplierinfo/accountexcel.do?supplyid='+supplyid+'&lastStart='+ strlastStart + '&lastEnd='+ strlastEnd ;
 		}
 	</script>
 

@@ -197,6 +197,17 @@ public class OrderinfoService implements OrderinfoManager {
 		return (List<PageData>) dao.findForList("OrderinfoMapper.listToPurchase", pd);
 	}
 
+
+	/**
+	 * 按时间导出快递单号
+	 *
+	 * @param pd
+	 * @throws Exception
+	 */
+	public List<PageData> listToDeliveredExcel(PageData pd) throws Exception{
+		return (List<PageData>) dao.findForList("OrderinfoMapper.listToDeliveredExcel", pd);
+	}
+
 	/**
 	 * 通过id获取数据
 	 *

@@ -140,8 +140,29 @@
         }
 
         
-        var locat = (window.location+'').split('/'); 
-    	if('pictures'== locat[3]){locat =  locat[0]+'//'+locat[2];}else{locat =  locat[0]+'//'+locat[2]+'/'+locat[3];};
+        var locat = (window.location+'').split('/');
+        var picurl;
+        //alert( window.location);
+        //alert( locat[3]);
+        var aftersalepicorderinfo_id ;
+
+    	if('pictures'== locat[3]){
+            locat =  locat[0]+'//'+locat[2] + '/pictures' ;
+            picurl = locat+'/save.do';
+            //alert('pictures' + picurl);
+        }
+        else if('aftersale'== locat[3]){
+            locat =  locat[0]+'//'+locat[2] + '/aftersale' ;
+            aftersalepicorderinfo_id = document.getElementById("AFTERSALEPICORDERINFO_ID").value;
+            picurl = locat+'/save.do?ORDERINFO_ID=' + aftersalepicorderinfo_id;
+            //alert('aftersale' + picurl);
+        }
+        else{
+            locat =  locat[0]+'//'+locat[2]+'/'+locat[3];
+            picurl = locat+'/save.do';
+            //alert('other' + picurl);
+        };
+
         uploader = WebUploader.create({
             pick: {
                 id: '#filePicker',
@@ -156,7 +177,7 @@
             chunked: false,
             chunkSize: 512 * 1024,
             //server: 'http://127.0.0.1:8080/pictures/save.do',
-            server: locat+'/pictures/save.do',
+            server: picurl,
             //runtimeOrder: 'flash',
 
             accept: {

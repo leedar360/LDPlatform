@@ -35,7 +35,9 @@
 		STATUS,
 		BATCHNO,
 		SYSTIME,
-		EXPORTTIME
+		EXPORTTIME,
+		AFSALEPRICE,
+		AFSALEREMARK
 	</sql>
 
 	<!-- 字段值 -->
@@ -66,7 +68,9 @@
 		#{STATUS},
 		#{BATCHNO},
 		#{SYSTIME},
-		#{EXPORTTIME}
+		#{EXPORTTIME},
+		#{AFSALEPRICE},
+		#{AFSALEREMARK}
 	</sql>
 
 	<!-- 新增-->
@@ -194,6 +198,31 @@
 		ODER_ID = #{ODER_ID} and EXTGOOD_ID = #{EXTGOOD_ID}
 	</select>
 
+
+
+	<!-- 售后账单 -->
+
+	<select id="listAccountExcel" parameterType="pd" resultType="pd">
+		select
+		<include refid="Field"></include>
+		from
+		<include refid="tableName"></include>
+		where 1=1
+		and (STATUS = '3' OR STATUS = 'AFS')  <!-- 完成状态和 售后状态 -->
+		and EXPRESSNO &lt;&gt; ''
+		<!-- 开始时间检索 -->
+		and EXPORTTIME &gt;= #{lastStart}
+
+		<!-- 结束时间检索 -->
+		and EXPORTTIME &lt;= #{lastEnd}
+
+		<!-- 关键词检索 -->
+		and SUPPLIER_ID = #{keywords}
+
+		ORDER BY EXPORTTIME DESC
+	</select>
+
+
 	<!-- 列表 -->
 	<select id="datalistPage" parameterType="page" resultType="pd">
 		select
@@ -205,9 +234,13 @@
 			and EXTGOOD_ID = #{pd.EXTGOOD_ID}
 		</if>
 
-		<if test="pd.lastStart!= null and pd.lastStart != '' and pd.lastEnd!= null and pd.lastEnd != ''" >
-			and (CREATETIME  BETWEEN #{pd.lastStart} AND #{pd.lastEnd}  )
+		<if test="pd.lastStart!=null and pd.lastStart!=''"><!-- 开始时间检索 -->
+			and EXPORTTIME &gt;= #{pd.lastStart}
 		</if>
+		<if test="pd.lastEnd!=null and pd.lastEnd!=''"><!-- 结束时间检索 -->
+			and EXPORTTIME &lt;= #{pd.lastEnd}
+		</if>
+
 
 		<if test="pd.keywords!= null and pd.keywords != ''"><!-- 关键词检索 -->
 			and
@@ -276,10 +309,13 @@
 		<include refid="Field"></include>
 		from
 		<include refid="tableName"></include>
-		where 1=1 and STATUS = '3'
+		where 1=1 and (STATUS = '3' or STATUS = 'AFS') and EXPRESSNO &lt;&gt; ''
 
-		<if test="pd.lastStart!= null and pd.lastStart != '' and pd.lastEnd!= null and pd.lastEnd != ''" >
-			and (CREATETIME  BETWEEN #{pd.lastStart} AND #{pd.lastEnd}  )
+		<if test="pd.lastStart!=null and pd.lastStart!=''"><!-- 开始时间检索 -->
+			and EXPORTTIME &gt;= #{pd.lastStart}
+		</if>
+		<if test="pd.lastEnd!=null and pd.lastEnd!=''"><!-- 结束时间检索 -->
+			and EXPORTTIME &lt;= #{pd.lastEnd}
 		</if>
 
 		<if test="pd.keywords!= null and pd.keywords != ''"><!-- 关键词检索 -->
@@ -318,8 +354,11 @@
 		from
 		<include refid="tableName"></include>
 		where 1=1 and (EXPRESSNO = '' or EXPRESSNO IS NULL ) AND STATUS = '3'
-		<if test="pd.lastStart!= null and pd.lastStart != '' and pd.lastEnd!= null and pd.lastEnd != ''" >
-			and (CREATETIME  BETWEEN #{pd.lastStart} AND #{pd.lastEnd}  )
+		<if test="pd.lastStart!=null and pd.lastStart!=''"><!-- 开始时间检索 -->
+			and EXPORTTIME &gt;= #{pd.lastStart}
+		</if>
+		<if test="pd.lastEnd!=null and pd.lastEnd!=''"><!-- 结束时间检索 -->
+			and EXPORTTIME &lt;= #{pd.lastEnd}
 		</if>
 
 		<if test="pd.keywords!= null and pd.keywords != ''"><!-- 关键词检索 -->
@@ -374,6 +413,23 @@
 		where STATUS = '3'
 	</select>
 
+	<!-- 导出已发货快递单号到Excel -->
+	<select id="listToDeliveredExcel" parameterType="pd" resultType="pd">
+		select
+		<include refid="Field"></include>
+		from
+		<include refid="tableName"></include>
+		where 1=1 and (EXPRESSNO &lt;&gt; ''  ) AND STATUS = '3'
+
+		<!-- 开始时间检索 -->
+			and EXPORTTIME &gt;= #{lastStart}
+
+		<!-- 结束时间检索 -->
+			and EXPORTTIME &lt;= #{lastEnd}
+		    order BY EXPRESS DESC;
+	</select>
+
+
 	<!-- 批量删除 -->
 	<delete id="deleteAll" parameterType="String">
 		delete from
@@ -397,6 +453,18 @@
 		where
 		ORDERINFO_ID = #{ORDERINFO_ID}
 	</update>
+
+
+	<!-- 标记为售后状态 -->
+	<update id="toaftersale" parameterType="pd">
+		update
+		<include refid="tableName"></include>
+		set
+		STATUS = #{STATUS}
+		where
+		ORDERINFO_ID = #{ORDERINFO_ID}
+	</update>
+
 
 	<!-- 重新采购 状态重置为1 同事清除供应商信息 -->
 	<update id="rePurchaseupdate" parameterType="pd">

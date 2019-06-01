@@ -35,7 +35,9 @@
 		STATUS,
 		BATCHNO,
 		SYSTIME,
-		EXPORTTIME
+		EXPORTTIME,
+		AFSALEREMARK,
+		AFSALEPRICE
 	</sql>
 
 	<!-- 字段值 -->
@@ -66,7 +68,10 @@
 		#{STATUS},
 		#{BATCHNO},
 		#{SYSTIME},
-		#{EXPORTTIME}
+		#{EXPORTTIME}，
+		#{AFSALEREMARK}，
+		#{AFSALEPRICE}
+
 	</sql>
 
 	<!-- 新增-->
@@ -93,71 +98,8 @@
 		update
 		<include refid="tableName"></include>
 		set
-		ODER_ID = #{ODER_ID},
-		GOODNUM = #{GOODNUM},
-		SELLNAME = #{SELLNAME},
-		SELLPHONE = #{SELLPHONE},
-		RECNAME = #{RECNAME},
-		RECPHONE = #{RECPHONE},
-		RECADDRESS = #{RECADDRESS},
-		EXPRESS = #{EXPRESS},
-		EXPRESSNO = #{EXPRESSNO},
-		SELLPRICE = #{SELLPRICE},
-		SELLTOTALPRICE = #{SELLTOTALPRICE},
-		PURCHASEPRICE = #{PURCHASEPRICE},
-		PURCHASETOTALPRICE = #{PURCHASETOTALPRICE},
-		PLATFORMID = #{PLATFORMID},
-		SUPPLIER_ID = #{SUPPLIER_ID},
-		SUPPLIER_EMAIL = #{SUPPLIER_EMAIL},
-		REMARK = #{REMARK},
-		EXTGOOD_ID = #{EXTGOOD_ID},
-		EXTGOODS_NAME = #{EXTGOODS_NAME},
-		STATUS=#{STATUS}
-		where
-		ORDERINFO_ID = #{ORDERINFO_ID}
-	</update>
-
-	<!-- 采购 -->
-	<update id="purchase" parameterType="pd">
-		update
-		<include refid="tableName"></include>
-		set
-		PURCHASEPRICE = #{PURCHASEPRICE},
-		SUPPLIER_ID = #{SUPPLIER_ID},
-		SUPPLIERNAME = #{SUPPLIERNAME},
-		SUPPLIER_EMAIL = #{SUPPLIER_EMAIL},
-		SUPPLYGOOD_NAME = #{SUPPLYGOOD_NAME},
-		PURCHASETOTALPRICE = #{PURCHASETOTALPRICE},
-		STATUS = #{STATUS}
-		where
-		ORDERINFO_ID = #{ORDERINFO_ID}
-	</update>
-
-	<!-- For 京东 淘宝 其他平台采购采购 -->
-	<update id="purchase_other_edit" parameterType="pd">
-		update
-		<include refid="tableName"></include>
-		set
-		PURCHASEPRICE = #{PURCHASEPRICE},
-		PURCHASETOTALPRICE = #{PURCHASETOTALPRICE},
-		SUPPLIER_ID = #{SUPPLIER_ID},
-		SUPPLIERNAME = #{SUPPLIERNAME},
-		SUPPLIER_EMAIL = #{SUPPLIER_EMAIL},
-		EXPORTTIME = #{EXPORTTIME},
-		REMARK = #{REMARK},
-		STATUS = '3'
-    where
-    ORDERINFO_ID = #{ORDERINFO_ID}
-</update>
-
-<!-- 发货 -->
-	<update id="consignment" parameterType="pd">
-		update
-		<include refid="tableName"></include>
-		set
-		EXPORTTIME = #{EXPORTTIME},
-		STATUS = #{STATUS}
-
+		AFSALEREMARK = #{AFSALEREMARK},
+		AFSALEPRICE=#{AFSALEPRICE}
 		where
 		ORDERINFO_ID = #{ORDERINFO_ID}
 	</update>
@@ -200,10 +142,13 @@
 		<include refid="Field"></include>
 		from
 		<include refid="tableName"></include>
-		where 1=1 and STATUS in ('AFS')
+		where 1=1 and STATUS = 'AFS'
 
-		<if test="pd.lastStart!= null and pd.lastStart != '' and pd.lastEnd!= null and pd.lastEnd != ''" >
-			and (EXPORTTIME  BETWEEN #{pd.lastStart} AND #{pd.lastEnd}  )
+		<if test="pd.lastStart!=null and pd.lastStart!=''"><!-- 开始时间检索 -->
+			and EXPORTTIME &gt;= #{pd.lastStart}
+		</if>
+		<if test="pd.lastEnd!=null and pd.lastEnd!=''"><!-- 结束时间检索 -->
+			and EXPORTTIME &lt;= #{pd.lastEnd}
 		</if>
 
 		<if test="pd.keywords!= null and pd.keywords != ''"><!-- 关键词检索 -->

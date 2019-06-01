@@ -63,6 +63,15 @@ public class StringUtil {
 	       } catch (Exception exception3) {      
 	       }      
 	      return "";      
-	   } 
-	
-}
+	   }
+
+
+	public static String double2Str(Double doublenum) {
+		String str = "";
+		if (doublenum != null) {
+			str = String.valueOf(doublenum);
+		}
+		return str;
+	}
+
+	}

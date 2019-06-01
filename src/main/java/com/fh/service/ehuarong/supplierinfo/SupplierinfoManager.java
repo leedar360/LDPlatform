@@ -42,6 +42,21 @@ public interface SupplierinfoManager{
 	 */
 	public List<PageData> listAll(PageData pd)throws Exception;
 
+
+	/**账单列表(全部)
+	 * @param pd
+	 * @throws Exception
+	 */
+	public List<PageData> listAccountExcel(PageData pd)throws Exception;
+
+
+	/**售后图片列表(全部)
+	 * @param pd
+	 * @throws Exception
+	 */
+	public List<PageData> listAFPicExcel(PageData pd)throws Exception;
+
+
 	/**供应商ID
 	 * @throws Exception
 	 */

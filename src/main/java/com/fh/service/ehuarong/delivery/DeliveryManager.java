@@ -29,7 +29,14 @@ public interface DeliveryManager{
 	 * @throws Exception
 	 */
 	public void edit(PageData pd) throws Exception;
-	
+
+	/** 标记售后 'AFS'
+	 * @param pd
+	 * @throws Exception
+	 */
+	public void toaftersale(PageData pd) throws Exception;
+
+
 	/**列表
 	 * @param page
 	 * @throws Exception

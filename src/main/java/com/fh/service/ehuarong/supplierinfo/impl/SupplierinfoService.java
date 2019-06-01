@@ -68,7 +68,29 @@ public class SupplierinfoService implements SupplierinfoManager{
 	public List<PageData> distinctSupplyId() throws Exception{
 		return (List<PageData>)dao.findForList("SupplierinfoMapper.distinctSupplyId", null);
 	}
-	
+
+
+	/** 账单列表(全部)
+	 * @param pd
+	 * @throws Exception
+	 */
+	@SuppressWarnings("unchecked")
+	public List<PageData> listAccountExcel(PageData pd)throws Exception{
+		return (List<PageData>)dao.findForList("OrderinfoMapper.listAccountExcel", pd);
+	}
+
+
+	/** 售后图片列表(全部)
+	 * @param pd
+	 * @throws Exception
+	 */
+	@SuppressWarnings("unchecked")
+	public List<PageData> listAFPicExcel(PageData pd)throws Exception{
+		return (List<PageData>)dao.findForList("AftersalepicMapper.listAfpicPage", pd);
+	}
+
+
+
 	/**通过id获取数据
 	 * @param pd
 	 * @throws Exception

@@ -49,11 +49,11 @@ public class PicturesController extends BaseController {
 	String menuUrl = "pictures/list.do"; //菜单地址(权限用)
 	@Resource(name="picturesService")
 	private PicturesManager picturesService;
-	
+
 	/**列表
 	 * @param page
 	 * @return
-	 * @throws Exception 
+	 * @throws Exception
 	 */
 	@RequestMapping(value="/list")
 	public ModelAndView list(Page page) throws Exception{
@@ -76,7 +76,7 @@ public class PicturesController extends BaseController {
 	/**列表(用于弹窗)
 	 * @param page
 	 * @return
-	 * @throws Exception 
+	 * @throws Exception
 	 */
 	@RequestMapping(value="/listfortc")
 	public ModelAndView listfortc(Page page) throws Exception{
@@ -95,7 +95,7 @@ public class PicturesController extends BaseController {
 		mv.addObject("QX",Jurisdiction.getHC());	//按钮权限
 		return mv;
 	}
-	
+
 	/**新增
 	 * @param file
 	 * @return
@@ -200,7 +200,7 @@ public class PicturesController extends BaseController {
 		mv.setViewName("save_result");
 		return mv;
 	}
-	
+
 	/**去新增页面
 	 * @return
 	 */
@@ -281,10 +281,10 @@ public class PicturesController extends BaseController {
 		out.write("success");
 		out.close();
 	}
-	
+
 	/**去图片爬虫页面
 	 * @return
-	 * @throws Exception 
+	 * @throws Exception
 	 */
 	@RequestMapping(value="/goImageCrawler")
 	public ModelAndView goImageCrawler() throws Exception{
@@ -292,7 +292,7 @@ public class PicturesController extends BaseController {
 		mv.setViewName("information/pictures/imageCrawler");
 		return mv;
 	}
-	
+
 	/**
 	 *	请求连接获取网页中每个图片的地址
 	 * @param args
@@ -338,7 +338,7 @@ public class PicturesController extends BaseController {
 		map.put("result", errInfo);						//返回结果
 		return AppUtil.returnObject(new PageData(), map);
 	}
-	
+
 	@InitBinder
 	public void initBinder(WebDataBinder binder){
 		DateFormat format = new SimpleDateFormat("yyyy-MM-dd");

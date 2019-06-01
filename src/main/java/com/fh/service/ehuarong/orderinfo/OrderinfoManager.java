@@ -19,8 +19,8 @@ public interface OrderinfoManager {
 	String EXIST= "exist";
 	int TO_PURCHASE = 1; //待采购
 	int TO_DELIVERY = 2; //已采购
-	int FINISHED = 3; //待发货
-	int TO_BACKUP = 4; //已发货
+	int FINISHED = 3; //已发货
+	int TO_BACKUP = 4; //
 
 	/**
 	 * 新增
@@ -83,6 +83,16 @@ public interface OrderinfoManager {
 	 * @throws Exception
 	 */
 	public List<PageData> purchaseList(Page page) throws Exception;
+
+
+	/**
+	 * 按时间导出快递单号到excel
+	 *
+	 * @param pd
+	 * @throws Exception
+	 */
+	public List<PageData> listToDeliveredExcel(PageData pd) throws Exception;
+
 
 	/**
 	 * 列表(全部)
