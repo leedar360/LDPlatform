@@ -122,30 +122,31 @@ public class ExcelReader {
             return content;
         }
         switch (pltSource) {
-            case Goods.PLATFORM_PINGZHI:
-                content = readPingZhi(is);
+
+            case Goods.PLATFORM_DUODIAN:
+                content = readDUODIAN(is);
                 break;
-            case Goods.PLATFORM_YUEHUA:
-                content = readYueHua(is);
+
+            case Goods.PLATFORM_YX_LEEDAR:
+                content = readYX_LEEDAR(is);
                 break;
-            case Goods.PLATFORM_JD:
-                content = readJD(is);
-                break;
-            case Goods.PLATFORM_ZCG:
-                content = readZCG(is);
-                break;
+
             case Goods.PLATFORM_HR:
                 content = readHR(is);
-                break;
-            case Goods.PLATFORM_LINJIA:
-                content = readLINJIA(is);
                 break;
             case Goods.PLATFORM_WANKA:
                 content = readWANKA(is);
                 break;
-            case Goods.PLATFORM_KEYIYOU:
-                content = readKEYIYOU(is);
+            case Goods.PLATFORM_WANKA_HRJY:
+                content = PLATFORM_WANKA_HRJY(is);
                 break;
+            case Goods.PLATFORM_YX_HRJY:
+                content = readYX_HRJY(is);
+                break;
+            case Goods.PLATFORM_360:
+                content = read360(is);
+                break;
+
             case Goods.PLATFORM_SHUIXIANG:
                 content = readSHUIXIANG(is);
                 break;
@@ -155,6 +156,29 @@ public class ExcelReader {
             case Goods.PLATFORM_TAOBAO:
                 content = readTAOBAO(is);
                 break;
+
+
+            case Goods.PLATFORM_HUANQIU:
+                content = readHUANQIU(is);
+                break;
+            case Goods.PLATFORM_BEIDIAN:
+                content = readBEIDIAN(is);
+                break;
+            case Goods.PLATFORM_SUNING:
+                content = readSUNING(is);
+                break;
+            case Goods.PLATFORM_PINGDUODUO:
+                content = readPINDUODUO(is);
+                break;
+            case Goods.PLATFORM_XIANGCHENG:
+                content = readXIANGCHENG(is);
+                break;
+
+
+            case Goods.PLATFORM_LUBAN:
+                content = readLUBAN(is);
+            break;
+
 
         }
 
@@ -303,47 +327,6 @@ public class ExcelReader {
     }
 
 
-    /**
-     * 读取华榕在线标准Excel数据内容
-     * @param
-     * @return Map 包含单元格数据内容的Map对象
-     */
-
-    private List<Goods> readLINJIA(InputStream is) {
-        List<Goods> content = new ArrayList<>();
-        try {
-            fs = new POIFSFileSystem(is);
-            wb = new HSSFWorkbook(fs);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        sheet = wb.getSheetAt(0);
-        // 得到总行数
-        int rowNum = sheet.getLastRowNum();
-        row = sheet.getRow(0);
-        // 正文内容应该从第二行开始,第一行为表头的标题
-        for (int i = 1; i <= rowNum; i++) {
-            row = sheet.getRow(i);
-            Goods goods = new Goods();
-
-            goods.setOrderNumber(getCellFormatValue(row.getCell(0)).trim()); //订单号
-            goods.setShopGoodsName(getCellFormatValue(row.getCell(4)).trim()  + getCellFormatValue(row.getCell(5)).trim()    );//商品信息 文字
-            goods.setGoodsNumber(getCellFormatValue(row.getCell(3)).trim());//SKUID
-            goods.setGoodsPrice(getCellFormatValue(row.getCell(7)).trim());//货款金额 商品实付
-            goods.setOrderCount(getCellFormatValue(row.getCell(6)).trim()); //订购数量
-
-            goods.setOrderDate(getCellFormatValue(row.getCell(1)).trim());//付款时间 -- 下单时间
-            goods.setCustomerName(getCellFormatValue(row.getCell(9)).trim()); //客户姓名
-            goods.setCustomerPhone(getCellFormatValue(row.getCell(10)).trim()); //手机号码
-            goods.setCustomerAddress(getCellFormatValue(row.getCell(11)).trim()); //收货人地址
-            goods.setPltSource(Goods.PLATFORM_LINJIA); //平台来源
-            goods.setRemark("买家留言："+getCellFormatValue(row.getCell(12)).trim()); //备注
-            content.add(goods);
-
-        }
-        return content;
-    }
-
 
 
 
@@ -368,29 +351,86 @@ public class ExcelReader {
         for (int i = 1; i <= rowNum; i++) {
             row = sheet.getRow(i);
             Goods goods = new Goods();
+            String tmpOrderstatus = getCellFormatValue(row.getCell(22)).trim();
+            String tmpOrderstatus2 = getCellFormatValue(row.getCell(23)).trim();
+            //  万卡需要验证 商品发货状态 待发货和待配货两种才可以上传订单
+            if(tmpOrderstatus.equals("待发货")&& tmpOrderstatus2.equals("待配货")) {
+                goods.setOrderNumber(getCellFormatValue(row.getCell(1)).trim()); //订单号
+                goods.setShopGoodsName(getCellFormatValue(row.getCell(12)).trim() + getCellFormatValue(row.getCell(13)).trim());//商品信息 规格
+                goods.setGoodsNumber(getCellFormatValue(row.getCell(9)).trim());//SKUID
 
-            goods.setOrderNumber(getCellFormatValue(row.getCell(1)).trim()); //订单号
-            goods.setShopGoodsName( getCellFormatValue(row.getCell(12)).trim() + getCellFormatValue(row.getCell(13)).trim());//商品信息 规格
-            goods.setGoodsNumber(getCellFormatValue(row.getCell(11)).trim());//SKUID
-            goods.setGoodsPrice(getCellFormatValue(row.getCell(14)).trim());//货款金额 商品实付
-            goods.setOrderCount("1"); //订购数量
+                goods.setGoodsPrice(getCellFormatValue(row.getCell(21)).trim());//货款金额 商品实付 应收账款
+                /**
+                 * to do list
+                 */
 
-            goods.setOrderDate(getCellFormatValue(row.getCell(3)).trim());//付款时间 -- 下单时间
-            goods.setCustomerName(getCellFormatValue(row.getCell(6)).trim()); //客户姓名
+                goods.setOrderCount(getCellFormatValue(row.getCell(15)).trim()); //订购数量
 
-            goods.setCustomerPhone(getCellFormatValue(row.getCell(7)).trim()); //手机号码
-            goods.setCustomerAddress(getCellFormatValue(row.getCell(9)).trim()); //收货人地址
-            goods.setPltSource(Goods.PLATFORM_WANKA); //平台来源
-//            goods.setRemark(); //备注
-//            String tmpStr = getCellFormatValue(row.getCell(9)).trim();
+                goods.setOrderDate(getCellFormatValue(row.getCell(3)).trim());//付款时间 -- 下单时间
+                goods.setCustomerName(getCellFormatValue(row.getCell(5)).trim()); //客户姓名
 
-            content.add(goods);
+                goods.setCustomerPhone(getCellFormatValue(row.getCell(7)).trim()); //手机号码
+                goods.setCustomerAddress(getCellFormatValue(row.getCell(8)).trim()); //收货人地址
+                goods.setRemark("商品货号: "+getCellFormatValue(row.getCell(10)).trim());
+                goods.setPltSource(Goods.PLATFORM_WANKA); //平台来源
+                //            goods.setRemark(); //备注
+                //            String tmpStr = getCellFormatValue(row.getCell(9)).trim();
+
+                content.add(goods);
+            }
 
         }
         return content;
     }
 
 
+    /**
+     * 读取华榕在线标准Excel数据内容
+     * @param
+     * @return Map 包含单元格数据内容的Map对象
+     */
+
+    private List<Goods> PLATFORM_WANKA_HRJY(InputStream is) {
+        List<Goods> content = new ArrayList<>();
+        try {
+            fs = new POIFSFileSystem(is);
+            wb = new HSSFWorkbook(fs);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        sheet = wb.getSheetAt(0);
+        // 得到总行数
+        int rowNum = sheet.getLastRowNum();
+        row = sheet.getRow(0); //聚优惠为第三行开始        // 正文内容应该从第二行开始,第一行为表头的标题
+        for (int i = 1; i <= rowNum; i++) {
+            row = sheet.getRow(i);
+            Goods goods = new Goods();
+
+            goods.setOrderNumber(getCellFormatValue(row.getCell(1)).trim()); //订单号
+            goods.setShopGoodsName( getCellFormatValue(row.getCell(10)).trim() + getCellFormatValue(row.getCell(11)).trim());//商品信息 规格
+            goods.setGoodsNumber(getCellFormatValue(row.getCell(9)).trim());//SKUID
+
+
+            goods.setGoodsPrice(getCellFormatValue(row.getCell(12)).trim());//货款金额 商品实付 应收账款
+
+
+
+            goods.setOrderCount("1"); //订购数量
+
+            goods.setOrderDate(getCellFormatValue(row.getCell(3)).trim());//付款时间 -- 下单时间
+            goods.setCustomerName(getCellFormatValue(row.getCell(5)).trim()); //客户姓名
+
+            goods.setCustomerPhone(getCellFormatValue(row.getCell(6)).trim()); //手机号码
+            goods.setCustomerAddress(getCellFormatValue(row.getCell(8)).trim()); //收货人地址
+            goods.setPltSource(Goods.PLATFORM_WANKA_HRJY); //平台来源
+            //            goods.setRemark(); //备注
+            //            String tmpStr = getCellFormatValue(row.getCell(9)).trim();
+
+            content.add(goods);
+
+        }
+        return content;
+    }
 
 
     /**
@@ -444,6 +484,148 @@ public class ExcelReader {
      * @return Map 包含单元格数据内容的Map对象
      */
 
+    private List<Goods> read360(InputStream is) {
+        List<Goods> content = new ArrayList<>();
+        try {
+            fs = new POIFSFileSystem(is);
+            wb = new HSSFWorkbook(fs);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        sheet = wb.getSheetAt(0);
+        // 得到总行数
+        int rowNum = sheet.getLastRowNum();
+        row = sheet.getRow(0); // 正文内容应该从第二行开始,第一行为表头的标题
+        for (int i = 1; i <= rowNum; i++) {
+            row = sheet.getRow(i);
+            String tmpOrderstatus = getCellFormatValue(row.getCell(2)).trim();
+            if(tmpOrderstatus.equals("待发货")) {
+                Goods goods = new Goods();
+                goods.setOrderNumber(getCellFormatValue(row.getCell(1)).trim()); //订单号
+                goods.setShopGoodsName(getCellFormatValue(row.getCell(17)).trim() + "--" + getCellFormatValue(row.getCell(19)).trim());//商品信息 规格
+                goods.setGoodsNumber(getCellFormatValue(row.getCell(16)).trim());//SKUID
+                goods.setGoodsPrice(getCellFormatValue(row.getCell(21)).trim());//货款金额 商品实付
+                goods.setOrderCount(getCellFormatValue(row.getCell(20)).trim()); //订购数量
+
+                goods.setOrderDate(getCellFormatValue(row.getCell(3)).trim());//付款时间 -- 下单时间
+                goods.setCustomerName(getCellFormatValue(row.getCell(12)).trim()); //客户姓名
+
+                goods.setCustomerPhone(getCellFormatValue(row.getCell(13)).trim()); //手机号码
+                goods.setCustomerAddress(getCellFormatValue(row.getCell(14)).trim() + getCellFormatValue(row.getCell(15)).trim()); //收货人地址
+                goods.setRemark("商品货号： " + getCellFormatValue(row.getCell(18)).trim()); //备注
+                goods.setPltSource(Goods.PLATFORM_360); //平台来源
+                //            goods.setRemark(); //备注
+                //            String tmpStr = getCellFormatValue(row.getCell(9)).trim();
+
+                content.add(goods);
+            }
+
+        }
+        return content;
+    }
+
+    /**
+     * 读取duodianExcel数据内容
+     * @param
+     * @return Map 包含单元格数据内容的Map对象
+     */
+
+    private List<Goods> readDUODIAN(InputStream is) {
+        List<Goods> content = new ArrayList<>();
+        try {
+            fs = new POIFSFileSystem(is);
+            wb = new HSSFWorkbook(fs);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        sheet = wb.getSheetAt(0);
+        // 得到总行数
+        int rowNum = sheet.getLastRowNum();
+        row = sheet.getRow(0); // 正文内容应该从第二行开始,第一行为表头的标题
+        for (int i = 1; i <= rowNum; i++) {
+            row = sheet.getRow(i);
+            String tmpOrderstatus = getCellFormatValue(row.getCell(2)).trim();
+            if(tmpOrderstatus.equals("待发货")) {
+                Goods goods = new Goods();
+                goods.setOrderNumber(getCellFormatValue(row.getCell(0)).trim()); //订单号
+                goods.setShopGoodsName(getCellFormatValue( row.getCell(20)).trim() );//商品信息 规格
+                goods.setGoodsNumber(getCellFormatValue( row.getCell(19) ).trim());//SKUID
+
+                goods.setGoodsPrice(getCellFormatValue(row.getCell(24)).trim());//货款金额 商品实付
+                goods.setOrderCount(getCellFormatValue(row.getCell(22)).trim()); //订购数量
+
+                goods.setOrderDate(getCellFormatValue(row.getCell(4)).trim());//付款时间 -- 下单时间
+                goods.setCustomerName(getCellFormatValue(row.getCell(7)).trim()); //客户姓名
+
+                goods.setCustomerPhone(getCellFormatValue(row.getCell(8)).trim()); //手机号码
+                goods.setCustomerAddress(   getCellFormatValue(row.getCell(9)).trim()  + " "
+                                        +   getCellFormatValue(row.getCell(10)).trim() + " "
+                                        +   getCellFormatValue(row.getCell(11)).trim() + " "
+                                        +   getCellFormatValue(row.getCell(12)).trim()
+                                        ); //收货人地址
+                goods.setRemark("商品编码：" + getCellFormatValue(row.getCell(23)).trim() + " 客户备注： " + getCellFormatValue(row.getCell(16)).trim()); //备注
+                goods.setPltSource(Goods.PLATFORM_DUODIAN); //平台来源
+                //            goods.setRemark(); //备注
+                //            String tmpStr = getCellFormatValue(row.getCell(9)).trim();
+
+                content.add(goods);
+            }
+
+        }
+        return content;
+    }
+
+
+    /**
+     * 读取华榕在线标准Excel数据内容
+     * @param
+     * @return Map 包含单元格数据内容的Map对象
+     */
+
+    private List<Goods> PLATFORM_360(InputStream is) {
+        List<Goods> content = new ArrayList<>();
+        try {
+            fs = new POIFSFileSystem(is);
+            wb = new HSSFWorkbook(fs);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        sheet = wb.getSheetAt(0);
+        // 得到总行数
+        int rowNum = sheet.getLastRowNum();
+        row = sheet.getRow(0); // 正文内容应该从第二行开始,第一行为表头的标题
+        for (int i = 1; i <= rowNum; i++) {
+            row = sheet.getRow(i);
+            Goods goods = new Goods();
+
+            goods.setOrderNumber(getCellFormatValue(row.getCell(1)).trim()); //订单号
+            goods.setShopGoodsName( getCellFormatValue(row.getCell(8)).trim() + "--" + getCellFormatValue(row.getCell(9)).trim());//商品信息 规格
+            goods.setGoodsNumber(getCellFormatValue(row.getCell(6)).trim());//SKUID
+            goods.setGoodsPrice(getCellFormatValue(row.getCell(15)).trim());//货款金额 商品实付
+            goods.setOrderCount(getCellFormatValue(row.getCell(10)).trim()); //订购数量
+
+            goods.setOrderDate(getCellFormatValue(row.getCell(4)).trim());//付款时间 -- 下单时间
+            goods.setCustomerName(getCellFormatValue(row.getCell(16)).trim()); //客户姓名
+
+            goods.setCustomerPhone(getCellFormatValue(row.getCell(17)).trim()); //手机号码
+            goods.setCustomerAddress(getCellFormatValue(row.getCell(18)).trim() + getCellFormatValue(row.getCell(19)).trim()); //收货人地址
+            goods.setPltSource(Goods.PLATFORM_360); //平台来源
+            //            goods.setRemark(); //备注
+            //            String tmpStr = getCellFormatValue(row.getCell(9)).trim();
+
+            content.add(goods);
+
+        }
+        return content;
+    }
+
+
+    /**
+     * 读取华榕在线标准Excel数据内容
+     * @param
+     * @return Map 包含单元格数据内容的Map对象
+     */
+
     private List<Goods> readSHUIXIANG(InputStream is) {
         List<Goods> content = new ArrayList<>();
         try {
@@ -463,7 +645,7 @@ public class ExcelReader {
             goods.setOrderNumber(getCellFormatValue(row.getCell(1)).trim()); //订单号
             goods.setShopGoodsName( getCellFormatValue(row.getCell(8)).trim() );//商品信息 规格
             goods.setGoodsNumber(getCellFormatValue(row.getCell(9)).trim());//SKUID
-            goods.setGoodsPrice(getCellFormatValue(row.getCell(13)).trim());//货款金额 商品实付
+            goods.setGoodsPrice(getCellFormatValue(row.getCell(14)).trim());//货款金额 商品实付
             goods.setOrderCount(getCellFormatValue(row.getCell(10)).trim()); //订购数量
             goods.setOrderDate(getCellFormatValue(row.getCell(3)).trim());//付款时间 -- 下单时间
             goods.setCustomerName(getCellFormatValue(row.getCell(5)).trim()); //客户姓名
@@ -524,12 +706,12 @@ public class ExcelReader {
 
 
     /**
-     * 读取招财狗Excel数据内容
+     * 读取 贝店 Excel数据内容
      * @param
      * @return Map 包含单元格数据内容的Map对象
      */
 
-    private List<Goods> readZCG(InputStream is) {
+    private List<Goods> readBEIDIAN(InputStream is) {
         List<Goods> content = new ArrayList<>();
         try {
             fs = new POIFSFileSystem(is);
@@ -546,19 +728,20 @@ public class ExcelReader {
             row = sheet.getRow(i);
             Goods goods = new Goods();
 
-            goods.setOrderNumber(getCellFormatValue(row.getCell(1)).trim()); //订单号
-            goods.setShopGoodsName(getCellFormatValue(row.getCell(2)).trim()  +  getCellFormatValue(row.getCell(10)).trim());//商品信息 + 规格
-            goods.setGoodsNumber(getCellFormatValue(row.getCell(0)).trim());//SKUID
-            goods.setGoodsPrice(getCellFormatValue(row.getCell(12)).trim());//货款金额 商品实付 供货价格
-            goods.setOrderCount(getCellFormatValue(row.getCell(9)).trim()); //订购数量
+            goods.setOrderNumber(getCellFormatValue(row.getCell(0)).trim()); //订单号
+            goods.setShopGoodsName(getCellFormatValue(row.getCell(27)).trim()  + " --- " +  getCellFormatValue(row.getCell(33)).trim());//商品信息 + 规格
+            goods.setGoodsNumber(getCellFormatValue(row.getCell(24)).trim() + " - "  + getCellFormatValue(row.getCell(26)).trim());//SKUID
+            goods.setGoodsPrice(getCellFormatValue(row.getCell(29)).trim());//货款金额 商品实付 供货价格
+            goods.setOrderCount(getCellFormatValue(row.getCell(31)).trim()); //订购数量
             //                double totalMoney = getCellFormatValue(row.getCell(6)).trim().
             //                goods.setOrderMaoney(getCellFormatValue(row.getCell(11)).trim());//应付金额 - 单价  ？？？？？？？？？？
-            goods.setOrderDate(DateUtil.getSdfTime());//付款时间 -- 下单时间
-            goods.setCustomerName(getCellFormatValue(row.getCell(3)).trim()); //客户姓名
-            goods.setCustomerPhone(getCellFormatValue(row.getCell(4)).trim()); //手机号码
-            goods.setCustomerAddress(getCellFormatValue(row.getCell(5)).trim() + getCellFormatValue(row.getCell(6)).trim()
-                    + getCellFormatValue(row.getCell(7)).trim() + getCellFormatValue(row.getCell(8)).trim()); //收货人地址
-            goods.setPltSource(Goods.PLATFORM_ZCG); //京东平台
+            goods.setOrderDate(getCellFormatValue(row.getCell(13)).trim());//付款时间 -- 下单时间
+            goods.setCustomerName(getCellFormatValue(row.getCell(16)).trim()); //客户姓名
+            goods.setCustomerPhone(getCellFormatValue(row.getCell(17)).trim()); //手机号码
+            goods.setCustomerAddress(getCellFormatValue(row.getCell(18)).trim() ); //收货人地址
+            goods.setRemark(getCellFormatValue(row.getCell(19)).trim() );//收货人地址
+
+            goods.setPltSource(Goods.PLATFORM_BEIDIAN); // 贝店
             content.add(goods);
 
         }
@@ -567,11 +750,53 @@ public class ExcelReader {
 
 
     /**
-     * 读取悦花平台Excel数据内容
+     * 读取 环球 Excel数据内容
      * @param
      * @return Map 包含单元格数据内容的Map对象
      */
-    private List<Goods> readYueHua(InputStream is) {
+
+    private List<Goods> readHUANQIU(InputStream is) {
+        List<Goods> content = new ArrayList<>();
+        try {
+            fs = new POIFSFileSystem(is);
+            wb = new HSSFWorkbook(fs);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        sheet = wb.getSheetAt(0);
+        // 得到总行数
+        int rowNum = sheet.getLastRowNum();
+        row = sheet.getRow(0);
+        // 正文内容应该从第二行开始,第一行为表头的标题
+        for (int i = 1; i <= rowNum; i++) {
+            row = sheet.getRow(i);
+            Goods goods = new Goods();
+
+            goods.setOrderNumber(getCellFormatValue(row.getCell(0)).trim()); //订单号
+            goods.setShopGoodsName(getCellFormatValue(row.getCell(6)).trim()  + " --- " +  getCellFormatValue(row.getCell(7)).trim());//商品信息 + 规格
+            goods.setGoodsNumber(getCellFormatValue(row.getCell(2)).trim()  + " --- " +  getCellFormatValue(row.getCell(5)).trim());//SKUID
+            goods.setGoodsPrice(getCellFormatValue(row.getCell(8)).trim());//货款金额 商品实付 供货价格 结算价格 O列
+            goods.setOrderCount(getCellFormatValue(row.getCell(9)).trim()); //订购数量
+            //                double totalMoney = getCellFormatValue(row.getCell(6)).trim().
+            //                goods.setOrderMaoney(getCellFormatValue(row.getCell(11)).trim());//应付金额 - 单价  ？？？？？？？？？？
+            goods.setOrderDate(getCellFormatValue(row.getCell(23)).trim());//付款时间 -- 下单时间
+            goods.setCustomerName(getCellFormatValue(row.getCell(16)).trim()); //客户姓名
+            goods.setCustomerPhone(getCellFormatValue(row.getCell(17)).trim()); //手机号码
+            goods.setCustomerAddress(getCellFormatValue(row.getCell(22)).trim()); //收货人地址
+            goods.setRemark(getCellFormatValue(row.getCell(30)).trim()); //买家备注
+            goods.setPltSource(Goods.PLATFORM_HUANQIU); // 环球
+            content.add(goods);
+
+        }
+        return content;
+    }
+
+    /**
+     * 读取 suning Excel数据内容
+     * @param
+     * @return Map 包含单元格数据内容的Map对象
+     */
+    private List<Goods> readSUNING(InputStream is) {
         List<Goods> content = new ArrayList<>();
         try {
             fs = new POIFSFileSystem(is);
@@ -588,20 +813,20 @@ public class ExcelReader {
             row = sheet.getRow(i);
             Goods goods = new Goods();
             goods.setOrderNumber(getCellFormatValue(row.getCell(0)).trim());
-            goods.setShopGoodsName(getCellFormatValue(row.getCell(1)).trim());
-            goods.setGoodsNumber(getCellFormatValue(row.getCell(2)).trim());
-            goods.setGoodsPrice(getCellFormatValue(row.getCell(6)).trim());//商品单价
-            goods.setOrderCount(getCellFormatValue(row.getCell(7)).trim());
-            goods.setOrderMaoney(getCellFormatValue(row.getCell(8)).trim());
+            goods.setShopGoodsName(getCellFormatValue(row.getCell(7)).trim());
+            goods.setGoodsNumber(getCellFormatValue(row.getCell(6)).trim());
+            goods.setGoodsPrice(getCellFormatValue(row.getCell(12)).trim());//商品单价
+            goods.setOrderCount(getCellFormatValue(row.getCell(13)).trim());
+//            goods.setOrderMaoney(getCellFormatValue(row.getCell(8)).trim());
 
-            goods.setOrderDate(getCellFormatValue(row.getCell(14)).trim());//付款时间
+            goods.setOrderDate(getCellFormatValue(row.getCell(44)).trim());//付款时间
 
-            goods.setCustomerName(getCellFormatValue(row.getCell(19)).trim());
+            goods.setCustomerName(getCellFormatValue(row.getCell(35)).trim());
             //goods.setCustomerNo(getCellFormatValue(row.getCell(12)).trim());
-            goods.setCustomerPhone(getCellFormatValue(row.getCell(20)).trim());
-            goods.setCustomerAddress(getCellFormatValue(row.getCell(21)).trim());
-
-            goods.setPltSource(Goods.PLATFORM_YUEHUA);
+            goods.setCustomerPhone(getCellFormatValue(row.getCell(39)).trim());
+            goods.setCustomerAddress(getCellFormatValue(row.getCell(36)).trim());
+            goods.setRemark(getCellFormatValue(row.getCell(50)).trim()); //买家备注
+            goods.setPltSource(Goods.PLATFORM_SUNING);
 
             content.add(goods);
         }
@@ -609,11 +834,11 @@ public class ExcelReader {
     }
 
     /**
-     * 读取品质365Excel数据内容
+     * 读取 pingduoduo Excel数据内容
      * @param
      * @return Map 包含单元格数据内容的Map对象
      */
-    private List<Goods> readPingZhi(InputStream is) {
+    private List<Goods> readPINDUODUO(InputStream is) {
         List<Goods> content = new ArrayList<>();
         Set<Goods> contentSet = new HashSet<>();
         try {
@@ -630,33 +855,221 @@ public class ExcelReader {
         for (int i = 1; i <= rowNum; i++) {
             row = sheet.getRow(i);
             Goods goods = new Goods();
-            goods.setOwnNumber(getCellFormatValue(row.getCell(0)).trim());
-            goods.setOrderDate(getCellFormatValue(row.getCell(1)).trim());
-            goods.setOrderNumber(getCellFormatValue(row.getCell(2)).trim());
-            goods.setGoodsNumber(getCellFormatValue(row.getCell(3)).trim());
-            goods.setShopGoodsName(getCellFormatValue(row.getCell(4)).trim());
-            //goods.setShopName(shopNameProperties.getProperty(goods.getGoodsNumber()));
-            goods.setOrderCount(getCellFormatValue(row.getCell(5)).trim());
-            goods.setGoodsPrice(getCellFormatValue(row.getCell(7)).trim());      //品质卖价
-            goods.setGoodsCostPrice(getCellFormatValue(row.getCell(7)).trim());
-            goods.setVendor(getCellFormatValue(row.getCell(8)).trim());
-            goods.setPayDate(getCellFormatValue(row.getCell(9)).trim());
-            goods.setOrderMaoney(getCellFormatValue(row.getCell(10)).trim());
-            goods.setCustomerName(getCellFormatValue(row.getCell(11)).trim());
-            goods.setCustomerNo(getCellFormatValue(row.getCell(12)).trim());
-            goods.setCustomerPhone(getCellFormatValue(row.getCell(13)).trim());
-            goods.setCustomerAddress(getCellFormatValue(row.getCell(14)).trim());
-            goods.setDeliverDate(getCellFormatValue(row.getCell(15)).trim());
-            goods.setDeliverCompany(getCellFormatValue(row.getCell(16)).trim());
-            goods.setDeliverNumber(getCellFormatValue(row.getCell(17)).trim());
-            goods.setRemark(getCellFormatValue(row.getCell(18)).trim());
-            goods.setPltSource(Goods.PLATFORM_PINGZHI);
+
+            goods.setOrderNumber(getCellFormatValue(row.getCell(1)).trim()); //订单号
+            goods.setShopGoodsName(
+                    getCellFormatValue(row.getCell(0)).trim() + " --- " + getCellFormatValue(row.getCell(27)).trim());//商品信息 + 规格
+            goods.setGoodsNumber(getCellFormatValue(row.getCell(26)).trim()  + "-" +  getCellFormatValue(row.getCell(29)).trim());//SKUID
+            goods.setGoodsPrice(getCellFormatValue(row.getCell(3)).trim());//货款金额 商品实付 供货价格 结算价格 O列
+            goods.setOrderCount(getCellFormatValue(row.getCell(11)).trim()); //订购数量
+            //                double totalMoney = getCellFormatValue(row.getCell(6)).trim().
+            //                goods.setOrderMaoney(getCellFormatValue(row.getCell(11)).trim());//应付金额 - 单价  ？？？？？？？？？？
+            goods.setOrderDate(getCellFormatValue(row.getCell(22)).trim());//付款时间 -- 下单时间
+            goods.setCustomerName(getCellFormatValue(row.getCell(14)).trim()); //客户姓名
+            goods.setCustomerPhone(getCellFormatValue(row.getCell(15)).trim()); //手机号码
+            goods.setCustomerAddress(getCellFormatValue(row.getCell(17)).trim() + getCellFormatValue(row.getCell(18)).trim()
+                                                    + getCellFormatValue(row.getCell(19)).trim() + getCellFormatValue(row.getCell(20)).trim()); //收货人地址
+            goods.setRemark(getCellFormatValue(row.getCell(40)).trim()); //买家备注
+            goods.setPltSource(Goods.PLATFORM_PINGDUODUO);
 
             contentSet.add(goods);
         }
         return new ArrayList<Goods>(contentSet);
     }
 
+
+
+    /**
+     * 读取 享橙 Excel数据内容
+     * @param
+     * @return Map 包含单元格数据内容的Map对象
+     */
+    private List<Goods> readXIANGCHENG(InputStream is) {
+        List<Goods> content = new ArrayList<>();
+        Set<Goods> contentSet = new HashSet<>();
+        try {
+            fs = new POIFSFileSystem(is);
+            wb = new HSSFWorkbook(fs);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        sheet = wb.getSheetAt(0);
+        // 得到总行数
+        int rowNum = sheet.getLastRowNum();
+        row = sheet.getRow(0);
+        // 正文内容应该从第二行开始,第一行为表头的标题
+        for (int i = 1; i <= rowNum; i++) {
+            row = sheet.getRow(i);
+            Goods goods = new Goods();
+
+            goods.setOrderNumber(getCellFormatValue(row.getCell(1)).trim()); //订单号
+            goods.setShopGoodsName(
+                    getCellFormatValue(row.getCell(0)).trim() + " -- " + getCellFormatValue(row.getCell(16)).trim());//商品信息 + 规格
+            goods.setGoodsNumber(getCellFormatValue(row.getCell(15)).trim() );//SKUID
+            goods.setGoodsPrice(getCellFormatValue(row.getCell(3)).trim());//货款金额 商品实付 供货价格 结算价格 O列
+            goods.setOrderCount(getCellFormatValue(row.getCell(4)).trim()); //订购数量
+            //                double totalMoney = getCellFormatValue(row.getCell(6)).trim().
+            //                goods.setOrderMaoney(getCellFormatValue(row.getCell(11)).trim());//应付金额 - 单价  ？？？？？？？？？？
+            goods.setOrderDate(getCellFormatValue(row.getCell(12)).trim());//付款时间 -- 下单时间
+            goods.setCustomerName(getCellFormatValue(row.getCell(5)).trim()); //客户姓名
+            goods.setCustomerPhone(getCellFormatValue(row.getCell(6)).trim()); //手机号码
+            goods.setCustomerAddress(getCellFormatValue(row.getCell(7)).trim() + getCellFormatValue(row.getCell(8)).trim()
+                    + getCellFormatValue(row.getCell(9)).trim() + getCellFormatValue(row.getCell(10)).trim()); //收货人地址
+            goods.setRemark(getCellFormatValue(row.getCell(19)).trim()); //买家备注
+            goods.setPltSource(Goods.PLATFORM_XIANGCHENG);
+
+            contentSet.add(goods);
+        }
+        return new ArrayList<Goods>(contentSet);
+    }
+
+
+
+    /**
+     * 读取宜信 华榕在线标准Excel数据内容
+     * @param
+     * @return Map 包含单元格数据内容的Map对象
+     */
+
+    private List<Goods> readYX_HRJY(InputStream is) {
+        List<Goods> content = new ArrayList<>();
+        try {
+            fs = new POIFSFileSystem(is);
+            wb = new HSSFWorkbook(fs);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        sheet = wb.getSheetAt(0);
+        // 得到总行数
+        int rowNum = sheet.getLastRowNum();
+        row = sheet.getRow(0); //聚优惠为第三行开始        // 正文内容应该从第二行开始,第一行为表头的标题
+        for (int i = 1; i <= rowNum; i++) {
+            row = sheet.getRow(i);
+            Goods goods = new Goods();
+            String tmpOrderstatus = getCellFormatValue(row.getCell(13)).trim();
+            String tmpOrderstatus2 = getCellFormatValue(row.getCell(14)).trim();
+            //  万卡需要验证 商品发货状态 待发货和待配货两种才可以上传订单
+            if(tmpOrderstatus.equals("待发货")&& tmpOrderstatus2.equals("待配货")) {
+
+                goods.setOrderNumber(getCellFormatValue(row.getCell(1)).trim()); //订单号
+                goods.setShopGoodsName( getCellFormatValue(row.getCell(10)).trim() + " | " + getCellFormatValue(row.getCell(11)).trim());//商品信息 规格
+                goods.setGoodsNumber(getCellFormatValue(row.getCell(9)).trim());//SKUID
+
+
+                goods.setGoodsPrice(getCellFormatValue(row.getCell(12)).trim());//货款金额 商品实付 应收账款
+
+                goods.setOrderCount("1"); //订购数量
+
+                goods.setOrderDate(getCellFormatValue(row.getCell(3)).trim());//付款时间 -- 下单时间
+                goods.setCustomerName(getCellFormatValue(row.getCell(5)).trim()); //客户姓名
+                goods.setCustomerPhone(getCellFormatValue(row.getCell(6)).trim()); //手机号码
+                goods.setCustomerAddress(getCellFormatValue(row.getCell(8)).trim()); //收货人地址
+                goods.setPltSource(Goods.PLATFORM_YX_HRJY); //平台来源
+                //            goods.setRemark(); //备注
+                //            String tmpStr = getCellFormatValue(row.getCell(9)).trim();
+
+                content.add(goods);
+            }
+
+        }
+        return content;
+    }
+
+
+
+    /**
+     * 读取宜信 立达融通标准Excel数据内容
+     * @param
+     * @return Map 包含单元格数据内容的Map对象
+     */
+
+    private List<Goods> readYX_LEEDAR(InputStream is) {
+        List<Goods> content = new ArrayList<>();
+        try {
+            fs = new POIFSFileSystem(is);
+            wb = new HSSFWorkbook(fs);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        sheet = wb.getSheetAt(0);
+        // 得到总行数
+        int rowNum = sheet.getLastRowNum();
+        row = sheet.getRow(0); //聚优惠为第三行开始        // 正文内容应该从第二行开始,第一行为表头的标题
+        for (int i = 1; i <= rowNum; i++) {
+            row = sheet.getRow(i);
+            Goods goods = new Goods();
+            String tmpOrderstatus = getCellFormatValue(row.getCell(13)).trim();
+            String tmpOrderstatus2 = getCellFormatValue(row.getCell(14)).trim();
+            //  万卡需要验证 商品发货状态 待发货和待配货两种才可以上传订单
+            if(tmpOrderstatus.equals("待发货")&& tmpOrderstatus2.equals("待配货")) {
+
+                goods.setOrderNumber(getCellFormatValue(row.getCell(1)).trim()); //订单号
+                goods.setShopGoodsName( getCellFormatValue(row.getCell(10)).trim() + " | " + getCellFormatValue(row.getCell(11)).trim());//商品信息 规格
+                goods.setGoodsNumber(getCellFormatValue(row.getCell(9)).trim());//SKUID
+
+
+                goods.setGoodsPrice(getCellFormatValue(row.getCell(12)).trim());//货款金额 商品实付 应收账款
+
+                goods.setOrderCount("1"); //订购数量
+
+                goods.setOrderDate(getCellFormatValue(row.getCell(3)).trim());//付款时间 -- 下单时间
+                goods.setCustomerName(getCellFormatValue(row.getCell(5)).trim()); //客户姓名
+                goods.setCustomerPhone(getCellFormatValue(row.getCell(6)).trim()); //手机号码
+                goods.setCustomerAddress(getCellFormatValue(row.getCell(8)).trim()); //收货人地址
+                goods.setPltSource(Goods.PLATFORM_YX_LEEDAR); //平台来源
+                //            goods.setRemark(); //备注
+                //            String tmpStr = getCellFormatValue(row.getCell(9)).trim();
+
+                content.add(goods);
+            }
+
+        }
+        return content;
+    }
+
+
+
+    /**
+     * 读取 鲁班 Excel数据内容
+     * @param
+     * @return Map 包含单元格数据内容的Map对象
+     */
+    private List<Goods> readLUBAN(InputStream is) {
+        List<Goods> content = new ArrayList<>();
+        Set<Goods> contentSet = new HashSet<>();
+        try {
+            fs = new POIFSFileSystem(is);
+            wb = new HSSFWorkbook(fs);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        sheet = wb.getSheetAt(0);
+        // 得到总行数
+        int rowNum = sheet.getLastRowNum();
+        row = sheet.getRow(0);
+        // 正文内容应该从第二行开始,第一行为表头的标题
+        for (int i = 1; i <= rowNum; i++) {
+            row = sheet.getRow(i);
+            Goods goods = new Goods();
+
+            goods.setOrderNumber(       getCellFormatValue(row.getCell(0)).trim()); //订单号
+            goods.setShopGoodsName(     getCellFormatValue(row.getCell(1)).trim() );//商品名称
+            goods.setGoodsNumber(       getCellFormatValue(row.getCell(2)).trim() );//SKUID
+            goods.setGoodsPrice(        getCellFormatValue(row.getCell(5)).trim());//货款金额 商品实付 供货价格 结算价格 O列
+            goods.setOrderCount(        getCellFormatValue(row.getCell(4)).trim()); //订购数量
+            //                double totalMoney = getCellFormatValue(row.getCell(6)).trim().
+            //                goods.setOrderMaoney(getCellFormatValue(row.getCell(11)).trim());//应付金额 - 单价  ？？？？？？？？？？
+            goods.setOrderDate(         getCellFormatValue(row.getCell(17)).trim());//付款时间 -- 下单时间
+            goods.setCustomerName(      getCellFormatValue(row.getCell(8)).trim()); //客户姓名
+            goods.setCustomerPhone(     getCellFormatValue(row.getCell(9)).trim()); //手机号码
+            goods.setCustomerAddress(   getCellFormatValue(row.getCell(10)).trim() ); //收货人地址
+            goods.setRemark(            getCellFormatValue(row.getCell(16)).trim()); //买家备注
+            goods.setPltSource(Goods.PLATFORM_LUBAN);
+
+            contentSet.add(goods);
+        }
+        return new ArrayList<Goods>(contentSet);
+    }
 
 
     /**

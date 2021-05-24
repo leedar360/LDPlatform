@@ -341,6 +341,7 @@ public class OrderinfoController extends BaseController {
 		titles.add("产品规格描述");	//12
 		titles.add("结算单价");	//12
 		titles.add("结算总价（元）");	//13
+		titles.add("备注");	//14
 		dataMap.put("titles", titles);
 		List<PageData> varOList = orderinfoService.listToPurchase(pd);
 		Map<String, Object[]> supplyProductMap = new HashMap<>();
@@ -350,7 +351,7 @@ public class OrderinfoController extends BaseController {
 			vpd.put("var1", varOList.get(i).getString("ORDERINFO_ID"));	    //1
 			vpd.put("var2", DateUtil.getDay());	    //2
 			vpd.put("var3", varOList.get(i).getString("ODER_ID"));	    //3
-			vpd.put("var4", "华榕在线");	    //4
+			vpd.put("var4", "");	    //4
 			vpd.put("var5", "13911881373");	    //5
 			vpd.put("var6", varOList.get(i).getString("RECNAME"));	    //6
 			vpd.put("var7", varOList.get(i).getString("RECPHONE"));	    //7
@@ -361,6 +362,8 @@ public class OrderinfoController extends BaseController {
 			vpd.put("var12", varOList.get(i).getString("SUPPLYGOOD_NAME"));    //12
 			vpd.put("var13", String.valueOf(varOList.get(i).get("PURCHASEPRICE")));    //13
 			vpd.put("var14", String.valueOf(varOList.get(i).get("PURCHASETOTALPRICE")));    //14
+			vpd.put("var15", varOList.get(i).getString("REMARK"));	    //8
+
 			List<PageData> supplyProductList = new ArrayList<>();
 			Object[] obj  = new Object[3];
 			if(supplyProductMap.containsKey(supplyId)){

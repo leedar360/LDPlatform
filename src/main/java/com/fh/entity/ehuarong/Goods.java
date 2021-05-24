@@ -8,19 +8,35 @@ import java.util.Calendar;
  */
 public class Goods implements Comparable<Goods>{
 
-    public static final String PLATFORM_PINGZHI="pinzhi365";
-    public static final String PLATFORM_YUEHUA="yuehua";
+//    public static final String PLATFORM_PINGZHI="pinzhi365";
     public static final String PLATFORM_JD="jd";
     public static final String PLATFORM_TAOBAO="TAOBAO";
-    public static final String PLATFORM_ZCG="zcg"; //招财狗 无双科技
+//    public static final String PLATFORM_ZCG="zcg"; //招财狗 无双科技
     public static final String PLATFORM_HR="HR"; //华榕
-    public static final String PLATFORM_LINJIA="LINJIA"; //邻挑邻里
+//    public static final String PLATFORM_LINJIA="LINJIA"; //邻挑邻里
     public static final String PLATFORM_WANKA="WANKA"; //聚优惠
+    public static final String PLATFORM_WANKA_HRJY="WANKA_HRJY"; //聚优惠 华榕酒业
+    public static final String PLATFORM_360="TSZ"; //360  three six zero
     public static final String PLATFORM_KEYIYOU="KEYIYOU"; //这个可以有 360
     public static final String PLATFORM_SHUIXIANG="SHUIXIANG"; //水象优品
     public static final String PLATFORM_JIABAO="JIABAO"; //生活家
+    public static final String PLATFORM_XIANGCHENG="XIANGCHENG"; //享橙
+    public static final String PLATFORM_YX_HRJY="YX_HRJY"; //宜信 华榕
+    public static final String PLATFORM_YX_LEEDAR="YX_LEEDAR"; //宜信 华榕
 
+    public static final String PLATFORM_DUODIAN="DUODIAN"; //duodian
 
+    /*** 岳达 start */
+
+    public static final String PLATFORM_BEIDIAN="BEIDIAN"; //贝店
+    public static final String PLATFORM_HUANQIU="HUANQIU"; //环球  O列 设置 采购结算价格（卖价）
+    public static final String PLATFORM_GUOYEAH="GUOYEAH"; //天猫
+    public static final String PLATFORM_SUNING="SUNING";   //苏宁
+    public static final String PLATFORM_PINGDUODUO="PINDUODUO"; //拼多多
+
+    /*** 岳达 end */
+
+    public static final String PLATFORM_LUBAN="LUBAN"; //拼多多
 
     private String ownNumber;//自有编号
     private String orderDate;//订单日期
